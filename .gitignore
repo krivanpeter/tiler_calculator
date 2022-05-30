@@ -17,7 +17,14 @@ local.properties
 /build
 /libs
 /gradle
-/app
+/app/src/main/AndroidManifest.xml
+/app/src/main/res/drawable*
+/app/src/main/res/mipmap*
+/app/src/main/res/values*
+/app/src/main/res/xml/
+/app/src/test/
+/app/src/androidTest/
+/app/proguard-rules.pro
 build.gradle
 gradle.properties
 gradlew
