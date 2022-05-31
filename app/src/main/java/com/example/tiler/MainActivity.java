@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -86,26 +87,24 @@ public class MainActivity extends AppCompatActivity {
                     int tile_height_int = Integer.parseInt(tile_height_str);
 
                     int spacer_width_int = Integer.parseInt(spacer_width_str);
-
-                    // Setting up an ArrayList to send them to new Activity
-                    ArrayList<Integer> data = new ArrayList<>();
-                    data.add(wall_length_int);
-                    data.add(wall_height_int);
-                    data.add(tile_length_int);
-                    data.add(tile_height_int);
-                    data.add(spacer_width_int);
-
+                    // Setting up a HashMap to send values to new Activity
+                    HashMap<String, Integer> data2 = new HashMap<>();
+                    data2.put("wall_length_int", wall_length_int);
+                    data2.put("wall_height_int", wall_height_int);
+                    data2.put("tile_length_int", tile_length_int);
+                    data2.put("tile_height_int", tile_height_int);
+                    data2.put("spacer_width_int", spacer_width_int);
                     //Start New Activity
-                    createIntent(obs, data, ten_percent);
+                    createIntent(obs, data2, ten_percent);
                 }
             }
         });
     }
     //Creating new Intent, and start it with gotten data
-    public void createIntent(ArrayList<Obstacle> obstacles, ArrayList<Integer> data, boolean ten_percent){
+    public void createIntent(ArrayList<Obstacle> obstacles, HashMap data, boolean ten_percent){
         Intent intent = new Intent(MainActivity.this, CalculatedActivity.class);
         intent.putExtra("obstacles", new DataWrapper(obstacles));
-        intent.putIntegerArrayListExtra("data", data);
+        intent.putExtra("data", data);
         intent.putExtra("ten_percent", ten_percent);
         startActivity(intent);
     }
