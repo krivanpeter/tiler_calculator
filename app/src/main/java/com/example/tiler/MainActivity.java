@@ -3,7 +3,6 @@ package com.example.tiler;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewManager;
@@ -61,57 +60,56 @@ public class MainActivity extends AppCompatActivity {
                 EditText spacer_width_in = findViewById(R.id.spacer_width_in);
                 // 10% wastage
                 SwitchMaterial ten_percent_in = findViewById(R.id.ten_percent);
-                // Obstacle
+                // Obstacles
                 ArrayList<Obstacle> obs = setObsIn();
-                for(int i = 0; i < obs.size(); ++i) {
-                    Log.d("obs", String.valueOf(obs.get(i).getLength()));
-                    Log.d("obs", String.valueOf(obs.get(i).getHeight()));
-                    Log.d("obs", String.valueOf(obs.get(i).getDisLeft()));
-                    Log.d("obs", String.valueOf(obs.get(i).getDisBot()));
-                }
-                // Getting All User Input
-                boolean ten_percent_boo = ten_percent_in.isChecked();
+                //Getting inputs as strings for checks
                 String wall_length_str = wall_length_in.getText().toString();
                 String wall_height_str = wall_height_in.getText().toString();
                 String tile_length_str = tile_length_in.getText().toString();
                 String tile_height_str = tile_height_in.getText().toString();
-
-                if (wall_length_str.isEmpty() || wall_height_str.isEmpty() || tile_length_str.isEmpty() || tile_height_str.isEmpty()) {
+                String spacer_width_str = spacer_width_in.getText().toString();
+                //Checking if inputs are empty
+                if (wall_length_str.isEmpty() || wall_height_str.isEmpty() || tile_length_str.isEmpty() || tile_height_str.isEmpty() || spacer_width_str.isEmpty() || obs == null) {
                     Context context = getApplicationContext();
                     CharSequence text = "You did not enter all numbers.";
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
                 } else {
+                    // Getting All User Input
+                    boolean ten_percent = ten_percent_in.isChecked();
+                    // Converting strings to integers
                     int wall_length_int = Integer.parseInt(wall_length_str);
                     int wall_height_int = Integer.parseInt(wall_height_str);
 
                     int tile_length_int = Integer.parseInt(tile_length_str);
                     int tile_height_int = Integer.parseInt(tile_height_str);
 
-                    int wall_area = wall_length_int * wall_height_int;
-                    int tile_area = tile_length_int * tile_height_int;
-                    int num_tiles;
-                    if (ten_percent_boo) {
-                        num_tiles = (int) Math.ceil((float) wall_area / tile_area * 1.1);
-                    } else {
-                        num_tiles = (int) Math.ceil((float) wall_area / tile_area);
-                    }
-                    ArrayList<Integer> calc_values = new ArrayList<>();
-                    calc_values.add(wall_area);
-                    calc_values.add(tile_area);
-                    calc_values.add(num_tiles);
-                    calc_values.add(tile_length_int);
-                    calc_values.add(tile_height_int);
+                    int spacer_width_int = Integer.parseInt(spacer_width_str);
 
-                    //New Activity
-                    Intent calculated = new Intent(MainActivity.this, CalculatedActivity.class);
-                    calculated.putIntegerArrayListExtra("calculated_values", calc_values);
-                    startActivity(calculated);
+                    // Setting up an ArrayList to send them to new Activity
+                    ArrayList<Integer> data = new ArrayList<>();
+                    data.add(wall_length_int);
+                    data.add(wall_height_int);
+                    data.add(tile_length_int);
+                    data.add(tile_height_int);
+                    data.add(spacer_width_int);
+
+                    //Start New Activity
+                    createIntent(obs, data, ten_percent);
                 }
             }
         });
     }
+    //Creating new Intent, and start it with gotten data
+    public void createIntent(ArrayList<Obstacle> obstacles, ArrayList<Integer> data, boolean ten_percent){
+        Intent intent = new Intent(MainActivity.this, CalculatedActivity.class);
+        intent.putExtra("obstacles", new DataWrapper(obstacles));
+        intent.putIntegerArrayListExtra("data", data);
+        intent.putExtra("ten_percent", ten_percent);
+        startActivity(intent);
+    }
+    // Setting up Obstacles
     public ArrayList<Obstacle> setObsIn(){
         ArrayList<Obstacle> obs_ins = new ArrayList<>();
         LinearLayout obs_all = findViewById(R.id.container);
@@ -120,21 +118,29 @@ public class MainActivity extends AppCompatActivity {
             View child = obs_all.getChildAt(i);
             Obstacle obstacle = new Obstacle();
 
-            EditText obs_length_in = (EditText)child.findViewById(R.id.obs_length_in);
-            EditText obs_height_in = (EditText)child.findViewById(R.id.obs_height_in);
-            EditText obs_from_left = (EditText)child.findViewById(R.id.obs_from_left);
-            EditText obs_from_bot = (EditText)child.findViewById(R.id.obs_from_bot);
+            EditText obs_length_in = (child.findViewById(R.id.obs_length_in));
+            EditText obs_height_in = child.findViewById(R.id.obs_height_in);
+            EditText obs_from_left = child.findViewById(R.id.obs_from_left);
+            EditText obs_from_bot = child.findViewById(R.id.obs_from_bot);
 
-            obstacle.setLength(Integer.parseInt(obs_length_in.getText().toString()));
-            obstacle.setHeight(Integer.parseInt(obs_height_in.getText().toString()));
-            obstacle.setDisLeft(Integer.parseInt(obs_from_left.getText().toString()));
-            obstacle.setDisBot(Integer.parseInt(obs_from_bot.getText().toString()));
+            String obs_length_in_txt = obs_length_in.getText().toString();
+            String obs_height_in_txt = obs_height_in.getText().toString();
+            String obs_from_left_txt = obs_from_left.getText().toString();
+            String obs_from_bot_txt = obs_from_bot.getText().toString();
 
+            if (obs_length_in_txt.isEmpty() || obs_height_in_txt.isEmpty() ||
+                    obs_from_left_txt.isEmpty() || obs_from_bot_txt.isEmpty()){
+                return null;
+            }
+            else {
+                obstacle.setLength(Integer.parseInt(obs_length_in.getText().toString()));
+                obstacle.setHeight(Integer.parseInt(obs_height_in.getText().toString()));
+                obstacle.setDisLeft(Integer.parseInt(obs_from_left.getText().toString()));
+                obstacle.setDisBot(Integer.parseInt(obs_from_bot.getText().toString()));
+            }
             obs_ins.add(obstacle);
         }
         return obs_ins;
     }
-    // TextView obs_name = findViewById(R.id.obs_name);
-
 }
 

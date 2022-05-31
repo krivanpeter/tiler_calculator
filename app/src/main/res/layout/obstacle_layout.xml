@@ -133,6 +133,7 @@
         android:layout_width="46dp"
         android:layout_height="31dp"
         android:layout_marginTop="25dp"
+        android:contentDescription="@string/cancel_btn"
         app:layout_constraintEnd_toEndOf="@+id/obs_length_in"
         app:layout_constraintStart_toEndOf="@+id/obs_name"
         app:layout_constraintTop_toTopOf="parent"

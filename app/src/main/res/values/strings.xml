@@ -1,0 +1,37 @@
+<resources>
+    <!-- Reused -->
+    <string name="length_mm">Length (mm)</string>
+    <string name="height_mm">Height (mm)</string>
+    <!-- Wall dimensions -->
+    <string name="app_name">Tiler</string>
+    <string name="wall_hint">5000</string>
+    <string name="wall_dimensions">Wall Dimensions</string>
+    <!-- Tile dimensions -->
+    <string name="tile_hint">500</string>
+    <string name="tile_dimensions">Tile Dimensions</string>
+    <!-- Spacer dimensions -->
+    <string name="spacer_width_mm">Width (mm)</string>
+    <string name="spacer_hint">5</string>
+    <string name="spacer_dimensions">Spacer Dimensions</string>
+    <!-- Spacer dimensions -->
+    <string name="obs_hint">1000</string>
+    <!-- Buttons -->
+    <string name="switch_10">10% wastage</string>
+    <string name="button_dims">Calculate</string>
+    <string name="cancel_btn">Cancel Obstacle</string>
+    <!-- Obstacles -->
+    <string name="button_obs">+ Add obstacle</string>
+    <string name="obs_txt">Obstacle</string>
+    <string name="obs_from_left_txt">Distance left (mm)</string>
+    <string name="obs_from_bottom_txt">Obstacle bottom (mm)</string>
+    <string name="obs_delete">-Delete Obstacle</string>
+    <!-- CalculatedActivity -->
+    <string name="placeholder">Ph</string>
+    <string name="wall_area">Wall area:</string>
+    <string name="tile_area">Tile area:</string>
+    <string name="num_tiles">Number of tiles:</string>
+    <string name="square_meter">m\u00B2</string>
+    <string name="pieces">pcs</string>
+    <!-- Camera usage -->
+    <string name="cam_land">Please take a picture of the wall in landscape mode.</string>
+</resources>

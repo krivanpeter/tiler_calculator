@@ -1,6 +1,8 @@
 package com.example.tiler;
 
-public class Obstacle {
+import java.io.Serializable;
+
+public class Obstacle implements Serializable {
 
     int length_in;
     int height_in;
