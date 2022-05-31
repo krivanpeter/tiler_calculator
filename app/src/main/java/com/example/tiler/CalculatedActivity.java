@@ -20,10 +20,10 @@ public class CalculatedActivity extends AppCompatActivity {
         Intent intent = getIntent();
         HashMap<String, Integer> inputs = (HashMap) intent.getSerializableExtra("data");
         DataWrapper dw = (DataWrapper)getIntent().getSerializableExtra("obstacles");
-
+        int obstacles_area = obstacleArea(dw);
         boolean ten_percent = intent.getExtras().getBoolean("ten_percent");
         // Calculating wall and tile area
-        int wall_area = inputs.get("wall_length_int") * inputs.get("wall_height_int");
+        int wall_area = inputs.get("wall_length_int") * inputs.get("wall_height_int") - obstacles_area;
         int tile_area = inputs.get("tile_length_int") * inputs.get("tile_height_int");
         int num_tiles;
 
@@ -50,6 +50,16 @@ public class CalculatedActivity extends AppCompatActivity {
             }, 100);
         }
         */
+    }
+    public int obstacleArea(DataWrapper dw){
+        int all_area = 0;
+        for(int i=0;i<dw.getObstacles().size();i++){
+            int length = dw.getObstacles().get(i).getLength();
+            int height = dw.getObstacles().get(i).getLength();
+            int area =length * height;
+            all_area = all_area + area;
+        }
+        return all_area;
     }
 }
 

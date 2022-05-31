@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
             View child = obs_all.getChildAt(i);
             Obstacle obstacle = new Obstacle();
 
-            EditText obs_length_in = (child.findViewById(R.id.obs_length_in));
+            EditText obs_length_in = child.findViewById(R.id.obs_length_in);
             EditText obs_height_in = child.findViewById(R.id.obs_height_in);
             EditText obs_from_left = child.findViewById(R.id.obs_from_left);
             EditText obs_from_bot = child.findViewById(R.id.obs_from_bot);

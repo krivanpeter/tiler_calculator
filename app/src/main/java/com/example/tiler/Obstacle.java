@@ -44,9 +44,7 @@ public class Obstacle implements Serializable {
         return dis_left;
     }
 
-    public void setDisBot(int dis_bottom) {
-        this.dis_bottom = dis_bottom;
-    }
+    public void setDisBot(int dis_bottom) { this.dis_bottom = dis_bottom; }
 
     public int getDisBot() {
         return dis_bottom;
