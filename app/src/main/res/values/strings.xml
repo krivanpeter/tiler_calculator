@@ -27,8 +27,7 @@
     <string name="obs_delete">-Delete Obstacle</string>
     <!-- CalculatedActivity -->
     <string name="placeholder">Ph</string>
-    <string name="wall_area">Wall area:</string>
-    <string name="tile_area">Tile area:</string>
+    <string name="wall_area">To be tiled:</string>
     <string name="num_tiles">Number of tiles:</string>
     <string name="square_meter">m\u00B2</string>
     <string name="pieces">pcs</string>

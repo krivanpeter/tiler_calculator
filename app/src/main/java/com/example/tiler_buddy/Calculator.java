@@ -10,23 +10,19 @@ public class Calculator {
     private static final double MM_TO_M_RATIO = 1_000_000;
     private static final double PERCENT_OF_WASTAGE = 1.1;
 
-    public static double calculateTiles(boolean isWastage, float wall_area, int tile_area) {
+    public static double calculateTiles(boolean isWastage, double toBeTiledArea, TileDimensions tileDimensions) {
         if (isWastage) {
-            return Math.ceil(wall_area / tile_area * PERCENT_OF_WASTAGE);
+            return Math.ceil(toBeTiledArea / calculateTileArea(tileDimensions) * PERCENT_OF_WASTAGE);
         } else {
-            return Math.ceil(wall_area / tile_area);
+            return Math.ceil(toBeTiledArea / calculateTileArea(tileDimensions));
         }
     }
 
-    public static int calculateWallArea(WallDimensions wallDimensions, int obstacleSize) {
-        return wallDimensions.getLength() * wallDimensions.getHeight() - obstacleSize;
+    public static int calculateToBeTiledArea(WallDimensions wallDimensions, int obstacleSize) {
+        return calculateWallArea(wallDimensions) - obstacleSize;
     }
 
-    public static int calculateTileArea(TileDimensions tileDimensions) {
-        return tileDimensions.getLength() * tileDimensions.getHeight();
-    }
-
-    public static double convertToMeter(int value){
+    public static double convertToMeter(double value){
         return value/MM_TO_M_RATIO;
     }
 
@@ -39,7 +35,15 @@ public class Calculator {
         return all_area;
     }
 
+    private static int calculateWallArea(WallDimensions wallDimensions) {
+        return wallDimensions.getLength() * wallDimensions.getHeight();
+    }
+
     private static int calculateObstacleArea(Obstacle obstacle) {
         return obstacle.getLength() * obstacle.getHeight();
+    }
+
+    private static int calculateTileArea(TileDimensions tileDimensions) {
+        return tileDimensions.getLength() * tileDimensions.getHeight();
     }
 }

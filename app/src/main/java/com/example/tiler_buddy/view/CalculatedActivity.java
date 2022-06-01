@@ -7,8 +7,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tiler.R;
-import com.example.tiler_buddy.Calculator;
-import com.example.tiler_buddy.DataWrapper;
+import com.example.tiler_buddy.CalculatedValuesWrapper;
+
+import java.util.Formatter;
 
 public class CalculatedActivity extends AppCompatActivity {
 
@@ -20,21 +21,13 @@ public class CalculatedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calculated);
         //Grabbing values from main Activity
         Intent intent = getIntent();
-        WallDimensions wallDimensions = (WallDimensions) intent.getSerializableExtra("wallDimensions");
-        TileDimensions tileDimensions = (TileDimensions) intent.getSerializableExtra("tileDimensions");
-        DataWrapper obstacleWrapper = (DataWrapper) getIntent().getSerializableExtra("obstacles");
+        CalculatedValuesWrapper calculatedValuesWrapper = (CalculatedValuesWrapper) getIntent().getSerializableExtra("data");
+
         boolean ten_percent = intent.getExtras().getBoolean("ten_percent");
-        // Calculating wall and tile area
-        int wall_area = Calculator.calculateWallArea(wallDimensions, Calculator.calculateObstacleArea(obstacleWrapper.getObstacles()));
-        int tile_area = Calculator.calculateTileArea(tileDimensions);
-        double num_tiles = Calculator.calculateTiles(ten_percent, wall_area, tile_area);
+        Formatter formatter = new Formatter();
 
-        double wall_area_value = Calculator.convertToMeter(wall_area);
-        double tile_area_value = Calculator.convertToMeter(tile_area);
-
-        ((TextView) findViewById(R.id.wall_area_value)).setText(String.valueOf(wall_area_value));
-        ((TextView) findViewById(R.id.tile_area_value)).setText(String.valueOf(tile_area_value));
-        ((TextView) findViewById(R.id.tiles_num_val)).setText(String.valueOf(num_tiles));
+        ((TextView) findViewById(R.id.to_be_tiled_are_value)).setText(String.valueOf(calculatedValuesWrapper.getToBeTiledArea()));
+        ((TextView) findViewById(R.id.tiles_num_val)).setText(String.valueOf(calculatedValuesWrapper.getNumTiles()));
         /*
         button = findViewById(R.id.button1);
         //Request for camera runtime permission
