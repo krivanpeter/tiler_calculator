@@ -4,49 +4,49 @@ import java.io.Serializable;
 
 public class Obstacle implements Serializable {
 
-    int length_in;
-    int height_in;
-    int dis_left;
-    int dis_bottom;
+    int lengthIn;
+    int heightIn;
+    int distanceFromLeft;
+    int distanceFromBottom;
 
     public Obstacle() {
         // do something if u want
     }
 
-    public Obstacle(int length_in, int height_in, int dis_left, int dis_bottom) {
-        this.length_in = length_in;
-        this.height_in = height_in;
-        this.dis_left = dis_left;
-        this.dis_bottom = dis_bottom;
+    public Obstacle(int lengthIn, int heightIn, int distanceFromLeft, int distanceFromBottom) {
+        this.lengthIn = lengthIn;
+        this.heightIn = heightIn;
+        this.distanceFromLeft = distanceFromLeft;
+        this.distanceFromBottom = distanceFromBottom;
     }
 
-    public void setLength(int length_in) {
-        this.length_in = length_in;
+    public void setLength(int lengthIn) {
+        this.lengthIn = lengthIn;
     }
 
     public int getLength() {
-        return length_in;
+        return lengthIn;
     }
 
-    public void setHeight(int height_in) {
-        this.height_in = height_in;
+    public void setHeight(int heightIn) {
+        this.heightIn = heightIn;
     }
 
     public int getHeight() {
-        return height_in;
+        return heightIn;
     }
 
-    public void setDisLeft(int dis_left) {
-        this.dis_left = dis_left;
+    public void setDisLeft(int distanceFromLeft) {
+        this.distanceFromLeft = distanceFromLeft;
     }
 
     public int getDisLeft() {
-        return dis_left;
+        return distanceFromLeft;
     }
 
-    public void setDisBot(int dis_bottom) { this.dis_bottom = dis_bottom; }
+    public void setDisBot(int distanceFromBottom) { this.distanceFromBottom = distanceFromBottom; }
 
     public int getDisBot() {
-        return dis_bottom;
+        return distanceFromBottom;
     }
 }

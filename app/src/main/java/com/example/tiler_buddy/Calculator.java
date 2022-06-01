@@ -27,12 +27,12 @@ public class Calculator {
     }
 
     public static int calculateObstacleArea(List<Obstacle> obstacles) {
-        int all_area = 0;
+        int allArea = 0;
         for (Obstacle obstacle : obstacles) {
             int area = calculateObstacleArea(obstacle);
-            all_area += area;
+            allArea += area;
         }
-        return all_area;
+        return allArea;
     }
 
     private static int calculateWallArea(WallDimensions wallDimensions) {
