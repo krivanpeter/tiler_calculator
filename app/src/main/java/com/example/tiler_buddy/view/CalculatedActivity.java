@@ -7,14 +7,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tiler.R;
+import com.example.tiler_buddy.Calculator;
 import com.example.tiler_buddy.DataWrapper;
-import com.example.tiler_buddy.Obstacle;
 
 public class CalculatedActivity extends AppCompatActivity {
 
     // Button button;
-    private static final double MM_TO_M_RATIO = 1_000_000;
-    private static final double PERCENT_OF_WASTAGE = 1.1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +25,12 @@ public class CalculatedActivity extends AppCompatActivity {
         DataWrapper obstacleWrapper = (DataWrapper) getIntent().getSerializableExtra("obstacles");
         boolean ten_percent = intent.getExtras().getBoolean("ten_percent");
         // Calculating wall and tile area
-        int wall_area = wallDimensions.getLength() * wallDimensions.getHeight() - obstacleArea(obstacleWrapper);
-        int tile_area = tileDimensions.getLength() * tileDimensions.getHeight();
-        double num_tiles = calculateTiles(ten_percent, wall_area, tile_area);
+        int wall_area = Calculator.calculateWallArea(wallDimensions, Calculator.calculateObstacleArea(obstacleWrapper.getObstacles()));
+        int tile_area = Calculator.calculateTileArea(tileDimensions);
+        double num_tiles = Calculator.calculateTiles(ten_percent, wall_area, tile_area);
 
-        double wall_area_value = wall_area / MM_TO_M_RATIO;
-        double tile_area_value = tile_area / MM_TO_M_RATIO;
+        double wall_area_value = Calculator.convertToMeter(wall_area);
+        double tile_area_value = Calculator.convertToMeter(tile_area);
 
         ((TextView) findViewById(R.id.wall_area_value)).setText(String.valueOf(wall_area_value));
         ((TextView) findViewById(R.id.tile_area_value)).setText(String.valueOf(tile_area_value));
@@ -47,27 +45,6 @@ public class CalculatedActivity extends AppCompatActivity {
             }, 100);
         }
         */
-    }
-
-    private double calculateTiles(boolean isWastage, float wall_area, int tile_area) {
-        if (isWastage) {
-            return Math.ceil(wall_area / tile_area * PERCENT_OF_WASTAGE);
-        } else {
-            return Math.ceil(wall_area / tile_area);
-        }
-    }
-
-    public int obstacleArea(DataWrapper dw) {
-        int all_area = 0;
-        for (Obstacle obstacle : dw.getObstacles()) {
-            int area = calculateObstacleArea(obstacle);
-            all_area += area;
-        }
-        return all_area;
-    }
-
-    private int calculateObstacleArea(Obstacle obstacle) {
-        return obstacle.getLength() * obstacle.getHeight();
     }
 }
 

@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.tiler.R;
 import com.example.tiler_buddy.DataWrapper;
 import com.example.tiler_buddy.Obstacle;
+import com.example.tiler_buddy.ObstacleInputException;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.ArrayList;
@@ -64,43 +65,43 @@ public class MainActivity extends AppCompatActivity {
                 EditText spacer_width_in = findViewById(R.id.spacer_width_in);
                 // 10% wastage
                 SwitchMaterial ten_percent_in = findViewById(R.id.ten_percent);
-                // Obstacles
-                List<Obstacle> obs = parseInputsAsObstacles();
-                //Getting inputs as strings for checks
-                String wall_length_str = wall_length_in.getText().toString();
-                String wall_height_str = wall_height_in.getText().toString();
-                String tile_length_str = tile_length_in.getText().toString();
-                String tile_height_str = tile_height_in.getText().toString();
-                String spacer_width_str = spacer_width_in.getText().toString();
-                //Checking if inputs are empty
-                if (wall_length_str.isEmpty() || wall_height_str.isEmpty() || tile_length_str.isEmpty() || tile_height_str.isEmpty() || spacer_width_str.isEmpty() || obs.isEmpty()) {
-                    Context context = getApplicationContext();
-                    CharSequence text = "You did not enter all numbers.";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                } else {
-                    // Getting All User Input
-                    boolean ten_percent = ten_percent_in.isChecked();
-                    // Converting strings to integers
-                    WallDimensions wallDimensions = new WallDimensions(Integer.parseInt(wall_length_str), Integer.parseInt(wall_height_str));
-                    TileDimensions tileDimensions = new TileDimensions(Integer.parseInt(tile_length_str), Integer.parseInt(tile_height_str));
-                    // int spacer_width_int = Integer.parseInt(spacer_width_str);
 
-                    //Start New Activity
-                    Intent intent = new Intent(MainActivity.this, CalculatedActivity.class);
-                    intent.putExtra("obstacles", new DataWrapper(parseInputsAsObstacles()));
-                    intent.putExtra("wallDimensions", wallDimensions);
-                    intent.putExtra("tileDimensions", tileDimensions);
-                    intent.putExtra("ten_percent", ten_percent);
-                    startActivity(intent);
+                try {
+                    List<Obstacle> obs = parseInputsAsObstacles();
+                    //Getting inputs as strings for checks
+                    String wall_length_str = wall_length_in.getText().toString();
+                    String wall_height_str = wall_height_in.getText().toString();
+                    String tile_length_str = tile_length_in.getText().toString();
+                    String tile_height_str = tile_height_in.getText().toString();
+                    String spacer_width_str = spacer_width_in.getText().toString();
+                    //Checking if inputs are empty
+                    if (wall_length_str.isEmpty() || wall_height_str.isEmpty() || tile_length_str.isEmpty() || tile_height_str.isEmpty() || spacer_width_str.isEmpty()) {
+                        Toast.makeText(getApplicationContext(),"You did not enter all numbers", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Getting All User Inputs
+                        boolean ten_percent = ten_percent_in.isChecked();
+                        // Converting strings to integers
+                        WallDimensions wallDimensions = new WallDimensions(Integer.parseInt(wall_length_str), Integer.parseInt(wall_height_str));
+                        TileDimensions tileDimensions = new TileDimensions(Integer.parseInt(tile_length_str), Integer.parseInt(tile_height_str));
+                        // int spacer_width_int = Integer.parseInt(spacer_width_str);
+
+                        //Start New Activity
+                        Intent intent = new Intent(MainActivity.this, CalculatedActivity.class);
+                        intent.putExtra("obstacles", new DataWrapper(obs));
+                        intent.putExtra("wallDimensions", wallDimensions);
+                        intent.putExtra("tileDimensions", tileDimensions);
+                        intent.putExtra("ten_percent", ten_percent);
+                        startActivity(intent);
+                    }
+                } catch (ObstacleInputException e) {
+                    Toast.makeText(getApplicationContext(),e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
     // Setting up Obstacles
-    public List<Obstacle> parseInputsAsObstacles() {
+    public List<Obstacle> parseInputsAsObstacles() throws ObstacleInputException {
         List<Obstacle> obs_ins = new ArrayList<>();
         LinearLayout obstaclesContainer = findViewById(R.id.container);
 
@@ -112,23 +113,37 @@ public class MainActivity extends AppCompatActivity {
             EditText obs_from_left = child.findViewById(R.id.obs_from_left);
             EditText obs_from_bot = child.findViewById(R.id.obs_from_bot);
 
-            String obs_length_in_txt = obs_length_in.getText().toString();
-            String obs_height_in_txt = obs_height_in.getText().toString();
-            String obs_from_left_txt = obs_from_left.getText().toString();
-            String obs_from_bot_txt = obs_from_bot.getText().toString();
-
-            boolean isAnyInputEmpty = (obs_length_in_txt.isEmpty() || obs_height_in_txt.isEmpty() || obs_from_left_txt.isEmpty() || obs_from_bot_txt.isEmpty());
-
-            if (!isAnyInputEmpty) {
+            if (isObstaclesInputValid(child)) {
                 Obstacle obstacle = new Obstacle();
-                obstacle.setLength(Integer.parseInt(obs_length_in.getText().toString()));
-                obstacle.setHeight(Integer.parseInt(obs_height_in.getText().toString()));
-                obstacle.setDisLeft(Integer.parseInt(obs_from_left.getText().toString()));
-                obstacle.setDisBot(Integer.parseInt(obs_from_bot.getText().toString()));
+                obstacle.setLength(getEditTextNumbers(obs_length_in));
+                obstacle.setHeight(getEditTextNumbers(obs_height_in));
+                obstacle.setDisLeft(getEditTextNumbers(obs_from_left));
+                obstacle.setDisBot(getEditTextNumbers(obs_from_bot));
                 obs_ins.add(obstacle);
+            }
+            else{
+                throw new ObstacleInputException();
             }
         }
         return obs_ins;
+    }
+
+    private boolean isObstaclesInputValid(View obstacleInput){
+        EditText obs_length_in = obstacleInput.findViewById(R.id.obs_length_in);
+        EditText obs_height_in = obstacleInput.findViewById(R.id.obs_height_in);
+        EditText obs_from_left = obstacleInput.findViewById(R.id.obs_from_left);
+        EditText obs_from_bot = obstacleInput.findViewById(R.id.obs_from_bot);
+
+        String obs_length_in_txt = obs_length_in.getText().toString();
+        String obs_height_in_txt = obs_height_in.getText().toString();
+        String obs_from_left_txt = obs_from_left.getText().toString();
+        String obs_from_bot_txt = obs_from_bot.getText().toString();
+
+        return !obs_length_in_txt.isEmpty() && !obs_height_in_txt.isEmpty() && !obs_from_left_txt.isEmpty() &&!obs_from_bot_txt.isEmpty();
+    }
+
+    private int getEditTextNumbers(EditText editText){
+        return Integer.parseInt(editText.getText().toString());
     }
 }
 
