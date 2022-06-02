@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                         // int spacer_width_int = Integer.parseInt(spacer_width_str);
                         // Calculating values
                         double toBeTiledArea = Calculator.calculateToBeTiledArea(wallDimensions, Calculator.calculateObstacleArea(obstacles));
-                        double numTiles = Calculator.calculateTiles(tenPercent, toBeTiledArea, tileDimensions);
+                        double numTiles = Calculator.calculateTiles(tenPercent, wallDimensions, tileDimensions);
                         double wallArea = Calculator.convertToMeter(toBeTiledArea);
                         // Start New Activity
                         Intent intent = new Intent(MainActivity.this, CalculatedActivity.class);
