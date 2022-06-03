@@ -3,6 +3,7 @@ package com.example.tiler_buddy.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewManager;
@@ -27,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    int num = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                         double numTiles = Calculator.calculateTiles(wallDimensions, tileDimensions, tenPercent);
                         double wallArea = Calculator.convertToMeter(toBeTiledArea);
                         //Creating Tile Objects in a List
-                        List<List<Tile>> tiles = setTiles(wallDimensions, tileDimensions);
+                        List<List<Tile>> tiles = setTilesSize(wallDimensions, tileDimensions, obstacles);
                         // Start New Activity
                         Intent intent = new Intent(MainActivity.this, CalculatedActivity.class);
                         intent.putExtra("data", new CalculatedValuesWrapper(obstacles, tiles));
@@ -127,6 +130,45 @@ public class MainActivity extends AppCompatActivity {
         return obstacleIns;
     }
 
+    private int getEditTextNumbers(EditText editText) {
+        return Integer.parseInt(editText.getText().toString());
+    }
+
+    private List<List<Tile>> setTilesSize(WallDimensions wallDimensions, TileDimensions tileDimensions, List<Obstacle> obstacles) {
+        List<List<Tile>> tiles = new ArrayList<>();
+        double numberOfRows = Calculator.calculateNumberOfRows(wallDimensions, tileDimensions);
+        double numberOfColumns = Calculator.calculateNumberOfColumns(wallDimensions, tileDimensions);
+        for (int i = 0; i < numberOfRows; i++) {
+            List<Tile> newRow = new ArrayList<>();
+            for (int j = 0; j < numberOfColumns; j++) {
+                Tile tile = new Tile();
+                if (wallDimensions.getHeight() - i * tileDimensions.getHeight() < tileDimensions.getHeight()) {
+                    tile.setHeight(wallDimensions.getHeight() - i * tileDimensions.getHeight());
+                } else {
+                    tile.setHeight(tileDimensions.getHeight());
+                }
+                if (wallDimensions.getLength() - j * tileDimensions.getLength() < tileDimensions.getLength()) {
+                    tile.setLength(wallDimensions.getLength() - j * tileDimensions.getLength());
+                } else {
+                    tile.setLength(tileDimensions.getLength());
+                }
+                tile.setPosX(j * tileDimensions.getLength());
+                tile.setPosY(i * tileDimensions.getHeight());
+                newRow.add(tile);
+                num++;
+                for (Obstacle obstacle : obstacles) {
+                    if (isObstacleCrossed(tile, obstacle)) {
+                        Log.d("cross", " Tile " + num + ": " + tile.getPosX());
+                        // newRow.remove(tile);
+                        break;
+                    }
+                }
+            }
+            tiles.add(newRow);
+        }
+        return tiles;
+    }
+
     private boolean isObstaclesInputValid(View obstacleInput) {
         EditText obsLengthIn = obstacleInput.findViewById(R.id.obs_length_in);
         EditText obsHeightIn = obstacleInput.findViewById(R.id.obs_height_in);
@@ -141,36 +183,12 @@ public class MainActivity extends AppCompatActivity {
         return !obsLengthInTxt.isEmpty() && !obsHeightInTxt.isEmpty() && !obsDisFromLeftTxt.isEmpty() && !obsDisFromBottomTxt.isEmpty();
     }
 
-    private int getEditTextNumbers(EditText editText) {
-        return Integer.parseInt(editText.getText().toString());
-    }
-
-    private List<List<Tile>> setTiles(WallDimensions wallDimensions, TileDimensions tileDimensions) {
-        List<List<Tile>> tiles = new ArrayList<>();
-        double numberOfRows = Calculator.calculateNumberOfRows(wallDimensions, tileDimensions);
-        double numberOfColumns = Calculator.calculateNumberOfColumns(wallDimensions, tileDimensions);
-        for (int i = 0; i < numberOfRows; i++) {
-            List<Tile> newRow = new ArrayList<>();
-            for (int j = 0; j < numberOfColumns; j++) {
-                Tile tile = new Tile();
-                if (wallDimensions.getHeight() - i * tileDimensions.getHeight() < tileDimensions.getHeight()) {
-                    tile.setHeight(wallDimensions.getHeight() - i * tileDimensions.getHeight());
-                }
-                else{
-                    tile.setHeight(tileDimensions.getHeight());
-                }
-                if (wallDimensions.getLength() - j * tileDimensions.getLength() < tileDimensions.getLength()) {
-                    tile.setLength(wallDimensions.getLength() - j * tileDimensions.getLength());
-                } else {
-                    tile.setLength(tileDimensions.getLength());
-                }
-                tile.setPosX(j * tileDimensions.getLength());
-                tile.setPosY(i * tileDimensions.getHeight());
-                newRow.add(tile);
-            }
-            tiles.add(newRow);
+    private boolean isObstacleCrossed(Tile tile, Obstacle obstacle) {
+        if (obstacle.getPosX() <= tile.getPosX() + tile.getLength() && tile.getPosX() + tile.getLength() < obstacle.getPosX() + obstacle.getLength() &&
+                obstacle.getPosY() <= tile.getPosY() + tile.getHeight() && tile.getPosY() + tile.getLength() < obstacle.getPosY() + obstacle.getHeight()) {
+            return true;
         }
-        return tiles;
+        return false;
     }
 }
 
