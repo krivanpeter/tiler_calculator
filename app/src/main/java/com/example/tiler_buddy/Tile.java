@@ -4,32 +4,36 @@ import java.io.Serializable;
 
 public class Tile implements Serializable {
 
-    int lengthIn;
-    int heightIn;
+    int length;
+    int height;
     int posX;
     int posY;
 
-    public Tile(int lengthIn, int heightIn, int posX, int posY){
-        this.lengthIn = lengthIn;
-        this.heightIn = heightIn;
+    public Tile(int length, int height, int posX, int posY){
+        this.length = length;
+        this.height = height;
         this.posX = posX;
         this.posY = posY;
     }
 
-    public int getLengthIn() {
-        return lengthIn;
+    public Tile() {
+
     }
 
-    public void setLengthIn(int lengthIn) {
-        this.lengthIn = lengthIn;
+    public int getLength() {
+        return length;
     }
 
-    public int getHeightIn() {
-        return heightIn;
+    public void setLength(int length) {
+        this.length = length;
     }
 
-    public void setHeightIn(int heightIn) {
-        this.heightIn = heightIn;
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     public int getPosX() {

@@ -20,6 +20,7 @@ import com.example.tiler_buddy.CalculatedValuesWrapper;
 import com.example.tiler_buddy.Calculator;
 import com.example.tiler_buddy.Obstacle;
 import com.example.tiler_buddy.ObstacleInputException;
+import com.example.tiler_buddy.Tile;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.ArrayList;
@@ -89,9 +90,11 @@ public class MainActivity extends AppCompatActivity {
                         double toBeTiledArea = Calculator.calculateToBeTiledArea(wallDimensions, Calculator.calculateObstacleArea(obstacles));
                         double numTiles = Calculator.calculateTiles(tenPercent, wallDimensions, tileDimensions);
                         double wallArea = Calculator.convertToMeter(toBeTiledArea);
+                        //Creating Tile Objects in a List
+                        List<List<Tile>> tiles = setTiles(wallDimensions, tileDimensions);
                         // Start New Activity
                         Intent intent = new Intent(MainActivity.this, CalculatedActivity.class);
-                        intent.putExtra("data", new CalculatedValuesWrapper(wallArea, numTiles));
+                        intent.putExtra("data", new CalculatedValuesWrapper(obstacles, tiles));
                         startActivity(intent);
                     }
                 } catch (ObstacleInputException e) {
@@ -144,6 +147,25 @@ public class MainActivity extends AppCompatActivity {
 
     private int getEditTextNumbers(EditText editText) {
         return Integer.parseInt(editText.getText().toString());
+    }
+
+    private List<List<Tile>> setTiles(WallDimensions wallDimensions, TileDimensions tileDimensions) {
+        List<List<Tile>> tiles = new ArrayList<>();
+        int numberOfRows = Calculator.calculateNumberOfRows(wallDimensions, tileDimensions);
+        int numberOfColumns = Calculator.calculateNumberOfColumns(wallDimensions, tileDimensions);
+        for (int i = 0; i < numberOfColumns; i++) {
+            List<Tile> newRow = new ArrayList<>();
+            for (int j = 0; j < numberOfRows; j++) {
+                Tile tile = new Tile();
+                tile.setLength(tileDimensions.getLength());
+                tile.setHeight(tileDimensions.getHeight());
+                tile.setPosX(j * tileDimensions.getHeight());
+                tile.setPosY(i * tileDimensions.getHeight());
+                newRow.add(tile);
+            }
+            tiles.add(newRow);
+        }
+        return tiles;
     }
 }
 
