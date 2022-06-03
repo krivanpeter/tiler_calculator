@@ -1,23 +1,18 @@
 package com.example.tiler_buddy;
 
-import java.io.Serializable;
-
-public class Tile implements Serializable {
-
+public class Tile extends Rectangle {
+/*
     int length;
     int height;
-    int posX;
-    int posY;
-
-    public Tile(int length, int height, int posX, int posY){
-        this.length = length;
-        this.height = height;
-        this.posX = posX;
-        this.posY = posY;
-    }
+    Position position;
 
     public Tile() {
+    }
 
+    public Tile(int length, int height, Position position) {
+        this.length = length;
+        this.height = height;
+        this.position = position;
     }
 
     public int getLength() {
@@ -36,20 +31,13 @@ public class Tile implements Serializable {
         this.height = height;
     }
 
-    public int getPosX() {
-        return posX;
+    public Position getPosition() {
+        return position;
     }
 
-    public void setPosX(int posX) {
-        this.posX = posX;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
-    public int getPosY() {
-        return posY;
-    }
-
-    public void setPosY(int posY) {
-        this.posY = posY;
-    }
-
+ */
 }

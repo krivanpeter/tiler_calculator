@@ -21,6 +21,7 @@ import com.example.tiler_buddy.CalculatedValuesWrapper;
 import com.example.tiler_buddy.Calculator;
 import com.example.tiler_buddy.Obstacle;
 import com.example.tiler_buddy.ObstacleInputException;
+import com.example.tiler_buddy.Position;
 import com.example.tiler_buddy.Tile;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
@@ -88,12 +89,12 @@ public class MainActivity extends AppCompatActivity {
                         // Calculating values
                         double toBeTiledArea = Calculator.calculateToBeTiledArea(wallDimensions, Calculator.calculateObstaclesArea(obstacles));
                         double numTiles = Calculator.calculateTiles(wallDimensions, tileDimensions, tenPercent);
-                        double wallArea = Calculator.convertToMeter(toBeTiledArea);
+                        double wallAreaMeter = Calculator.convertToMeter(toBeTiledArea);
                         //Creating Tile Objects in a List
                         List<List<Tile>> tiles = setTilesSize(wallDimensions, tileDimensions, obstacles);
                         // Start New Activity
                         Intent intent = new Intent(MainActivity.this, CalculatedActivity.class);
-                        intent.putExtra("data", new CalculatedValuesWrapper(obstacles, tiles));
+                        intent.putExtra("data", new CalculatedValuesWrapper(wallAreaMeter, numTiles, obstacles, tiles));
                         startActivity(intent);
                     }
                 } catch (ObstacleInputException e) {
@@ -118,10 +119,16 @@ public class MainActivity extends AppCompatActivity {
 
             if (isObstaclesInputValid(child)) {
                 Obstacle obstacle = new Obstacle();
+                Position position = new Position();
                 obstacle.setLength(getEditTextNumbers(obsLengthIn));
                 obstacle.setHeight(getEditTextNumbers(obsHeightIn));
-                obstacle.setPosX(getEditTextNumbers(obsDisFromLeft));
-                obstacle.setPosY(getEditTextNumbers(obsDisFromBottom));
+
+                position.setPosX1(getEditTextNumbers(obsDisFromLeft));
+                position.setPosY1(getEditTextNumbers(obsDisFromBottom));
+                position.setPosX2(Calculator.calculatePosX2(position, obstacle));
+                position.setPosY2(Calculator.calculatePosY2(position, obstacle));
+
+                obstacle.setPosition(position);
                 obstacleIns.add(obstacle);
             } else {
                 throw new ObstacleInputException();
@@ -142,25 +149,27 @@ public class MainActivity extends AppCompatActivity {
             List<Tile> newRow = new ArrayList<>();
             for (int j = 0; j < numberOfColumns; j++) {
                 Tile tile = new Tile();
-                if (wallDimensions.getHeight() - i * tileDimensions.getHeight() < tileDimensions.getHeight()) {
-                    tile.setHeight(wallDimensions.getHeight() - i * tileDimensions.getHeight());
-                } else {
-                    tile.setHeight(tileDimensions.getHeight());
-                }
-                if (wallDimensions.getLength() - j * tileDimensions.getLength() < tileDimensions.getLength()) {
-                    tile.setLength(wallDimensions.getLength() - j * tileDimensions.getLength());
-                } else {
-                    tile.setLength(tileDimensions.getLength());
-                }
-                tile.setPosX(j * tileDimensions.getLength());
-                tile.setPosY(i * tileDimensions.getHeight());
+                Position position = new Position();
+                tile.setHeight(Math.min(wallDimensions.getHeight() - i * tileDimensions.getHeight(), tileDimensions.getHeight()));
+                tile.setLength(Math.min(wallDimensions.getLength() - j * tileDimensions.getLength(), tileDimensions.getLength()));
+
+                position.setPosX1(j * tile.getLength());
+                position.setPosY1(i * tile.getHeight());
+                position.setPosX2(Calculator.calculatePosX2(position, tile));
+                position.setPosY2(Calculator.calculatePosY2(position, tile));
+
+                tile.setPosition(position);
                 newRow.add(tile);
                 num++;
                 for (Obstacle obstacle : obstacles) {
-                    if (isObstacleCrossed(tile, obstacle)) {
-                        Log.d("cross", " Tile " + num + ": " + tile.getPosX());
+                    if (isObstacleOverlapped(tile, obstacle)) {
+                        Log.d("cross", " Tile " + num);
+
                         // newRow.remove(tile);
                         break;
+
+                        // Set length and/or height of Tile smaller
+
                     }
                 }
             }
@@ -183,12 +192,9 @@ public class MainActivity extends AppCompatActivity {
         return !obsLengthInTxt.isEmpty() && !obsHeightInTxt.isEmpty() && !obsDisFromLeftTxt.isEmpty() && !obsDisFromBottomTxt.isEmpty();
     }
 
-    private boolean isObstacleCrossed(Tile tile, Obstacle obstacle) {
-        if (obstacle.getPosX() <= tile.getPosX() + tile.getLength() && tile.getPosX() + tile.getLength() < obstacle.getPosX() + obstacle.getLength() &&
-                obstacle.getPosY() <= tile.getPosY() + tile.getHeight() && tile.getPosY() + tile.getLength() < obstacle.getPosY() + obstacle.getHeight()) {
-            return true;
-        }
-        return false;
+    private boolean isObstacleOverlapped(Tile tile, Obstacle obstacle) {
+        return obstacle.getPosition().getPosX1() <= tile.getPosition().getPosX2() && tile.getPosition().getPosX2() < obstacle.getPosition().getPosX2() &&
+                obstacle.getPosition().getPosY1() <= tile.getPosition().getPosY2() && tile.getPosition().getPosY2() <= obstacle.getPosition().getPosY2();
     }
 }
 

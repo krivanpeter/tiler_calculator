@@ -1,16 +1,16 @@
 package com.example.tiler_buddy;
 
-public class Obstacle extends Rectangle {
-/*
+import java.io.Serializable;
+
+public class Rectangle implements Serializable {
     int length;
     int height;
     Position position;
 
-    public Obstacle() {
-        // do something if u want
+    public Rectangle() {
     }
 
-    public Obstacle(int length, int height, Position position) {
+    public Rectangle(int length, int height, Position position) {
         this.length = length;
         this.height = height;
         this.position = position;
@@ -39,6 +39,4 @@ public class Obstacle extends Rectangle {
     public void setPosition(Position position) {
         this.position = position;
     }
-
- */
 }

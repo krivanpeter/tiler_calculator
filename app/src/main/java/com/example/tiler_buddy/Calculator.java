@@ -51,6 +51,13 @@ public class Calculator {
         return Math.ceil(wallDimensions.getHeight() / (double) tileDimensions.getHeight());
     }
 
+    public static int calculatePosX2(Position position, Rectangle rectangle){
+        return position.getPosX1() + rectangle.getLength();
+    }
+    public static int calculatePosY2(Position position, Rectangle rectangle){
+        return position.getPosY1() + rectangle.getHeight();
+    }
+
     private static int calculateWallArea(WallDimensions wallDimensions) {
         return wallDimensions.getLength() * wallDimensions.getHeight();
     }
@@ -70,5 +77,4 @@ public class Calculator {
     private static double calculateColumnArea(WallDimensions wallDimensions, TileDimensions tileDimensions) {
         return wallDimensions.getHeight() * tileDimensions.getLength();
     }
-
 }

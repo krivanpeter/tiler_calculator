@@ -2,6 +2,7 @@ package com.example.tiler_buddy.view;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,8 +24,8 @@ public class CalculatedActivity extends AppCompatActivity {
         //Grabbing values from main Activity
         CalculatedValuesWrapper calculatedValuesWrapper = (CalculatedValuesWrapper) getIntent().getSerializableExtra("data");
 
-        // ((TextView) findViewById(R.id.to_be_tiled_are_value)).setText(String.valueOf(calculatedValuesWrapper.getToBeTiledArea()));
-        // ((TextView) findViewById(R.id.tiles_num_val)).setText(String.valueOf(calculatedValuesWrapper.getNumTiles()));
+        ((TextView) findViewById(R.id.to_be_tiled_are_value)).setText(String.valueOf(calculatedValuesWrapper.getToBeTiledArea()));
+        ((TextView) findViewById(R.id.tiles_num_val)).setText(String.valueOf(calculatedValuesWrapper.getNumOfTiles()));
         List<Obstacle> obstacles = calculatedValuesWrapper.getObstacles();
         List<List<Tile>> tiles = calculatedValuesWrapper.getTiles();
         /*
@@ -38,11 +39,14 @@ public class CalculatedActivity extends AppCompatActivity {
         for (int i = 0; i < tiles.size(); i++) {
             for(int j = 0; j < tiles.get(i).size(); j++){
                 Tile tile = tiles.get(i).get(j);
-                String posX = String.valueOf(tile.getPosX());
-                String posY = String.valueOf(tile.getPosY());
+                String posX1 = String.valueOf(tile.getPosition().getPosX1());
+                String posY1 = String.valueOf(tile.getPosition().getPosY1());
+                String posX2 = String.valueOf(tile.getPosition().getPosX2());
+                String posY2 = String.valueOf(tile.getPosition().getPosY2());
                 String length = String.valueOf(tile.getLength());
                 String height = String.valueOf(tile.getHeight());
-                Log.v("csempe", "Tile " + num + ": " + "pos X: " + posX + " ," + "pos Y: " + posY + ": " + "length: " + length + " ," + "height: " + height);
+                Log.v("csempe", "Tile " + num + ": " + "(pos X1: " + posX1 + " ," + "pos Y1: " + posY1 + "), "
+                        + "(pos X2: " + posX2 + " ," + "pos Y2: " + posY2 + "), "+ "length: " + length + " ," + "height: " + height);
                 num ++;
             }
         }
