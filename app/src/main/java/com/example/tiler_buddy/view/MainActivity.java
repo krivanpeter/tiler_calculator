@@ -63,8 +63,6 @@ public class MainActivity extends AppCompatActivity {
                 // Tile Inputs
                 EditText tileLengthIn = findViewById(R.id.tile_length_in);
                 EditText tileHeightIn = findViewById(R.id.tile_height_in);
-                // Spacer width
-                EditText spacerWidthIn = findViewById(R.id.spacer_width_in);
                 // 10% wastage
                 SwitchMaterial tenPercentIn = findViewById(R.id.ten_percent);
 
@@ -75,9 +73,8 @@ public class MainActivity extends AppCompatActivity {
                     String wallHeightStr = wallHeightIn.getText().toString();
                     String tileLengthStr = tileLengthIn.getText().toString();
                     String tileHeightStr = tileHeightIn.getText().toString();
-                    String spacerWidthStr = spacerWidthIn.getText().toString();
                     //Checking if inputs are empty
-                    if (wallLengthStr.isEmpty() || wallHeightStr.isEmpty() || tileLengthStr.isEmpty() || tileHeightStr.isEmpty() || spacerWidthStr.isEmpty()) {
+                    if (wallLengthStr.isEmpty() || wallHeightStr.isEmpty() || tileLengthStr.isEmpty() || tileHeightStr.isEmpty()) {
                         Toast.makeText(getApplicationContext(), "You did not enter all numbers", Toast.LENGTH_SHORT).show();
                     } else {
                         // Getting All User Inputs
@@ -85,10 +82,9 @@ public class MainActivity extends AppCompatActivity {
                         // Converting strings to integers
                         WallDimensions wallDimensions = new WallDimensions(Integer.parseInt(wallLengthStr), Integer.parseInt(wallHeightStr));
                         TileDimensions tileDimensions = new TileDimensions(Integer.parseInt(tileLengthStr), Integer.parseInt(tileHeightStr));
-                        // int spacer_width_int = Integer.parseInt(spacer_width_str);
                         // Calculating values
                         double toBeTiledArea = Calculator.calculateToBeTiledArea(wallDimensions, Calculator.calculateObstaclesArea(obstacles));
-                        double numTiles = Calculator.calculateTiles(tenPercent, wallDimensions, tileDimensions);
+                        double numTiles = Calculator.calculateTiles(wallDimensions, tileDimensions, tenPercent);
                         double wallArea = Calculator.convertToMeter(toBeTiledArea);
                         //Creating Tile Objects in a List
                         List<List<Tile>> tiles = setTiles(wallDimensions, tileDimensions);
@@ -157,8 +153,17 @@ public class MainActivity extends AppCompatActivity {
             List<Tile> newRow = new ArrayList<>();
             for (int j = 0; j < numberOfColumns; j++) {
                 Tile tile = new Tile();
-                tile.setHeight(Math.min(wallDimensions.getHeight() - i * tileDimensions.getHeight(), tileDimensions.getHeight()));
-                tile.setLength(Math.min(wallDimensions.getLength() - j * tileDimensions.getLength(), tileDimensions.getLength()));
+                if (wallDimensions.getHeight() - i * tileDimensions.getHeight() < tileDimensions.getHeight()) {
+                    tile.setHeight(wallDimensions.getHeight() - i * tileDimensions.getHeight());
+                }
+                else{
+                    tile.setHeight(tileDimensions.getHeight());
+                }
+                if (wallDimensions.getLength() - j * tileDimensions.getLength() < tileDimensions.getLength()) {
+                    tile.setLength(wallDimensions.getLength() - j * tileDimensions.getLength());
+                } else {
+                    tile.setLength(tileDimensions.getLength());
+                }
                 tile.setPosX(j * tileDimensions.getLength());
                 tile.setPosY(i * tileDimensions.getHeight());
                 newRow.add(tile);
