@@ -10,7 +10,6 @@ public class Calculator {
     private static final double MM_TO_M_RATIO = 1_000_000;
     private static final double PERCENT_OF_WASTAGE = 1.1;
 
-    //Calculate all the tiles needed
     public static double calculateTiles(boolean isWastage, WallDimensions wallDimensions, TileDimensions tileDimensions) {
         if (isWastage) {
             return Math.ceil(calculateTilesPerRow(wallDimensions, tileDimensions) * calculateTilesPerColumn(wallDimensions, tileDimensions) * PERCENT_OF_WASTAGE);
@@ -35,7 +34,7 @@ public class Calculator {
         return value / MM_TO_M_RATIO;
     }
 
-    public static int calculateObstacleArea(List<Obstacle> obstacles) {
+    public static int calculateObstaclesArea(List<Obstacle> obstacles) {
         int allArea = 0;
         for (Obstacle obstacle : obstacles) {
             int area = calculateObstacleArea(obstacle);
@@ -44,12 +43,12 @@ public class Calculator {
         return allArea;
     }
 
-    public static int calculateNumberOfRows(WallDimensions wallDimensions, TileDimensions tileDimensions){
-        return wallDimensions.getLength() / tileDimensions.getLength();
+    public static double calculateNumberOfColumns(WallDimensions wallDimensions, TileDimensions tileDimensions) {
+        return Math.ceil(wallDimensions.getLength() / (double) tileDimensions.getLength());
     }
 
-    public static int calculateNumberOfColumns(WallDimensions wallDimensions, TileDimensions tileDimensions){
-        return wallDimensions.getHeight() / tileDimensions.getHeight();
+    public static double calculateNumberOfRows(WallDimensions wallDimensions, TileDimensions tileDimensions) {
+        return Math.ceil(wallDimensions.getHeight() / (double) tileDimensions.getHeight());
     }
 
     private static int calculateWallArea(WallDimensions wallDimensions) {

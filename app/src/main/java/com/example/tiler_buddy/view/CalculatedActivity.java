@@ -34,13 +34,16 @@ public class CalculatedActivity extends AppCompatActivity {
             Log.d("done", obsLength);
         }
         */
-
+        int num = 1;
         for (int i = 0; i < tiles.size(); i++) {
             for(int j = 0; j < tiles.get(i).size(); j++){
                 Tile tile = tiles.get(i).get(j);
                 String posX = String.valueOf(tile.getPosX());
                 String posY = String.valueOf(tile.getPosY());
-                Log.v("csempe", "Tile " + j + ": " + "posX: " + posX + " ," + "posY: " + posY);
+                String length = String.valueOf(tile.getLength());
+                String height = String.valueOf(tile.getHeight());
+                Log.v("csempe", "Tile " + num + ": " + "pos X: " + posX + " ," + "pos Y: " + posY + ": " + "length: " + length + " ," + "height: " + height);
+                num ++;
             }
         }
         /*

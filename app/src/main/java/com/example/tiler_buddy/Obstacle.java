@@ -4,49 +4,49 @@ import java.io.Serializable;
 
 public class Obstacle implements Serializable {
 
-    int lengthIn;
-    int heightIn;
-    int distanceFromLeft;
-    int distanceFromBottom;
+    int length;
+    int height;
+    int posX;
+    int posY;
 
     public Obstacle() {
         // do something if u want
     }
 
-    public Obstacle(int lengthIn, int heightIn, int distanceFromLeft, int distanceFromBottom) {
-        this.lengthIn = lengthIn;
-        this.heightIn = heightIn;
-        this.distanceFromLeft = distanceFromLeft;
-        this.distanceFromBottom = distanceFromBottom;
+    public Obstacle(int length, int height, int posX, int posY) {
+        this.length = length;
+        this.height = height;
+        this.posX = posX;
+        this.posY = posY;
     }
 
-    public void setLength(int lengthIn) {
-        this.lengthIn = lengthIn;
+    public void setLength(int length) {
+        this.length = length;
     }
 
     public int getLength() {
-        return lengthIn;
+        return length;
     }
 
-    public void setHeight(int heightIn) {
-        this.heightIn = heightIn;
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     public int getHeight() {
-        return heightIn;
+        return height;
     }
 
-    public void setDisLeft(int distanceFromLeft) {
-        this.distanceFromLeft = distanceFromLeft;
+    public void setPosX(int posX) {
+        this.posX = posX;
     }
 
-    public int getDisLeft() {
-        return distanceFromLeft;
+    public int getPosX() {
+        return posX;
     }
 
-    public void setDisBot(int distanceFromBottom) { this.distanceFromBottom = distanceFromBottom; }
+    public void setPosY(int posY) { this.posY = posY; }
 
-    public int getDisBot() {
-        return distanceFromBottom;
+    public int getPosY() {
+        return posY;
     }
 }

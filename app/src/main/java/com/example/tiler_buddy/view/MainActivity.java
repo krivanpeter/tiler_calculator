@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                         TileDimensions tileDimensions = new TileDimensions(Integer.parseInt(tileLengthStr), Integer.parseInt(tileHeightStr));
                         // int spacer_width_int = Integer.parseInt(spacer_width_str);
                         // Calculating values
-                        double toBeTiledArea = Calculator.calculateToBeTiledArea(wallDimensions, Calculator.calculateObstacleArea(obstacles));
+                        double toBeTiledArea = Calculator.calculateToBeTiledArea(wallDimensions, Calculator.calculateObstaclesArea(obstacles));
                         double numTiles = Calculator.calculateTiles(tenPercent, wallDimensions, tileDimensions);
                         double wallArea = Calculator.convertToMeter(toBeTiledArea);
                         //Creating Tile Objects in a List
@@ -121,8 +121,8 @@ public class MainActivity extends AppCompatActivity {
                 Obstacle obstacle = new Obstacle();
                 obstacle.setLength(getEditTextNumbers(obsLengthIn));
                 obstacle.setHeight(getEditTextNumbers(obsHeightIn));
-                obstacle.setDisLeft(getEditTextNumbers(obsDisFromLeft));
-                obstacle.setDisBot(getEditTextNumbers(obsDisFromBottom));
+                obstacle.setPosX(getEditTextNumbers(obsDisFromLeft));
+                obstacle.setPosY(getEditTextNumbers(obsDisFromBottom));
                 obstacleIns.add(obstacle);
             } else {
                 throw new ObstacleInputException();
@@ -151,15 +151,15 @@ public class MainActivity extends AppCompatActivity {
 
     private List<List<Tile>> setTiles(WallDimensions wallDimensions, TileDimensions tileDimensions) {
         List<List<Tile>> tiles = new ArrayList<>();
-        int numberOfRows = Calculator.calculateNumberOfRows(wallDimensions, tileDimensions);
-        int numberOfColumns = Calculator.calculateNumberOfColumns(wallDimensions, tileDimensions);
-        for (int i = 0; i < numberOfColumns; i++) {
+        double numberOfRows = Calculator.calculateNumberOfRows(wallDimensions, tileDimensions);
+        double numberOfColumns = Calculator.calculateNumberOfColumns(wallDimensions, tileDimensions);
+        for (int i = 0; i < numberOfRows; i++) {
             List<Tile> newRow = new ArrayList<>();
-            for (int j = 0; j < numberOfRows; j++) {
+            for (int j = 0; j < numberOfColumns; j++) {
                 Tile tile = new Tile();
-                tile.setLength(tileDimensions.getLength());
-                tile.setHeight(tileDimensions.getHeight());
-                tile.setPosX(j * tileDimensions.getHeight());
+                tile.setHeight(Math.min(wallDimensions.getHeight() - i * tileDimensions.getHeight(), tileDimensions.getHeight()));
+                tile.setLength(Math.min(wallDimensions.getLength() - j * tileDimensions.getLength(), tileDimensions.getLength()));
+                tile.setPosX(j * tileDimensions.getLength());
                 tile.setPosY(i * tileDimensions.getHeight());
                 newRow.add(tile);
             }
