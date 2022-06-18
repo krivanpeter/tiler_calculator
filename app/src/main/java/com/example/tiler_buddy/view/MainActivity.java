@@ -162,7 +162,9 @@ public class MainActivity extends AppCompatActivity {
                         if(isFullyOverlapped(tile, obstacle)){
                             newRow.remove(tile);
                         }
-                        // Set length and/or height of Tile smaller
+                        // Set length and/or height of Tile smaller dependent on Obstacle
+                        tile.setHeight(Calculator.cutTileHeight(tileDimensions, obstacle));
+                        tile.setLength(Calculator.cutTileHeight(tileDimensions, obstacle));
                     }
                 }
             }

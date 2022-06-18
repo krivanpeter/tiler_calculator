@@ -1,6 +1,7 @@
 package com.example.tiler_buddy.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +34,7 @@ public class CalculatedActivity extends AppCompatActivity {
             String obsLength = String.valueOf(obstacle.getLength());
             Log.d("done", obsLength);
         }
+        */
 
         int num = 1;
         for (int i = 0; i < tiles.size(); i++) {
@@ -42,11 +44,11 @@ public class CalculatedActivity extends AppCompatActivity {
                 String posXY2 = String.valueOf(tile.getPosition().getPosXY2());
                 String length = String.valueOf(tile.getLength());
                 String height = String.valueOf(tile.getHeight());
-                Log.v("csempe", "Tile " + num + ": " + "(pos XY1: " + posXY1 + ") ," + "(pos XY2: " + posXY2 + "), " + "length: " + length + " ," + "height: " + height);
+                Log.v("csempe", num + ": " + "pos1: " + posXY1 + ", " + "pos2: " + posXY2 + ", " + "length: " + length + "mm, " + "height: " + height + "mm");
                 num++;
             }
         }
-        */
+
         /*
         button = findViewById(R.id.button1);
         //Request for camera runtime permission
