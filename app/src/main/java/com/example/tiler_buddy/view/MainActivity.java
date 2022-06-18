@@ -123,10 +123,8 @@ public class MainActivity extends AppCompatActivity {
                 obstacle.setLength(getEditTextNumbers(obsLengthIn));
                 obstacle.setHeight(getEditTextNumbers(obsHeightIn));
 
-                position.setPosX1(getEditTextNumbers(obsDisFromLeft));
-                position.setPosY1(getEditTextNumbers(obsDisFromBottom));
-                position.setPosX2(Calculator.calculatePosX2(position, obstacle));
-                position.setPosY2(Calculator.calculatePosY2(position, obstacle));
+                position.setPosXY1(getEditTextNumbers(obsDisFromLeft), getEditTextNumbers(obsDisFromBottom));
+                position.setPosXY2(Calculator.calculatePosX2(position, obstacle), Calculator.calculatePosY2(position, obstacle));
 
                 obstacle.setPosition(position);
                 obstacleIns.add(obstacle);
@@ -153,10 +151,8 @@ public class MainActivity extends AppCompatActivity {
                 tile.setHeight(Math.min(wallDimensions.getHeight() - i * tileDimensions.getHeight(), tileDimensions.getHeight()));
                 tile.setLength(Math.min(wallDimensions.getLength() - j * tileDimensions.getLength(), tileDimensions.getLength()));
 
-                position.setPosX1(j * tile.getLength());
-                position.setPosY1(i * tile.getHeight());
-                position.setPosX2(Calculator.calculatePosX2(position, tile));
-                position.setPosY2(Calculator.calculatePosY2(position, tile));
+                position.setPosXY1(j * tile.getLength(), i * tile.getHeight());
+                position.setPosXY2(Calculator.calculatePosX2(position, tile), Calculator.calculatePosY2(position, tile));
 
                 tile.setPosition(position);
                 newRow.add(tile);

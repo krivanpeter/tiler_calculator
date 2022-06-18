@@ -1,54 +1,52 @@
 package com.example.tiler_buddy;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Position implements Serializable {
-    int posX1;
-    int posX2;
-    int posY1;
-    int posY2;
+    List<Integer> posXY1 = new ArrayList<>();
+    List<Integer> posXY2 = new ArrayList<>();
 
-    public Position(int posX1, int posY1, int posX2, int posY2) {
-        posX1 = this.posX1;
-        posY1 = this.posY1;
-        posX2 = this.posX2;
-        posY2 = this.posY2;
+    public Position(List<Integer> posXY1, List<Integer> posXY2) {
+        posXY1 = this.posXY1;
+        posXY2 = this.posXY2;
     }
 
     public Position() {
     }
 
-    public int getPosX1() {
-        return posX1;
+    public List<Integer> getPosXY1() {
+        return this.posXY1;
     }
 
-    public void setPosX1(int posX1) {
-        this.posX1 = posX1;
+    public void setPosXY1(Integer posX1, Integer posY1) {
+        this.posXY1.add(posX1);
+        this.posXY1.add(posY1);
+    }
+
+    public List<Integer> getPosXY2() {
+        return posXY2;
+    }
+
+    public void setPosXY2(Integer posX2, Integer posY2) {
+        this.posXY2.add(posX2);
+        this.posXY2.add(posY2);
+    }
+
+    public int getPosX1() {
+        return getPosXY1().get(0);
     }
 
     public int getPosY1() {
-        return posY1;
-    }
-
-    public void setPosY1(int posY1) {
-        this.posY1 = posY1;
+        return getPosXY1().get(1);
     }
 
     public int getPosX2() {
-        return posX2;
-    }
-
-    public void setPosX2(int posX2) {
-        this.posX2 = posX2;
+        return getPosXY2().get(0);
     }
 
     public int getPosY2() {
-        return posY2;
+        return getPosXY2().get(1);
     }
-
-    public void setPosY2(int posY2) {
-        this.posY2 = posY2;
-    }
-
-
 }
