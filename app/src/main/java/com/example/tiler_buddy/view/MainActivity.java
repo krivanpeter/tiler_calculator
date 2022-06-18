@@ -3,7 +3,6 @@ package com.example.tiler_buddy.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewManager;
@@ -159,11 +158,11 @@ public class MainActivity extends AppCompatActivity {
                 num++;
                 for (Obstacle obstacle : obstacles) {
                     if (isObstacleOverlapped(tile, obstacle)) {
-                        Log.d("cross", " Tile " + num);
-                        // newRow.remove(tile);
-                        break;
+                        // Removing Tiles that are fully overlap obstacle(s)
+                        if(isFullyOverlapped(tile, obstacle)){
+                            newRow.remove(tile);
+                        }
                         // Set length and/or height of Tile smaller
-
                     }
                 }
             }
@@ -200,7 +199,11 @@ public class MainActivity extends AppCompatActivity {
                 obstacle.getPosition().getPosY1() < tile.getPosition().getPosY2() && tile.getPosition().getPosY2() < obstacle.getPosition().getPosY2();
     }
 
-
-
+    private boolean isFullyOverlapped(Tile tile, Obstacle obstacle){
+        return  tile.getPosition().getPosX1() >= obstacle.getPosition().getPosX1() && tile.getPosition().getPosX2() > obstacle.getPosition().getPosX1() &&
+                tile.getPosition().getPosX1() < obstacle.getPosition().getPosX2() && tile.getPosition().getPosX2() <= obstacle.getPosition().getPosX2() &&
+                tile.getPosition().getPosY1() >= obstacle.getPosition().getPosY1() && tile.getPosition().getPosY2() > obstacle.getPosition().getPosY1() &&
+                tile.getPosition().getPosY1() < obstacle.getPosition().getPosY2() && tile.getPosition().getPosY2() <= obstacle.getPosition().getPosY2();
+    }
 }
 
