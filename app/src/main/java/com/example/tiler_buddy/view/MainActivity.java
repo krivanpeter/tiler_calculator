@@ -30,7 +30,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    int num = 1;
+    int num = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,10 +160,8 @@ public class MainActivity extends AppCompatActivity {
                 for (Obstacle obstacle : obstacles) {
                     if (isObstacleOverlapped(tile, obstacle)) {
                         Log.d("cross", " Tile " + num);
-
                         // newRow.remove(tile);
                         break;
-
                         // Set length and/or height of Tile smaller
 
                     }
@@ -189,8 +187,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isObstacleOverlapped(Tile tile, Obstacle obstacle) {
-        return obstacle.getPosition().getPosX1() <= tile.getPosition().getPosX2() && tile.getPosition().getPosX2() < obstacle.getPosition().getPosX2() &&
-                obstacle.getPosition().getPosY1() <= tile.getPosition().getPosY2() && tile.getPosition().getPosY2() <= obstacle.getPosition().getPosY2();
+        return  obstacle.getPosition().getPosX1() < tile.getPosition().getPosX2() && tile.getPosition().getPosX2() < obstacle.getPosition().getPosX2() &&
+                obstacle.getPosition().getPosY1() < tile.getPosition().getPosY2() && tile.getPosition().getPosY2() < obstacle.getPosition().getPosY2() ||
+
+                obstacle.getPosition().getPosX1() < tile.getPosition().getPosX2() && tile.getPosition().getPosX2() < obstacle.getPosition().getPosX2() &&
+                obstacle.getPosition().getPosY1() < tile.getPosition().getPosY1() && tile.getPosition().getPosY1() < obstacle.getPosition().getPosY2() ||
+
+                obstacle.getPosition().getPosX1() < tile.getPosition().getPosX1() && tile.getPosition().getPosX1() < obstacle.getPosition().getPosX2() &&
+                obstacle.getPosition().getPosY1() < tile.getPosition().getPosY1() && tile.getPosition().getPosY1() < obstacle.getPosition().getPosY2() ||
+
+                obstacle.getPosition().getPosX1() < tile.getPosition().getPosX1() && tile.getPosition().getPosX1() < obstacle.getPosition().getPosX2() &&
+                obstacle.getPosition().getPosY1() < tile.getPosition().getPosY2() && tile.getPosition().getPosY2() < obstacle.getPosition().getPosY2();
     }
+
+
+
 }
 

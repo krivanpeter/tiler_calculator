@@ -1,7 +1,6 @@
 package com.example.tiler_buddy.view;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,22 +33,20 @@ public class CalculatedActivity extends AppCompatActivity {
             String obsLength = String.valueOf(obstacle.getLength());
             Log.d("done", obsLength);
         }
-        */
+
         int num = 1;
         for (int i = 0; i < tiles.size(); i++) {
-            for(int j = 0; j < tiles.get(i).size(); j++){
+            for (int j = 0; j < tiles.get(i).size(); j++) {
                 Tile tile = tiles.get(i).get(j);
-                String posX1 = String.valueOf(tile.getPosition().getPosX1());
-                String posY1 = String.valueOf(tile.getPosition().getPosY1());
-                String posX2 = String.valueOf(tile.getPosition().getPosX2());
-                String posY2 = String.valueOf(tile.getPosition().getPosY2());
+                String posXY1 = String.valueOf(tile.getPosition().getPosXY1());
+                String posXY2 = String.valueOf(tile.getPosition().getPosXY2());
                 String length = String.valueOf(tile.getLength());
                 String height = String.valueOf(tile.getHeight());
-                Log.v("csempe", "Tile " + num + ": " + "(pos X1: " + posX1 + " ," + "pos Y1: " + posY1 + "), "
-                        + "(pos X2: " + posX2 + " ," + "pos Y2: " + posY2 + "), "+ "length: " + length + " ," + "height: " + height);
-                num ++;
+                Log.v("csempe", "Tile " + num + ": " + "(pos XY1: " + posXY1 + ") ," + "(pos XY2: " + posXY2 + "), " + "length: " + length + " ," + "height: " + height);
+                num++;
             }
         }
+        */
         /*
         button = findViewById(R.id.button1);
         //Request for camera runtime permission
