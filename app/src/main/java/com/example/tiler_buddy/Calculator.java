@@ -59,6 +59,9 @@ public class Calculator {
         return rectangle.position.getPosY1() + rectangle.getHeight();
     }
 
+    public static int cutTileHeight(Tile tile, Obstacle obstacle){
+        return Math.min(tile.getPosition().getPosY2(), obstacle.getPosition().getPosY1());
+    }
     private static int calculateWallArea(WallDimensions wallDimensions) {
         return wallDimensions.getLength() * wallDimensions.getHeight();
     }

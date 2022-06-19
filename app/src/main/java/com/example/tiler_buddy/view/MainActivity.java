@@ -161,9 +161,10 @@ public class MainActivity extends AppCompatActivity {
                             newRow.remove(tile);
                         }
                         // Set length and/or height of Tile smaller dependent on Obstacle
-
-                        // tile.setHeight(Calculator.cutTileHeight(tileDimensions, obstacle));
+                        tile.setHeight(Calculator.cutTileHeight(tile, obstacle));
                         // tile.setLength(Calculator.cutTileLength(tileDimensions, obstacle));
+
+                        tile.setPosXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
                     }
                 }
             }
