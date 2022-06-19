@@ -18,14 +18,6 @@ public class Calculator {
         }
     }
 
-    public static double calculateTilesPerRow(WallDimensions wallDimensions, TileDimensions tileDimensions) {
-        return calculateRowArea(wallDimensions, tileDimensions) / calculateTileArea(tileDimensions);
-    }
-
-    public static double calculateTilesPerColumn(WallDimensions wallDimensions, TileDimensions tileDimensions) {
-        return calculateColumnArea(wallDimensions, tileDimensions) / calculateTileArea(tileDimensions);
-    }
-
     public static int calculateToBeTiledArea(WallDimensions wallDimensions, int obstacleSize) {
         return calculateWallArea(wallDimensions) - obstacleSize;
     }
