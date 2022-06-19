@@ -36,6 +36,7 @@ public class CalculatedActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.tiles_num_val)).setText(String.valueOf(calculatedValuesWrapper.getNumOfTiles()));
         List<Obstacle> obstacles = calculatedValuesWrapper.getObstacles();
         List<List<Tile>> tiles = calculatedValuesWrapper.getTiles();
+        WallDimensions wallDimensions = calculatedValuesWrapper.getWallDimensions();
 
         int num0 = 1;
         for (int i = 0; i < obstacles.size(); i++) {
@@ -74,7 +75,7 @@ public class CalculatedActivity extends AppCompatActivity {
             int height = size.y;
 
 
-            Bitmap bg = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            Bitmap bg = Bitmap.createBitmap(wallDimensions.getLength() + 10, wallDimensions.getHeight() + 10, Bitmap.Config.ARGB_8888);
 
             Canvas canvas = new Canvas(bg);
             for (int i = 0; i < tiles.size(); i++) {
