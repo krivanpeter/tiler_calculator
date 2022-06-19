@@ -10,11 +10,11 @@ public class Calculator {
     private static final double MM_TO_M_RATIO = 1_000_000;
     private static final double PERCENT_OF_WASTAGE = 1.1;
 
-    public static double calculateTiles(WallDimensions wallDimensions, TileDimensions tileDimensions, boolean isWastage) {
+    public static double calculateTiles(double toBeTiledArea, TileDimensions tileDimensions, boolean isWastage) {
         if (isWastage) {
-            return Math.ceil(calculateTilesPerRow(wallDimensions, tileDimensions) * calculateTilesPerColumn(wallDimensions, tileDimensions) * PERCENT_OF_WASTAGE);
+            return Math.ceil(toBeTiledArea / calculateTileArea(tileDimensions) * PERCENT_OF_WASTAGE);
         } else {
-            return Math.ceil(calculateTilesPerRow(wallDimensions, tileDimensions) * calculateTilesPerColumn(wallDimensions, tileDimensions));
+            return Math.ceil(toBeTiledArea / calculateTileArea(tileDimensions));
         }
     }
 

@@ -28,13 +28,6 @@ public class CalculatedActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.tiles_num_val)).setText(String.valueOf(calculatedValuesWrapper.getNumOfTiles()));
         List<Obstacle> obstacles = calculatedValuesWrapper.getObstacles();
         List<List<Tile>> tiles = calculatedValuesWrapper.getTiles();
-        /*
-        for (int i = 0; i < obstacles.size(); i++) {
-            Obstacle obstacle = obstacles.get(i);
-            String obsLength = String.valueOf(obstacle.getLength());
-            Log.d("done", obsLength);
-        }
-        */
 
         int num = 1;
         for (int i = 0; i < tiles.size(); i++) {
@@ -47,6 +40,37 @@ public class CalculatedActivity extends AppCompatActivity {
                 Log.v("csempe", num + ": " + "pos1: " + posXY1 + ", " + "pos2: " + posXY2 + ", " + "length: " + length + "mm, " + "height: " + height + "mm");
                 num++;
             }
+        }
+        /*
+        ImageView imgview = findViewById(R.id.imageView1);
+
+        if (imgview != null) {
+            Paint paint = new Paint();
+            paint.setColor(Color.parseColor("#000000"));
+            paint.setStyle(Paint.Style.STROKE);
+
+            Display display = getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            int width = size.x;
+            int height = size.y;
+
+            Bitmap bg = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+
+            Canvas canvas = new Canvas(bg);
+            for (int i = 0; i < tiles.size(); i++) {
+                for (int j = 0; j < tiles.get(i).size(); j++) {
+                    Tile tile = tiles.get(i).get(j);
+                    int posx1 = tile.getPosition().getPosX1();
+                    int posy1 = tile.getPosition().getPosY1();
+                    int posx2 = tile.getPosition().getPosX2();
+                    int posy2 = tile.getPosition().getPosY2();
+                    // int length = tile.getLength();
+                    // int height = tile.getHeight();
+                    canvas.drawRect(posx1, posy1, posx2, posy2, paint);
+                }
+            }
+            imgview.setBackground(new BitmapDrawable(bg));
         }
 
         /*

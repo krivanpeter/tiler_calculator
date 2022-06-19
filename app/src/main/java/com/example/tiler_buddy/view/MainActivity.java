@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                         TileDimensions tileDimensions = new TileDimensions(Integer.parseInt(tileLengthStr), Integer.parseInt(tileHeightStr));
                         // Calculating values
                         double toBeTiledArea = Calculator.calculateToBeTiledArea(wallDimensions, Calculator.calculateObstaclesArea(obstacles));
-                        double numTiles = Calculator.calculateTiles(wallDimensions, tileDimensions, tenPercent);
+                        double numTiles = Calculator.calculateTiles(toBeTiledArea, tileDimensions, tenPercent);
                         double wallAreaMeter = Calculator.convertToMeter(toBeTiledArea);
                         //Creating Tile Objects in a List
                         List<List<Tile>> tiles = setTilesSize(wallDimensions, tileDimensions, obstacles);
@@ -152,8 +152,8 @@ public class MainActivity extends AppCompatActivity {
 
                 position.setPosXY1(j * tile.getLength(), i * tile.getHeight());
                 position.setPosXY2(Calculator.calculatePosX2(position, tile), Calculator.calculatePosY2(position, tile));
-
                 tile.setPosition(position);
+
                 newRow.add(tile);
                 num++;
                 for (Obstacle obstacle : obstacles) {
@@ -194,10 +194,10 @@ public class MainActivity extends AppCompatActivity {
                 obstacle.getPosition().getPosX1() < tile.getPosition().getPosX2() && tile.getPosition().getPosX2() < obstacle.getPosition().getPosX2() &&
                 obstacle.getPosition().getPosY1() < tile.getPosition().getPosY1() && tile.getPosition().getPosY1() < obstacle.getPosition().getPosY2() ||
 
-                obstacle.getPosition().getPosX1() < tile.getPosition().getPosX1() && tile.getPosition().getPosX1() < obstacle.getPosition().getPosX2() &&
+                obstacle.getPosition().getPosX1() <= tile.getPosition().getPosX1() && tile.getPosition().getPosX1() < obstacle.getPosition().getPosX2() &&
                 obstacle.getPosition().getPosY1() < tile.getPosition().getPosY1() && tile.getPosition().getPosY1() < obstacle.getPosition().getPosY2() ||
 
-                obstacle.getPosition().getPosX1() < tile.getPosition().getPosX1() && tile.getPosition().getPosX1() < obstacle.getPosition().getPosX2() &&
+                obstacle.getPosition().getPosX1() <= tile.getPosition().getPosX1() && tile.getPosition().getPosX1() < obstacle.getPosition().getPosX2() &&
                 obstacle.getPosition().getPosY1() < tile.getPosition().getPosY2() && tile.getPosition().getPosY2() < obstacle.getPosition().getPosY2();
     }
 
