@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Rectangle implements Serializable {
     int length;
     int height;
-    Position position;
+    Position position = new Position();
 
     public Rectangle() {
     }
@@ -38,5 +38,15 @@ public class Rectangle implements Serializable {
 
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    public void setPosXY1(Integer posX1, Integer posY1) {
+        this.position.posXY1.set(0, posX1);
+        this.position.posXY1.set(1, posY1);
+    }
+
+    public void setPosXY2(Integer posX2, Integer posY2) {
+        this.position.posXY2.set(0, posX2);
+        this.position.posXY2.set(1, posY2);
     }
 }

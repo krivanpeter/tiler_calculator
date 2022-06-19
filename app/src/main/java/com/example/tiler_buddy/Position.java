@@ -2,11 +2,12 @@ package com.example.tiler_buddy;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Position implements Serializable {
-    List<Integer> posXY1 = new ArrayList<>();
-    List<Integer> posXY2 = new ArrayList<>();
+    List<Integer> posXY1 = new ArrayList<>(Arrays.asList(0, 0));
+    List<Integer> posXY2 = new ArrayList<>(Arrays.asList(0, 0));
 
     public Position(List<Integer> posXY1, List<Integer> posXY2) {
         posXY1 = this.posXY1;
@@ -21,8 +22,8 @@ public class Position implements Serializable {
     }
 
     public void setPosXY1(Integer posX1, Integer posY1) {
-        this.posXY1.add(posX1);
-        this.posXY1.add(posY1);
+        this.posXY1.set(0, posX1);
+        this.posXY1.set(1, posY1);
     }
 
     public List<Integer> getPosXY2() {
@@ -30,8 +31,8 @@ public class Position implements Serializable {
     }
 
     public void setPosXY2(Integer posX2, Integer posY2) {
-        this.posXY2.add(posX2);
-        this.posXY2.add(posY2);
+        this.posXY2.set(0, posX2);
+        this.posXY2.set(1, posY2);
     }
 
     public int getPosX1() {

@@ -1,7 +1,15 @@
 package com.example.tiler_buddy.view;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +37,17 @@ public class CalculatedActivity extends AppCompatActivity {
         List<Obstacle> obstacles = calculatedValuesWrapper.getObstacles();
         List<List<Tile>> tiles = calculatedValuesWrapper.getTiles();
 
+        int num0 = 1;
+        for (int i = 0; i < obstacles.size(); i++) {
+            Obstacle obstacle = obstacles.get(i);
+            String posXY1 = String.valueOf(obstacle.getPosition().getPosXY1());
+            String posXY2 = String.valueOf(obstacle.getPosition().getPosXY2());
+            String length = String.valueOf(obstacle.getLength());
+            String height = String.valueOf(obstacle.getHeight());
+            Log.v("obstacle", num0 + ": " + "pos1: " + posXY1 + ", " + "pos2: " + posXY2 + ", " + "length: " + length + "mm, " + "height: " + height + "mm");
+            num0++;
+        }
+
         int num = 1;
         for (int i = 0; i < tiles.size(); i++) {
             for (int j = 0; j < tiles.get(i).size(); j++) {
@@ -41,7 +60,7 @@ public class CalculatedActivity extends AppCompatActivity {
                 num++;
             }
         }
-        /*
+
         ImageView imgview = findViewById(R.id.imageView1);
 
         if (imgview != null) {
@@ -55,6 +74,7 @@ public class CalculatedActivity extends AppCompatActivity {
             int width = size.x;
             int height = size.y;
 
+
             Bitmap bg = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 
             Canvas canvas = new Canvas(bg);
@@ -65,8 +85,6 @@ public class CalculatedActivity extends AppCompatActivity {
                     int posy1 = tile.getPosition().getPosY1();
                     int posx2 = tile.getPosition().getPosX2();
                     int posy2 = tile.getPosition().getPosY2();
-                    // int length = tile.getLength();
-                    // int height = tile.getHeight();
                     canvas.drawRect(posx1, posy1, posx2, posy2, paint);
                 }
             }
