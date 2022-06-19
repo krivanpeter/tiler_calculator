@@ -49,4 +49,37 @@ public class Rectangle implements Serializable {
         this.position.posXY2.set(0, posX2);
         this.position.posXY2.set(1, posY2);
     }
+
+    // Thank you Shubhra Srivastava for the following method
+    public boolean isOverlapping(Rectangle other) {
+        if (this.position.getPosY1() >= other.getPosition().getPosY2() || this.position.getPosY2() <= other.getPosition().getPosY1()) {
+            return false;
+        }
+        if (this.position.getPosX1() >= other.getPosition().getPosX2() || this.position.getPosX2() <= other.getPosition().getPosX1()) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isFullyOverlapping(Rectangle other) {
+        if (this.position.getPosX1() <= other.getPosition().getPosX1() && this.position.getPosX2() >= other.getPosition().getPosX2() &&
+                this.position.getPosY1() <= other.getPosition().getPosY1() && this.position.getPosY2() >= other.getPosition().getPosY2()) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isVerticallyOverlapping(Rectangle other) {
+        if (this.position.getPosX1() > other.getPosition().getPosX1() && this.position.getPosX2() > other.getPosition().getPosX2()) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isHorizontallyOverlapping(Rectangle other) {
+        if (this.position.getPosY1() > other.getPosition().getPosY1() && this.position.getPosY2() > other.getPosition().getPosY2()) {
+            return true;
+        }
+        return false;
+    }
 }

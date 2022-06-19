@@ -155,15 +155,17 @@ public class MainActivity extends AppCompatActivity {
                 newRow.add(tile);
                 num++;
                 for (Obstacle obstacle : obstacles) {
-                    if (isObstacleOverlapped(tile, obstacle)) {
+                    if (obstacle.isOverlapping(tile)) {
                         // Removing Tiles that are fully overlap obstacle(s)
-                        if (isFullyOverlapped(tile, obstacle)) {
+                        if (obstacle.isFullyOverlapping(tile)) {
                             newRow.remove(tile);
                         }
-                        // Set length and/or height of Tile smaller dependent on Obstacle
-                        tile.setHeight(Calculator.cutTileHeight(tile, obstacle));
-                        // tile.setLength(Calculator.cutTileLength(tileDimensions, obstacle));
-
+                        if (obstacle.isVerticallyOverlapping(tile)) {
+                            tile.setLength(Calculator.cutTileLength(tile, obstacle));
+                        }
+                        if (obstacle.isHorizontallyOverlapping(tile)) {
+                            tile.setHeight(Calculator.cutTileHeight(tile, obstacle));
+                        }
                         tile.setPosXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
                     }
                 }
@@ -185,34 +187,6 @@ public class MainActivity extends AppCompatActivity {
         String obsDisFromBottomTxt = obsDisFromBottom.getText().toString();
 
         return !obsLengthInTxt.isEmpty() && !obsHeightInTxt.isEmpty() && !obsDisFromLeftTxt.isEmpty() && !obsDisFromBottomTxt.isEmpty();
-    }
-
-    private boolean isObstacleOverlapped(Tile tile, Obstacle obstacle) {
-        boolean obsX1TileX1 = obstacle.getPosition().getPosX1() <= tile.getPosition().getPosX1();
-        boolean obsX1TileX2 = obstacle.getPosition().getPosX1() < tile.getPosition().getPosX2();
-
-        boolean obsY1TileY1 = obstacle.getPosition().getPosY1() < tile.getPosition().getPosY1();
-        boolean obsY1TileY2 = obstacle.getPosition().getPosY1() < tile.getPosition().getPosY2();
-
-        boolean tileX1ObsX2 = tile.getPosition().getPosX1() < obstacle.getPosition().getPosX2();
-        boolean tileX2ObsX2 = tile.getPosition().getPosX2() < obstacle.getPosition().getPosX2();
-
-        boolean tileY1ObsY2 = tile.getPosition().getPosY1() < obstacle.getPosition().getPosY2();
-        boolean tileY2ObsY2 = tile.getPosition().getPosY2() < obstacle.getPosition().getPosY2();
-
-        boolean X1 = obsX1TileX2 && tileX2ObsX2;
-        boolean X2 = obsX1TileX1 && tileX1ObsX2;
-        boolean Y1 = obsY1TileY2 && tileY2ObsY2;
-        boolean Y2 = obsY1TileY1 && tileY1ObsY2;
-
-        return (X1 && Y1) || (X1 && Y2) || (X2 && Y1) || (X2 && Y2);
-    }
-
-    private boolean isFullyOverlapped(Tile tile, Obstacle obstacle) {
-        return tile.getPosition().getPosX1() >= obstacle.getPosition().getPosX1() && tile.getPosition().getPosX2() > obstacle.getPosition().getPosX1() &&
-                tile.getPosition().getPosX1() < obstacle.getPosition().getPosX2() && tile.getPosition().getPosX2() <= obstacle.getPosition().getPosX2() &&
-                tile.getPosition().getPosY1() >= obstacle.getPosition().getPosY1() && tile.getPosition().getPosY2() > obstacle.getPosition().getPosY1() &&
-                tile.getPosition().getPosY1() < obstacle.getPosition().getPosY2() && tile.getPosition().getPosY2() <= obstacle.getPosition().getPosY2();
     }
 }
 

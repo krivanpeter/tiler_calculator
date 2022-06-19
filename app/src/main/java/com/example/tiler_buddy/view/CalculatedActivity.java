@@ -44,7 +44,6 @@ public class CalculatedActivity extends AppCompatActivity {
             String posXY2 = String.valueOf(obstacle.getPosition().getPosXY2());
             String length = String.valueOf(obstacle.getLength());
             String height = String.valueOf(obstacle.getHeight());
-            Log.v("obstacle", num0 + ": " + "pos1: " + posXY1 + ", " + "pos2: " + posXY2 + ", " + "length: " + length + "mm, " + "height: " + height + "mm");
             num0++;
         }
 
