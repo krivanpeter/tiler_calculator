@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                         List<List<Tile>> tiles = setTilesSize(wallDimensions, tileDimensions, obstacles);
                         // Start New Activity
                         Intent intent = new Intent(MainActivity.this, CalculatedActivity.class);
-                        intent.putExtra("data", new CalculatedValuesWrapper(wallAreaMeter, numTiles, obstacles, tiles));
+                        intent.putExtra("data", new CalculatedValuesWrapper(wallAreaMeter, numTiles, obstacles, tiles, wallDimensions));
                         startActivity(intent);
                     }
                 } catch (ObstacleInputException e) {
@@ -160,10 +160,10 @@ public class MainActivity extends AppCompatActivity {
                         if (obstacle.isFullyOverlapping(tile)) {
                             newRow.remove(tile);
                         }
-                        if (obstacle.isVerticallyOverlapping(tile)) {
+                        if (obstacle.isLeftOverlapping(tile)) {
                             tile.setLength(Calculator.cutTileLength(tile, obstacle));
                         }
-                        if (obstacle.isHorizontallyOverlapping(tile)) {
+                        if (obstacle.isBottomOverlapping(tile)) {
                             tile.setHeight(Calculator.cutTileHeight(tile, obstacle));
                         }
                         tile.setPosXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
