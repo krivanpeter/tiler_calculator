@@ -3,6 +3,7 @@ package com.example.tiler_buddy.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewManager;
@@ -161,10 +162,14 @@ public class MainActivity extends AppCompatActivity {
                             newRow.remove(tile);
                         }
                         if (obstacle.isLeftOverlapping(tile)) {
-                            tile.setLength(Calculator.cutTileLength(tile, obstacle));
+                            tile.setLength(Calculator.cutTileLengthRight(tile, obstacle));
                         }
                         if (obstacle.isBottomOverlapping(tile)) {
                             tile.setHeight(Calculator.cutTileHeight(tile, obstacle));
+                        }
+                        if (obstacle.isRightOverlapping(tile)){
+                            tile.setLength(Calculator.cutTileLengthLeft(tile, obstacle));
+                            tile.setPosXY1(Calculator.calculateNewPosXY1(tile, obstacle),tile.getPosition().getPosY1());
                         }
                         tile.setPosXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
                     }

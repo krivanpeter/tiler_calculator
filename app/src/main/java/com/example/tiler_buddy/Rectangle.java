@@ -76,6 +76,13 @@ public class Rectangle implements Serializable {
         return false;
     }
 
+    public boolean isRightOverlapping(Rectangle other) {
+        if (this.position.getPosX1() < other.getPosition().getPosX1() && this.position.getPosX2() < other.getPosition().getPosX2()) {
+            return true;
+        }
+        return false;
+    }
+
     public boolean isBottomOverlapping(Rectangle other) {
         if (this.position.getPosY1() > other.getPosition().getPosY1() && this.position.getPosY2() > other.getPosition().getPosY2()) {
             return true;
