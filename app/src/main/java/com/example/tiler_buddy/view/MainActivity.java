@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                         double numTiles = Calculator.calculateTiles(toBeTiledArea, tileDimensions, tenPercent);
                         double wallAreaMeter = Calculator.convertToMeter(toBeTiledArea);
                         //Creating Tile Objects in a List
-                        List<List<Tile>> tiles = setTilesSize(wallDimensions, tileDimensions, obstacles);
+                        List<List<Tile>> tiles = setTiles(wallDimensions, tileDimensions, obstacles);
                         // Start New Activity
                         Intent intent = new Intent(MainActivity.this, CalculatedActivity.class);
                         intent.putExtra("data", new CalculatedValuesWrapper(wallAreaMeter, numTiles, obstacles, tiles, wallDimensions));
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         return Integer.parseInt(editText.getText().toString());
     }
 
-    private List<List<Tile>> setTilesSize(WallDimensions wallDimensions, TileDimensions tileDimensions, List<Obstacle> obstacles) {
+    private List<List<Tile>> setTiles(WallDimensions wallDimensions, TileDimensions tileDimensions, List<Obstacle> obstacles) {
         List<List<Tile>> tiles = new ArrayList<>();
         double numberOfRows = Calculator.calculateNumberOfRows(wallDimensions, tileDimensions);
         double numberOfColumns = Calculator.calculateNumberOfColumns(wallDimensions, tileDimensions);
@@ -144,31 +144,30 @@ public class MainActivity extends AppCompatActivity {
             List<Tile> newRow = new ArrayList<>();
             for (int j = 0; j < numberOfColumns; j++) {
                 Tile tile = new Tile();
-
                 tile.setPosXY1(j * tileDimensions.getLength(), i * tileDimensions.getHeight());
-
                 tile.setHeight(Math.min(wallDimensions.getHeight() - i * tileDimensions.getHeight(), tileDimensions.getHeight()));
                 tile.setLength(Math.min(wallDimensions.getLength() - j * tileDimensions.getLength(), tileDimensions.getLength()));
-
                 tile.setPosXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
-
                 newRow.add(tile);
-                num++;
                 for (Obstacle obstacle : obstacles) {
                     if (obstacle.isOverlapping(tile)) {
                         // Removing Tiles that are fully overlap obstacle(s)
                         if (obstacle.isFullyOverlapping(tile)) {
                             newRow.remove(tile);
                         }
-                        if (obstacle.isLeftOverlapping(tile) && !obstacle.isBottomOverlapping(tile)) {
+                        if (obstacle.isLeftOverlapping(tile) && !obstacle.isBottomOverlapping(tile) && !obstacle.isTopOverlapping(tile)) {
                             tile.setLength(Calculator.cutTileLengthRight(tile, obstacle));
                         }
                         if (obstacle.isBottomOverlapping(tile) && !obstacle.isLeftOverlapping(tile) && !obstacle.isRightOverlapping(tile)) {
-                            tile.setHeight(Calculator.cutTileHeight(tile, obstacle));
+                            tile.setHeight(Calculator.cutTileHeightTop(tile, obstacle));
                         }
-                        if (obstacle.isRightOverlapping(tile) && !obstacle.isBottomOverlapping(tile)){
+                        if (obstacle.isRightOverlapping(tile) && !obstacle.isBottomOverlapping(tile) && !obstacle.isTopOverlapping(tile)) {
                             tile.setLength(Calculator.cutTileLengthLeft(tile, obstacle));
-                            tile.setPosXY1(Calculator.calculateNewPosXY1(tile, obstacle),tile.getPosition().getPosY1());
+                            tile.setPosXY1(Calculator.calculateNewPosX1(tile, obstacle), tile.getPosition().getPosY1());
+                        }
+                        if (obstacle.isTopOverlapping(tile) && !obstacle.isLeftOverlapping(tile) && !obstacle.isRightOverlapping(tile)) {
+                            tile.setHeight(Calculator.cutTileHeightBottom(tile, obstacle));
+                            tile.setPosXY1(tile.getPosition().getPosX1(), Calculator.calculateNewPosY1(tile, obstacle));
                         }
                         tile.setPosXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
                     }

@@ -59,12 +59,20 @@ public class Calculator {
         return tile.getLength() - (obstacle.getPosition().getPosX2() - tile.getPosition().getPosX1());
     }
 
-    public static int cutTileHeight(Tile tile, Obstacle obstacle) {
+    public static int cutTileHeightTop(Tile tile, Obstacle obstacle) {
         return tile.getHeight() - (tile.getPosition().getPosY2() - obstacle.getPosition().getPosY1());
     }
 
-    public static int calculateNewPosXY1(Tile tile, Obstacle obstacle){
+    public static int cutTileHeightBottom(Tile tile, Obstacle obstacle) {
+        return tile.getHeight() - (obstacle.getPosition().getPosY2() - tile.getPosition().getPosY1());
+    }
+
+    public static int calculateNewPosX1(Tile tile, Obstacle obstacle){
         return tile.getPosition().getPosX1() + (obstacle.getPosition().getPosX2() - tile.getPosition().getPosX1());
+    }
+
+    public static int calculateNewPosY1(Tile tile, Obstacle obstacle){
+        return tile.getPosition().getPosY1() + (obstacle.getPosition().getPosY2() - tile.getPosition().getPosY1());
     }
 
     private static int calculateWallArea(WallDimensions wallDimensions) {
