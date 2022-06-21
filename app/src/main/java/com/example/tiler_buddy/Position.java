@@ -2,33 +2,40 @@ package com.example.tiler_buddy;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Position implements Serializable {
-    List<Integer> posXY = new ArrayList<>(Arrays.asList(0, 0));
-
-    public Position(List<Integer> posXY) {
-        this.posXY = posXY;
-    }
+    int posX;
+    int posY;
 
     public Position() {
     }
 
-    public List<Integer> getPosXY() {
-        return this.posXY;
+    public Position(int posX, int posY) {
+        this.posX = posX;
+        this.posY = posY;
     }
 
-    public void setPosXY(Integer posX, Integer posY) {
-        this.posXY.set(0, posX);
-        this.posXY.set(1, posY);
+    public List<Integer> getPosXY(){
+        List<Integer> posXY = new ArrayList<>();
+        posXY.add(this.posX);
+        posXY.add(this.posY);
+        return posXY;
     }
 
     public int getPosX() {
-        return this.posXY.get(0);
+        return posX;
+    }
+
+    public void setPosX(int posX) {
+        this.posX = posX;
     }
 
     public int getPosY() {
-        return this.posXY.get(1);
+        return posY;
+    }
+
+    public void setPosY(int posY) {
+        this.posY = posY;
     }
 }

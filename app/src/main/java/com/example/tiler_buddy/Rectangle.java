@@ -59,13 +59,13 @@ public class Rectangle implements Serializable {
     }
 
     public void setRectXY1(Integer posX1, Integer posY1) {
-        this.position1.posXY.set(0, posX1);
-        this.position1.posXY.set(1, posY1);
+        this.position1.posX = posX1;
+        this.position1.posY = posY1;
     }
 
     public void setRectXY2(Integer posX2, Integer posY2) {
-        this.position2.posXY.set(0, posX2);
-        this.position2.posXY.set(1, posY2);
+        this.position2.posX = posX2;
+        this.position2.posY = posY2;
     }
 
     // Thank you Shubhra Srivastava for the following method
