@@ -44,35 +44,35 @@ public class Calculator {
     }
 
     public static int calculatePosX2(Rectangle rectangle) {
-        return rectangle.position.getPosX1() + rectangle.getLength();
+        return rectangle.position1.getPosX() + rectangle.getLength();
     }
 
     public static int calculatePosY2(Rectangle rectangle) {
-        return rectangle.position.getPosY1() + rectangle.getHeight();
+        return rectangle.position1.getPosY() + rectangle.getHeight();
     }
 
     public static int cutTileLengthRight(Tile tile, Obstacle obstacle) {
-        return tile.getLength() - (tile.getPosition().getPosX2() - obstacle.getPosition().getPosX1());
+        return tile.getLength() - (tile.getPosX2() - obstacle.getPosX1());
     }
 
     public static int cutTileLengthLeft(Tile tile, Obstacle obstacle) {
-        return tile.getLength() - (obstacle.getPosition().getPosX2() - tile.getPosition().getPosX1());
+        return tile.getLength() - (obstacle.getPosX2() - tile.getPosX1());
     }
 
     public static int cutTileHeightTop(Tile tile, Obstacle obstacle) {
-        return tile.getHeight() - (tile.getPosition().getPosY2() - obstacle.getPosition().getPosY1());
+        return tile.getHeight() - (tile.getPosY2() - obstacle.getPosY1());
     }
 
     public static int cutTileHeightBottom(Tile tile, Obstacle obstacle) {
-        return tile.getHeight() - (obstacle.getPosition().getPosY2() - tile.getPosition().getPosY1());
+        return tile.getHeight() - (obstacle.getPosY2() - tile.getPosY1());
     }
 
     public static int calculateNewPosX1(Tile tile, Obstacle obstacle){
-        return tile.getPosition().getPosX1() + (obstacle.getPosition().getPosX2() - tile.getPosition().getPosX1());
+        return tile.getPosX1() + (obstacle.getPosX2() - tile.getPosX1());
     }
 
     public static int calculateNewPosY1(Tile tile, Obstacle obstacle){
-        return tile.getPosition().getPosY1() + (obstacle.getPosition().getPosY2() - tile.getPosition().getPosY1());
+        return tile.getPosY1() + (obstacle.getPosY2() - tile.getPosY1());
     }
 
     private static int calculateWallArea(WallDimensions wallDimensions) {

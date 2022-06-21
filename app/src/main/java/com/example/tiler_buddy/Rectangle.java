@@ -5,15 +5,17 @@ import java.io.Serializable;
 public class Rectangle implements Serializable {
     int length;
     int height;
-    Position position = new Position();
+    Position position1 = new Position();
+    Position position2 = new Position();
 
     public Rectangle() {
     }
 
-    public Rectangle(int length, int height, Position position) {
+    public Rectangle(int length, int height, Position position1, Position position2) {
         this.length = length;
         this.height = height;
-        this.position = position;
+        this.position1 = position1;
+        this.position2 = position2;
     }
 
     public int getLength() {
@@ -32,59 +34,82 @@ public class Rectangle implements Serializable {
         this.height = height;
     }
 
-    public Position getPosition() {
-        return position;
+    public Position getPosition1() {
+        return position1;
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
+    public Integer getPosX1() {
+        return position1.getPosX();
     }
 
-    public void setPosXY1(Integer posX1, Integer posY1) {
-        this.position.posXY1.set(0, posX1);
-        this.position.posXY1.set(1, posY1);
+    public Integer getPosY1() {
+        return position1.getPosY();
     }
 
-    public void setPosXY2(Integer posX2, Integer posY2) {
-        this.position.posXY2.set(0, posX2);
-        this.position.posXY2.set(1, posY2);
+    public Position getPosition2() {
+        return position2;
+    }
+
+    public Integer getPosX2() {
+        return position2.getPosX();
+    }
+
+    public Integer getPosY2() {
+        return position2.getPosY();
+    }
+
+    public void setRectXY1(Integer posX1, Integer posY1) {
+        this.position1.posXY.set(0, posX1);
+        this.position1.posXY.set(1, posY1);
+    }
+
+    public void setRectXY2(Integer posX2, Integer posY2) {
+        this.position2.posXY.set(0, posX2);
+        this.position2.posXY.set(1, posY2);
     }
 
     // Thank you Shubhra Srivastava for the following method
     public boolean isOverlapping(Rectangle other) {
-        if (this.position.getPosY1() >= other.getPosition().getPosY2() || this.position.getPosY2() <= other.getPosition().getPosY1()) {
+        if (this.getPosY1() >= other.getPosY2() || this.getPosY2() <= other.getPosY1()) {
             return false;
         }
-        if (this.position.getPosX1() >= other.getPosition().getPosX2() || this.position.getPosX2() <= other.getPosition().getPosX1()) {
+        if (this.getPosX1() >= other.getPosX2() || this.getPosX2() <= other.getPosX1()) {
             return false;
         }
         return true;
     }
 
     public boolean isFullyOverlapping(Rectangle other) {
-        if (this.position.getPosX1() <= other.getPosition().getPosX1() && this.position.getPosX2() >= other.getPosition().getPosX2() &&
-                this.position.getPosY1() <= other.getPosition().getPosY1() && this.position.getPosY2() >= other.getPosition().getPosY2()) {
+        if (this.getPosX1() <= other.getPosX1() && this.getPosX2() >= other.getPosX2() &&
+                this.getPosY1() <= other.getPosY1() && this.getPosY2() >= other.getPosY2()) {
             return true;
         }
         return false;
     }
 
     public boolean isLeftOverlapping(Rectangle other) {
-        if (this.position.getPosX1() > other.getPosition().getPosX1() && this.position.getPosX2() > other.getPosition().getPosX2()) {
+        if (this.getPosX1() > other.getPosX1() && this.getPosX2() > other.getPosX2()) {
             return true;
         }
         return false;
     }
 
     public boolean isRightOverlapping(Rectangle other) {
-        if (this.position.getPosX1() < other.getPosition().getPosX1() && this.position.getPosX2() < other.getPosition().getPosX2()) {
+        if (this.getPosX1() < other.getPosX1() && this.getPosX2() < other.getPosX2()) {
             return true;
         }
         return false;
     }
 
     public boolean isBottomOverlapping(Rectangle other) {
-        if (this.position.getPosY1() > other.getPosition().getPosY1() && this.position.getPosY2() > other.getPosition().getPosY2()) {
+        if (this.getPosY1() > other.getPosY1() && this.getPosY2() > other.getPosY2()) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isTopOverlapping(Rectangle other) {
+        if (this.getPosY1() < other.getPosY1() && this.getPosY2() < other.getPosY2()) {
             return true;
         }
         return false;

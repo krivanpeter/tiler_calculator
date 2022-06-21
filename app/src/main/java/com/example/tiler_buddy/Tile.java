@@ -1,43 +1,31 @@
 package com.example.tiler_buddy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Tile extends Rectangle {
-/*
-    int length;
-    int height;
-    Position position;
+
+    List<Position> sides = new ArrayList<>();
 
     public Tile() {
     }
 
-    public Tile(int length, int height, Position position) {
+    public Tile(int length, int height, Position position, List<Position> sides) {
         this.length = length;
         this.height = height;
-        this.position = position;
+        this.position1 = position;
+        this.sides = sides;
     }
 
-    public int getLength() {
-        return length;
+    public List<Position> getSides() {
+        return sides;
     }
 
-    public void setLength(int length) {
-        this.length = length;
+    public void setSides(List<Position> sides) {
+        this.sides = sides;
     }
 
-    public int getHeight() {
-        return height;
+    public void addSide(Position position) {
+        this.sides.add(position);
     }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
- */
 }

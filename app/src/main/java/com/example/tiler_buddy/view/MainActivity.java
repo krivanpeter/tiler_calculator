@@ -121,8 +121,8 @@ public class MainActivity extends AppCompatActivity {
                 obstacle.setLength(getEditTextNumbers(obsLengthIn));
                 obstacle.setHeight(getEditTextNumbers(obsHeightIn));
 
-                obstacle.setPosXY1(getEditTextNumbers(obsDisFromLeft), getEditTextNumbers(obsDisFromBottom));
-                obstacle.setPosXY2(Calculator.calculatePosX2(obstacle), Calculator.calculatePosY2(obstacle));
+                obstacle.setRectXY1(getEditTextNumbers(obsDisFromLeft), getEditTextNumbers(obsDisFromBottom));
+                obstacle.setRectXY2(Calculator.calculatePosX2(obstacle), Calculator.calculatePosY2(obstacle));
 
                 obstacleIns.add(obstacle);
             } else {
@@ -144,38 +144,48 @@ public class MainActivity extends AppCompatActivity {
             List<Tile> newRow = new ArrayList<>();
             for (int j = 0; j < numberOfColumns; j++) {
                 Tile tile = new Tile();
-                tile.setPosXY1(j * tileDimensions.getLength(), i * tileDimensions.getHeight());
+                tile.setRectXY1(j * tileDimensions.getLength(), i * tileDimensions.getHeight());
                 tile.setHeight(Math.min(wallDimensions.getHeight() - i * tileDimensions.getHeight(), tileDimensions.getHeight()));
                 tile.setLength(Math.min(wallDimensions.getLength() - j * tileDimensions.getLength(), tileDimensions.getLength()));
-                tile.setPosXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
+                tile.setRectXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
                 newRow.add(tile);
-                for (Obstacle obstacle : obstacles) {
-                    if (obstacle.isOverlapping(tile)) {
-                        // Removing Tiles that are fully overlap obstacle(s)
-                        if (obstacle.isFullyOverlapping(tile)) {
-                            newRow.remove(tile);
-                        }
-                        if (obstacle.isLeftOverlapping(tile) && !obstacle.isBottomOverlapping(tile) && !obstacle.isTopOverlapping(tile)) {
-                            tile.setLength(Calculator.cutTileLengthRight(tile, obstacle));
-                        }
-                        if (obstacle.isBottomOverlapping(tile) && !obstacle.isLeftOverlapping(tile) && !obstacle.isRightOverlapping(tile)) {
-                            tile.setHeight(Calculator.cutTileHeightTop(tile, obstacle));
-                        }
-                        if (obstacle.isRightOverlapping(tile) && !obstacle.isBottomOverlapping(tile) && !obstacle.isTopOverlapping(tile)) {
-                            tile.setLength(Calculator.cutTileLengthLeft(tile, obstacle));
-                            tile.setPosXY1(Calculator.calculateNewPosX1(tile, obstacle), tile.getPosition().getPosY1());
-                        }
-                        if (obstacle.isTopOverlapping(tile) && !obstacle.isLeftOverlapping(tile) && !obstacle.isRightOverlapping(tile)) {
-                            tile.setHeight(Calculator.cutTileHeightBottom(tile, obstacle));
-                            tile.setPosXY1(tile.getPosition().getPosX1(), Calculator.calculateNewPosY1(tile, obstacle));
-                        }
-                        tile.setPosXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
-                    }
-                }
+                cutTiles(obstacles, newRow, tile);
             }
             tiles.add(newRow);
         }
         return tiles;
+    }
+
+    private void cutTiles(List <Obstacle> obstacles, List <Tile> newRow, Tile tile){
+        for (Obstacle obstacle : obstacles) {
+            if (obstacle.isOverlapping(tile)) {
+                // Removing Tiles that are fully overlap obstacle(s)
+                if (obstacle.isFullyOverlapping(tile)) {
+                    newRow.remove(tile);
+                }
+                if (obstacle.isLeftOverlapping(tile) && !obstacle.isBottomOverlapping(tile) && !obstacle.isTopOverlapping(tile)) {
+                    tile.setLength(Calculator.cutTileLengthRight(tile, obstacle));
+                }
+                if (obstacle.isBottomOverlapping(tile) && !obstacle.isLeftOverlapping(tile) && !obstacle.isRightOverlapping(tile)) {
+                    tile.setHeight(Calculator.cutTileHeightTop(tile, obstacle));
+                }
+                if (obstacle.isRightOverlapping(tile) && !obstacle.isBottomOverlapping(tile) && !obstacle.isTopOverlapping(tile)) {
+                    tile.setLength(Calculator.cutTileLengthLeft(tile, obstacle));
+                    tile.setRectXY1(Calculator.calculateNewPosX1(tile, obstacle), tile.getPosY1());
+                }
+                if (obstacle.isTopOverlapping(tile) && !obstacle.isLeftOverlapping(tile) && !obstacle.isRightOverlapping(tile)) {
+                    tile.setHeight(Calculator.cutTileHeightBottom(tile, obstacle));
+                    tile.setRectXY1(tile.getPosX1(), Calculator.calculateNewPosY1(tile, obstacle));
+                }
+                /*
+                if (obstacle.isLeftOverlapping(tile) && obstacle.isBottomOverlapping(tile)){
+                    tile.addSide();
+                }
+
+                 */
+                tile.setRectXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
+            }
+        }
     }
 
     private boolean isObstaclesInputValid(View obstacleInput) {

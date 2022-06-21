@@ -41,8 +41,8 @@ public class CalculatedActivity extends AppCompatActivity {
         int num0 = 1;
         for (int i = 0; i < obstacles.size(); i++) {
             Obstacle obstacle = obstacles.get(i);
-            String posXY1 = String.valueOf(obstacle.getPosition().getPosXY1());
-            String posXY2 = String.valueOf(obstacle.getPosition().getPosXY2());
+            String posXY1 = String.valueOf(obstacle.getPosition1());
+            String posXY2 = String.valueOf(obstacle.getPosition2());
             String length = String.valueOf(obstacle.getLength());
             String height = String.valueOf(obstacle.getHeight());
             num0++;
@@ -52,8 +52,8 @@ public class CalculatedActivity extends AppCompatActivity {
         for (int i = 0; i < tiles.size(); i++) {
             for (int j = 0; j < tiles.get(i).size(); j++) {
                 Tile tile = tiles.get(i).get(j);
-                String posXY1 = String.valueOf(tile.getPosition().getPosXY1());
-                String posXY2 = String.valueOf(tile.getPosition().getPosXY2());
+                String posXY1 = String.valueOf(tile.getPosition1().getPosXY());
+                String posXY2 = String.valueOf(tile.getPosition2().getPosXY());
                 String length = String.valueOf(tile.getLength());
                 String height = String.valueOf(tile.getHeight());
                 Log.v("csempe", num + ": " + "pos1: " + posXY1 + ", " + "pos2: " + posXY2 + ", " + "length: " + length + "mm, " + "height: " + height + "mm");
@@ -71,8 +71,8 @@ public class CalculatedActivity extends AppCompatActivity {
             Display display = getWindowManager().getDefaultDisplay();
             Point size = new Point();
             display.getSize(size);
-            int width = size.x;
-            int height = size.y;
+            int displayWidth = size.x;
+            int displayHeight = size.y;
 
 
             Bitmap bg = Bitmap.createBitmap(wallDimensions.getLength() + 10, wallDimensions.getHeight() + 10, Bitmap.Config.ARGB_8888);
@@ -81,10 +81,18 @@ public class CalculatedActivity extends AppCompatActivity {
             for (int i = 0; i < tiles.size(); i++) {
                 for (int j = 0; j < tiles.get(i).size(); j++) {
                     Tile tile = tiles.get(i).get(j);
-                    int posx1 = tile.getPosition().getPosX1();
-                    int posy1 = tile.getPosition().getPosY1();
-                    int posx2 = tile.getPosition().getPosX2();
-                    int posy2 = tile.getPosition().getPosY2();
+                    int posx1 = tile.getPosX1();
+                    int posy1 = tile.getPosY1();
+                    int posx2 = tile.getPosX2();
+                    int posy2 = tile.getPosY2();
+                    /*
+                    int tileLength = tile.getLength();
+                    int tileHeight = tile.getHeight();
+                    canvas.drawLine(posx1, posy1, posx1, posy2, paint);
+                    canvas.drawLine(posx1, posy2, posx2, posy2, paint);
+                    canvas.drawLine(posx2, posy2, posx2, posy1, paint);
+                    canvas.drawLine(posx2, posy1, posx1, posy1, paint);
+                     */
                     canvas.drawRect(posx1, posy1, posx2, posy2, paint);
                 }
             }
