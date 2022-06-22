@@ -5,27 +5,21 @@ import java.util.List;
 
 public class Tile extends Rectangle {
 
-    List<Position> sides = new ArrayList<>();
+    List<Side> sides = new ArrayList<>();
 
     public Tile() {
     }
 
-    public Tile(int length, int height, Position position, List<Position> sides) {
-        this.length = length;
-        this.height = height;
-        this.position1 = position;
+    public Tile(List<Side> sides) {
         this.sides = sides;
     }
 
-    public List<Position> getSides() {
+    public List<Side> getSides() {
         return sides;
     }
 
-    public void setSides(List<Position> sides) {
-        this.sides = sides;
+    public void addSide(Side side) {
+        this.sides.add(side);
     }
 
-    public void addSide(Position position) {
-        this.sides.add(position);
-    }
 }
