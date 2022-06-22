@@ -5,17 +5,17 @@ import java.io.Serializable;
 public class Rectangle implements Serializable {
     int length;
     int height;
-    Position position1 = new Position();
-    Position position2 = new Position();
+    Position leftBottomPosition = new Position();
+    Position topRightPosition = new Position();
 
     public Rectangle() {
     }
 
-    public Rectangle(int length, int height, Position position1, Position position2) {
+    public Rectangle(int length, int height, Position leftBottomPosition, Position topRightPosition) {
         this.length = length;
         this.height = height;
-        this.position1 = position1;
-        this.position2 = position2;
+        this.leftBottomPosition = leftBottomPosition;
+        this.topRightPosition = topRightPosition;
     }
 
     public int getLength() {
@@ -34,38 +34,38 @@ public class Rectangle implements Serializable {
         this.height = height;
     }
 
-    public Position getPosition1() {
-        return position1;
+    public Position getLeftBottomPosition() {
+        return leftBottomPosition;
     }
 
     public Integer getPosX1() {
-        return position1.getPosX();
+        return leftBottomPosition.getPosX();
     }
 
     public Integer getPosY1() {
-        return position1.getPosY();
+        return leftBottomPosition.getPosY();
     }
 
-    public Position getPosition2() {
-        return position2;
+    public Position getTopRightPosition() {
+        return topRightPosition;
     }
 
     public Integer getPosX2() {
-        return position2.getPosX();
+        return topRightPosition.getPosX();
     }
 
     public Integer getPosY2() {
-        return position2.getPosY();
+        return topRightPosition.getPosY();
     }
 
     public void setRectXY1(Integer posX1, Integer posY1) {
-        this.position1.posX = posX1;
-        this.position1.posY = posY1;
+        this.leftBottomPosition.posX = posX1;
+        this.leftBottomPosition.posY = posY1;
     }
 
     public void setRectXY2(Integer posX2, Integer posY2) {
-        this.position2.posX = posX2;
-        this.position2.posY = posY2;
+        this.topRightPosition.posX = posX2;
+        this.topRightPosition.posY = posY2;
     }
 
     // Thank you Shubhra Srivastava for the following method
