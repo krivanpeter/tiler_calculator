@@ -44,11 +44,11 @@ public class Calculator {
     }
 
     public static int calculatePosX2(Rectangle rectangle) {
-        return rectangle.position1.getPosX() + rectangle.getLength();
+        return rectangle.leftBottomPosition.getPosX() + rectangle.getLength();
     }
 
     public static int calculatePosY2(Rectangle rectangle) {
-        return rectangle.position1.getPosY() + rectangle.getHeight();
+        return rectangle.leftBottomPosition.getPosY() + rectangle.getHeight();
     }
 
     public static int cutTileLengthRight(Tile tile, Obstacle obstacle) {

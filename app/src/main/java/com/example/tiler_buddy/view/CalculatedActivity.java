@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -68,7 +67,6 @@ public class CalculatedActivity extends AppCompatActivity {
 
             Canvas canvas = new Canvas(bg);
 
-            int num = 1;
             for (int i = 0; i < tiles.size(); i++) {
                 for (int j = 0; j < tiles.get(i).size(); j++) {
                     Tile tile = tiles.get(i).get(j);
@@ -86,7 +84,6 @@ public class CalculatedActivity extends AppCompatActivity {
                             canvas.drawLine(tile.getSides().get(x).getX1(),tile.getSides().get(x).getY1(), tile.getSides().get(x).getX2(), tile.getSides().get(x).getY2(), paint);
                         }
                     }
-                    num++;
                 }
             }
             imgview.setBackground(new BitmapDrawable(bg));

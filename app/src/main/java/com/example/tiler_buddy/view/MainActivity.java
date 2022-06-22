@@ -179,26 +179,29 @@ public class MainActivity extends AppCompatActivity {
                     tile.setRectXY1(tile.getPosX1(), Calculator.calculateNewPosY1(tile, obstacle));
                 }
                 if (obstacle.isLeftOverlapping(tile) && obstacle.isBottomOverlapping(tile)){
-                    int topCutX = tile.getPosX2() - Calculator.cutTileLengthRight(tile, obstacle);
-                    int topCutY = Calculator.cutTileHeightTop(tile, obstacle);
-
-                    Side leftSide = new Side(tile.getPosX1(), tile.getPosY1(), tile.getPosX1(), tile.getPosY2());
-                    Side topSide = new Side(tile.getPosX1(), tile.getPosY2(), topCutX, tile.getPosY2());
-                    Side middleYSide = new Side(topCutX, tile.getPosY2(), topCutX, topCutY);
-                    Side middleXSide = new Side(topCutX, topCutY, tile.getPosX2(), topCutY);
-                    Side rightSide = new Side(tile.getPosX2(), topCutY, tile.getPosX2(), tile.getPosY1());
-                    Side bottomSide = new Side(tile.getPosX2(), tile.getPosY1(), tile.getPosX1(), tile.getPosY1());
-
-                    tile.addSide(leftSide);
-                    tile.addSide(topSide);
-                    tile.addSide(middleYSide);
-                    tile.addSide(middleXSide);
-                    tile.addSide(rightSide);
-                    tile.addSide(bottomSide);
+                    int cutX = tile.getPosX2() - Calculator.cutTileLengthRight(tile, obstacle);
+                    int cutY = Calculator.cutTileHeightTop(tile, obstacle);
+                    setTileSides(tile, cutX, cutY);
                 }
                 tile.setRectXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
             }
         }
+    }
+
+    private void setTileSides(Tile tile, int cutX, int cutY){
+        Side leftSide = new Side(tile.getPosX1(), tile.getPosY1(), tile.getPosX1(), tile.getPosY2());
+        Side topSide = new Side(tile.getPosX1(), tile.getPosY2(), cutX, tile.getPosY2());
+        Side middleYSide = new Side(cutX, tile.getPosY2(), cutX, cutY);
+        Side middleXSide = new Side(cutX, cutY, tile.getPosX2(), cutY);
+        Side rightSide = new Side(tile.getPosX2(), cutY, tile.getPosX2(), tile.getPosY1());
+        Side bottomSide = new Side(tile.getPosX2(), tile.getPosY1(), tile.getPosX1(), tile.getPosY1());
+
+        tile.addSide(leftSide);
+        tile.addSide(topSide);
+        tile.addSide(middleYSide);
+        tile.addSide(middleXSide);
+        tile.addSide(rightSide);
+        tile.addSide(bottomSide);
     }
 
     private boolean isObstaclesInputValid(View obstacleInput) {
