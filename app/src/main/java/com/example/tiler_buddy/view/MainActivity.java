@@ -20,6 +20,7 @@ import com.example.tiler_buddy.CalculatedValuesWrapper;
 import com.example.tiler_buddy.Calculator;
 import com.example.tiler_buddy.Obstacle;
 import com.example.tiler_buddy.ObstacleInputException;
+import com.example.tiler_buddy.Side;
 import com.example.tiler_buddy.Tile;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
@@ -177,12 +178,24 @@ public class MainActivity extends AppCompatActivity {
                     tile.setHeight(Calculator.cutTileHeightBottom(tile, obstacle));
                     tile.setRectXY1(tile.getPosX1(), Calculator.calculateNewPosY1(tile, obstacle));
                 }
-                /*
                 if (obstacle.isLeftOverlapping(tile) && obstacle.isBottomOverlapping(tile)){
-                    tile.addSide();
-                }
+                    int topCutX = tile.getPosX2() - Calculator.cutTileLengthRight(tile, obstacle);
+                    int topCutY = Calculator.cutTileHeightTop(tile, obstacle);
 
-                 */
+                    Side leftSide = new Side(tile.getPosX1(), tile.getPosY1(), tile.getPosX1(), tile.getPosY2());
+                    Side topSide = new Side(tile.getPosX1(), tile.getPosY2(), topCutX, tile.getPosY2());
+                    Side middleYSide = new Side(topCutX, tile.getPosY2(), topCutX, topCutY);
+                    Side middleXSide = new Side(topCutX, topCutY, tile.getPosX2(), topCutY);
+                    Side rightSide = new Side(tile.getPosX2(), topCutY, tile.getPosX2(), tile.getPosY1());
+                    Side bottomSide = new Side(tile.getPosX2(), tile.getPosY1(), tile.getPosX1(), tile.getPosY1());
+
+                    tile.addSide(leftSide);
+                    tile.addSide(topSide);
+                    tile.addSide(middleYSide);
+                    tile.addSide(middleXSide);
+                    tile.addSide(rightSide);
+                    tile.addSide(bottomSide);
+                }
                 tile.setRectXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
             }
         }
