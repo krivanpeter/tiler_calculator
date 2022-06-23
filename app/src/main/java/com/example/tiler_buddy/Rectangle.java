@@ -3,19 +3,23 @@ package com.example.tiler_buddy;
 import java.io.Serializable;
 
 public class Rectangle implements Serializable {
+    int x1;
+    int y1;
+    int x2;
+    int y2;
     int length;
     int height;
-    Position leftBottomPosition = new Position();
-    Position topRightPosition = new Position();
 
     public Rectangle() {
     }
 
-    public Rectangle(int length, int height, Position leftBottomPosition, Position topRightPosition) {
+    public Rectangle(int length, int height, int x1, int y1, int x2, int y2) {
         this.length = length;
         this.height = height;
-        this.leftBottomPosition = leftBottomPosition;
-        this.topRightPosition = topRightPosition;
+        this.x1 = x1;
+        this.y1 = y1;
+        this.x2 = x2;
+        this.y2 = y2;
     }
 
     public int getLength() {
@@ -34,82 +38,90 @@ public class Rectangle implements Serializable {
         this.height = height;
     }
 
-    public Position getLeftBottomPosition() {
-        return leftBottomPosition;
+    public int getX1() {
+        return x1;
     }
 
-    public Integer getPosX1() {
-        return leftBottomPosition.getPosX();
+    public void setX1(int x1) {
+        this.x1 = x1;
     }
 
-    public Integer getPosY1() {
-        return leftBottomPosition.getPosY();
+    public int getY1() {
+        return y1;
     }
 
-    public Position getTopRightPosition() {
-        return topRightPosition;
+    public void setY1(int y1) {
+        this.y1 = y1;
     }
 
-    public Integer getPosX2() {
-        return topRightPosition.getPosX();
+    public int getX2() {
+        return x2;
     }
 
-    public Integer getPosY2() {
-        return topRightPosition.getPosY();
+    public void setX2(int x2) {
+        this.x2 = x2;
     }
 
-    public void setRectXY1(Integer posX1, Integer posY1) {
-        this.leftBottomPosition.posX = posX1;
-        this.leftBottomPosition.posY = posY1;
+    public int getY2() {
+        return y2;
     }
 
-    public void setRectXY2(Integer posX2, Integer posY2) {
-        this.topRightPosition.posX = posX2;
-        this.topRightPosition.posY = posY2;
+    public void setY2(int y2) {
+        this.y2 = y2;
+    }
+
+    public void setRectXY1(int x1, int y1){
+        this.x1 = x1;
+        this.y1 = y1;
+    }
+
+    public void setRectXY2(int x2, int y2){
+        this.x2 = x2;
+        this.y2 = y2;
     }
 
     // Thank you Shubhra Srivastava for the following method
     public boolean isOverlapping(Rectangle other) {
-        if (this.getPosY1() >= other.getPosY2() || this.getPosY2() <= other.getPosY1()) {
+        if (this.y1 >= other.getY2() || this.y2 <= other.getY1()) {
             return false;
         }
-        if (this.getPosX1() >= other.getPosX2() || this.getPosX2() <= other.getPosX1()) {
+        if (this.x1 >= other.getX2() || this.x2 <= other.getX1()) {
             return false;
         }
         return true;
     }
 
     public boolean isFullyOverlapping(Rectangle other) {
-        if (this.getPosX1() <= other.getPosX1() && this.getPosX2() >= other.getPosX2() &&
-                this.getPosY1() <= other.getPosY1() && this.getPosY2() >= other.getPosY2()) {
+        if (this.x1 <= other.getX1() && this.x2 >= other.getX2() &&
+                this.y1 <= other.getY1() && this.y2 >= other.getY2()) {
             return true;
         }
         return false;
     }
 
     public boolean isLeftOverlapping(Rectangle other) {
-        if (this.getPosX1() > other.getPosX1() && this.getPosX2() > other.getPosX2()) {
+        if (this.x1 > other.getX1() && this.x2 > other.getX2()) {
             return true;
         }
         return false;
     }
 
     public boolean isRightOverlapping(Rectangle other) {
-        if (this.getPosX1() < other.getPosX1() && this.getPosX2() < other.getPosX2()) {
+        if (this.x1 < other.getX1() && this.x2 < other.getX2()) {
             return true;
         }
         return false;
     }
 
     public boolean isBottomOverlapping(Rectangle other) {
-        if (this.getPosY1() > other.getPosY1() && this.getPosY2() > other.getPosY2()) {
+        if (this.y1 > other.getY1() && this.y2 > other.getY2()) {
             return true;
         }
         return false;
     }
 
     public boolean isTopOverlapping(Rectangle other) {
-        if (this.getPosY1() < other.getPosY1() && this.getPosY2() < other.getPosY2()) {
+        if (this.y1 < other.getY1() && this.y2 < other.getY2()) {
             return true;
         }
         return false;

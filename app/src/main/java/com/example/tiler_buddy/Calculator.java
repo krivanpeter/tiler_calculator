@@ -44,35 +44,35 @@ public class Calculator {
     }
 
     public static int calculatePosX2(Rectangle rectangle) {
-        return rectangle.leftBottomPosition.getPosX() + rectangle.getLength();
+        return rectangle.getX1() + rectangle.getLength();
     }
 
     public static int calculatePosY2(Rectangle rectangle) {
-        return rectangle.leftBottomPosition.getPosY() + rectangle.getHeight();
+        return rectangle.getY1() + rectangle.getHeight();
     }
 
     public static int cutTileLengthRight(Tile tile, Obstacle obstacle) {
-        return tile.getLength() - (tile.getPosX2() - obstacle.getPosX1());
+        return tile.getLength() - (tile.getX2() - obstacle.getX1());
     }
 
     public static int cutTileLengthLeft(Tile tile, Obstacle obstacle) {
-        return tile.getLength() - (obstacle.getPosX2() - tile.getPosX1());
+        return tile.getLength() - (obstacle.getX2() - tile.getX1());
     }
 
     public static int cutTileHeightTop(Tile tile, Obstacle obstacle) {
-        return tile.getHeight() - (tile.getPosY2() - obstacle.getPosY1());
+        return tile.getHeight() - (tile.getY2() - obstacle.getY1());
     }
 
     public static int cutTileHeightBottom(Tile tile, Obstacle obstacle) {
-        return tile.getHeight() - (obstacle.getPosY2() - tile.getPosY1());
+        return tile.getHeight() - (obstacle.getY2() - tile.getY1());
     }
 
     public static int calculateNewPosX1(Tile tile, Obstacle obstacle){
-        return tile.getPosX1() + (obstacle.getPosX2() - tile.getPosX1());
+        return tile.getX1() + (obstacle.getX2() - tile.getX1());
     }
 
     public static int calculateNewPosY1(Tile tile, Obstacle obstacle){
-        return tile.getPosY1() + (obstacle.getPosY2() - tile.getPosY1());
+        return tile.getY1() + (obstacle.getY2() - tile.getY1());
     }
 
     private static int calculateWallArea(WallDimensions wallDimensions) {

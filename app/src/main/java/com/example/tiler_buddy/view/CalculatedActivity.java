@@ -37,18 +37,6 @@ public class CalculatedActivity extends AppCompatActivity {
         List<List<Tile>> tiles = calculatedValuesWrapper.getTiles();
         WallDimensions wallDimensions = calculatedValuesWrapper.getWallDimensions();
 
-        int num0 = 1;
-        for (int i = 0; i < obstacles.size(); i++) {
-            Obstacle obstacle = obstacles.get(i);
-            String posXY1 = String.valueOf(obstacle.getLeftBottomPosition());
-            String posXY2 = String.valueOf(obstacle.getTopRightPosition());
-            String length = String.valueOf(obstacle.getLength());
-            String height = String.valueOf(obstacle.getHeight());
-            num0++;
-        }
-
-
-
         ImageView imgview = findViewById(R.id.imageView1);
 
         if (imgview != null) {
@@ -70,10 +58,10 @@ public class CalculatedActivity extends AppCompatActivity {
             for (int i = 0; i < tiles.size(); i++) {
                 for (int j = 0; j < tiles.get(i).size(); j++) {
                     Tile tile = tiles.get(i).get(j);
-                    int posx1 = tile.getPosX1();
-                    int posy1 = tile.getPosY1();
-                    int posx2 = tile.getPosX2();
-                    int posy2 = tile.getPosY2();
+                    int posx1 = tile.getX1();
+                    int posy1 = tile.getY1();
+                    int posx2 = tile.getX2();
+                    int posy2 = tile.getY2();
                     String length = String.valueOf(tile.getLength());
                     String height = String.valueOf(tile.getHeight());
 
