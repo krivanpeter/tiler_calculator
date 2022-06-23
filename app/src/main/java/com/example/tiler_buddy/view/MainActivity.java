@@ -22,14 +22,13 @@ import com.example.tiler_buddy.Obstacle;
 import com.example.tiler_buddy.ObstacleInputException;
 import com.example.tiler_buddy.Side;
 import com.example.tiler_buddy.Tile;
+import com.example.tiler_buddy.TileRow;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
-    int num = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,21 +50,15 @@ public class MainActivity extends AppCompatActivity {
         buttonCalculate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Wall Inputs
-                EditText wallLengthIn = findViewById(R.id.wall_length_in);
-                EditText wallHeightIn = findViewById(R.id.wall_height_in);
-                // Tile Inputs
-                EditText tileLengthIn = findViewById(R.id.tile_length_in);
-                EditText tileHeightIn = findViewById(R.id.tile_height_in);
+                String wallLengthStr = getEditTextInputAsString("wall_length_in");
+                String wallHeightStr = getEditTextInputAsString("wall_height_in");
+                String tileLengthStr = getEditTextInputAsString("tile_length_in");
+                String tileHeightStr = getEditTextInputAsString("tile_height_in");
                 // 10% wastage
                 SwitchMaterial tenPercentIn = findViewById(R.id.ten_percent);
 
                 try {
                     List<Obstacle> obstacles = parseInputsAsObstacles();
-                    //Getting inputs as strings for checks
-                    String wallLengthStr = wallLengthIn.getText().toString();
-                    String wallHeightStr = wallHeightIn.getText().toString();
-                    String tileLengthStr = tileLengthIn.getText().toString();
-                    String tileHeightStr = tileHeightIn.getText().toString();
                     //Checking if inputs are empty
                     if (wallLengthStr.isEmpty() || wallHeightStr.isEmpty() || tileLengthStr.isEmpty() || tileHeightStr.isEmpty()) {
                         Toast.makeText(getApplicationContext(), "You did not enter all numbers", Toast.LENGTH_SHORT).show();
@@ -80,10 +73,10 @@ public class MainActivity extends AppCompatActivity {
                         double numTiles = Calculator.calculateTiles(toBeTiledArea, tileDimensions, tenPercent);
                         double wallAreaMeter = Calculator.convertToMeter(toBeTiledArea);
                         //Creating Tile Objects in a List
-                        List<List<Tile>> tiles = setTiles(wallDimensions, tileDimensions, obstacles);
+                        List<TileRow> allRows = setTiles(wallDimensions, tileDimensions, obstacles);
                         // Start New Activity
                         Intent intent = new Intent(MainActivity.this, CalculatedActivity.class);
-                        intent.putExtra("data", new CalculatedValuesWrapper(wallAreaMeter, numTiles, obstacles, tiles, wallDimensions));
+                        intent.putExtra("data", new CalculatedValuesWrapper(wallAreaMeter, numTiles, obstacles, allRows, wallDimensions));
                         startActivity(intent);
                     }
                 } catch (ObstacleInputException e) {
@@ -93,7 +86,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void createObstacleInput(LayoutInflater inflater, LinearLayout container){
+    private int getEditTextNumbers(EditText editText) {
+        return Integer.parseInt(editText.getText().toString());
+    }
+
+    private String getEditTextInputAsString(String xmlId) {
+        int inputId = getResources().getIdentifier(xmlId, "id", getPackageName());
+        EditText editText = findViewById(inputId);
+        return editText.getText().toString();
+    }
+
+    private void createObstacleInput(LayoutInflater inflater, LinearLayout container) {
         View obstacle = inflater.inflate(R.layout.obstacle_layout, container, false);
         inflater.inflate(R.layout.obstacle_layout, container, false);
         container.addView(obstacle);
@@ -108,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Setting up Obstacles
-    public List<Obstacle> parseInputsAsObstacles() throws ObstacleInputException {
+    private List<Obstacle> parseInputsAsObstacles() throws ObstacleInputException {
         List<Obstacle> obstacleIns = new ArrayList<>();
         LinearLayout obstaclesContainer = findViewById(R.id.container);
 
@@ -137,36 +140,46 @@ public class MainActivity extends AppCompatActivity {
         return obstacleIns;
     }
 
-    private int getEditTextNumbers(EditText editText) {
-        return Integer.parseInt(editText.getText().toString());
+    private boolean isObstaclesInputValid(View obstacleInput) {
+        EditText obsLengthIn = obstacleInput.findViewById(R.id.obs_length_in);
+        EditText obsHeightIn = obstacleInput.findViewById(R.id.obs_height_in);
+        EditText obsDisFromLeft = obstacleInput.findViewById(R.id.obs_from_left);
+        EditText obsDisFromBottom = obstacleInput.findViewById(R.id.obs_from_bot);
+
+        String obsLengthInTxt = obsLengthIn.getText().toString();
+        String obsHeightInTxt = obsHeightIn.getText().toString();
+        String obsDisFromLeftTxt = obsDisFromLeft.getText().toString();
+        String obsDisFromBottomTxt = obsDisFromBottom.getText().toString();
+
+        return !obsLengthInTxt.isEmpty() && !obsHeightInTxt.isEmpty() && !obsDisFromLeftTxt.isEmpty() && !obsDisFromBottomTxt.isEmpty();
     }
 
-    private List<List<Tile>> setTiles(WallDimensions wallDimensions, TileDimensions tileDimensions, List<Obstacle> obstacles) {
-        List<List<Tile>> tiles = new ArrayList<>();
+    private List<TileRow> setTiles(WallDimensions wallDimensions, TileDimensions tileDimensions, List<Obstacle> obstacles) {
+        List<TileRow> allRows = new ArrayList<>();
         double numberOfRows = Calculator.calculateNumberOfRows(wallDimensions, tileDimensions);
         double numberOfColumns = Calculator.calculateNumberOfColumns(wallDimensions, tileDimensions);
         for (int i = 0; i < numberOfRows; i++) {
-            List<Tile> newRow = new ArrayList<>();
+            TileRow row = new TileRow();
             for (int j = 0; j < numberOfColumns; j++) {
                 Tile tile = new Tile();
                 tile.setRectXY1(j * tileDimensions.getLength(), i * tileDimensions.getHeight());
                 tile.setHeight(Math.min(wallDimensions.getHeight() - i * tileDimensions.getHeight(), tileDimensions.getHeight()));
                 tile.setLength(Math.min(wallDimensions.getLength() - j * tileDimensions.getLength(), tileDimensions.getLength()));
                 tile.setRectXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
-                newRow.add(tile);
-                cutTiles(obstacles, newRow, tile);
+                row.addTile(tile);
+                cutTiles(obstacles, row, tile);
             }
-            tiles.add(newRow);
+            allRows.add(row);
         }
-        return tiles;
+        return allRows;
     }
 
-    private void cutTiles(List<Obstacle> obstacles, List<Tile> newRow, Tile tile) {
+    private void cutTiles(List<Obstacle> obstacles, TileRow row, Tile tile) {
         for (Obstacle obstacle : obstacles) {
             if (obstacle.isOverlapping(tile)) {
                 // Removing Tiles that are fully overlap obstacle(s)
                 if (obstacle.isFullyOverlapping(tile)) {
-                    newRow.remove(tile);
+                    row.removeTile(tile);
                 }
                 // Checks if only the top of Obstacle is overlapped by tile
                 if (obstacle.isTopOverlapping(tile) && !obstacle.isLeftOverlapping(tile) && !obstacle.isRightOverlapping(tile)) {
@@ -241,20 +254,6 @@ public class MainActivity extends AppCompatActivity {
         tile.addSide(middleXSide);
         tile.addSide(rightSide);
         tile.addSide(bottomSide);
-    }
-
-    private boolean isObstaclesInputValid(View obstacleInput) {
-        EditText obsLengthIn = obstacleInput.findViewById(R.id.obs_length_in);
-        EditText obsHeightIn = obstacleInput.findViewById(R.id.obs_height_in);
-        EditText obsDisFromLeft = obstacleInput.findViewById(R.id.obs_from_left);
-        EditText obsDisFromBottom = obstacleInput.findViewById(R.id.obs_from_bot);
-
-        String obsLengthInTxt = obsLengthIn.getText().toString();
-        String obsHeightInTxt = obsHeightIn.getText().toString();
-        String obsDisFromLeftTxt = obsDisFromLeft.getText().toString();
-        String obsDisFromBottomTxt = obsDisFromBottom.getText().toString();
-
-        return !obsLengthInTxt.isEmpty() && !obsHeightInTxt.isEmpty() && !obsDisFromLeftTxt.isEmpty() && !obsDisFromBottomTxt.isEmpty();
     }
 }
 

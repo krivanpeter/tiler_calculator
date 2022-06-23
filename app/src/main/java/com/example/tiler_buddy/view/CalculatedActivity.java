@@ -17,6 +17,7 @@ import com.example.tiler.R;
 import com.example.tiler_buddy.CalculatedValuesWrapper;
 import com.example.tiler_buddy.Obstacle;
 import com.example.tiler_buddy.Tile;
+import com.example.tiler_buddy.TileRow;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class CalculatedActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.to_be_tiled_are_value)).setText(String.valueOf(calculatedValuesWrapper.getToBeTiledArea()));
         ((TextView) findViewById(R.id.tiles_num_val)).setText(String.valueOf(calculatedValuesWrapper.getNumOfTiles()));
         List<Obstacle> obstacles = calculatedValuesWrapper.getObstacles();
-        List<List<Tile>> tiles = calculatedValuesWrapper.getTiles();
+        List<TileRow> tiles = calculatedValuesWrapper.getAllRows();
         WallDimensions wallDimensions = calculatedValuesWrapper.getWallDimensions();
 
         ImageView imgview = findViewById(R.id.imageView1);
@@ -47,10 +48,10 @@ public class CalculatedActivity extends AppCompatActivity {
         }
     }
 
-    public void drawTiles(Canvas canvas, Paint paint, List<List<Tile>> tiles) {
+    public void drawTiles(Canvas canvas, Paint paint, List<TileRow> tiles) {
         for (int i = 0; i < tiles.size(); i++) {
-            for (int j = 0; j < tiles.get(i).size(); j++) {
-                Tile tile = tiles.get(i).get(j);
+            for (int j = 0; j < tiles.get(i).getRow().size(); j++) {
+                Tile tile = tiles.get(i).getRow().get(j);
                 int posx1 = tile.getX1();
                 int posy1 = tile.getY1();
                 int posx2 = tile.getX2();

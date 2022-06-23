@@ -11,14 +11,14 @@ public class CalculatedValuesWrapper implements Serializable {
     private final double toBeTiledArea;
     private final double numOfTiles;
     private final List<Obstacle> obstacle;
-    private final List<List<Tile>> tiles;
+    private final List<TileRow> allRows;
     private final WallDimensions wallDimensions;
 
-    public CalculatedValuesWrapper(double toBeTiledArea, double numOfTiles, List<Obstacle> obstacle, List<List<Tile>> tiles, WallDimensions wallDimensions) {
+    public CalculatedValuesWrapper(double toBeTiledArea, double numOfTiles, List<Obstacle> obstacle, List<TileRow> allRows, WallDimensions wallDimensions) {
         this.toBeTiledArea = toBeTiledArea;
         this.numOfTiles = numOfTiles;
         this.obstacle = obstacle;
-        this.tiles = tiles;
+        this.allRows = allRows;
         this.wallDimensions = wallDimensions;
     }
 
@@ -34,8 +34,8 @@ public class CalculatedValuesWrapper implements Serializable {
         return this.obstacle;
     }
 
-    public List<List<Tile>> getTiles() {
-        return this.tiles;
+    public List<TileRow> getAllRows() {
+        return this.allRows;
     }
 
     public WallDimensions getWallDimensions() {return this.wallDimensions;}
