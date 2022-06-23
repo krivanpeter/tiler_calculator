@@ -39,7 +39,7 @@ public class CalculatedActivity extends AppCompatActivity {
 
         ImageView imgview = findViewById(R.id.imageView1);
         if (imgview != null) {
-            Bitmap bg = Bitmap.createBitmap(wallDimensions.getLength() + 10, wallDimensions.getHeight() - 10, Bitmap.Config.ARGB_8888);
+            Bitmap bg = Bitmap.createBitmap(wallDimensions.getLength() + 10, wallDimensions.getHeight() + 10, Bitmap.Config.ARGB_8888);
             Canvas canvas = createCanvas(bg);
             Paint paint = setUpPaint();
             drawTiles(canvas, paint, tiles);
