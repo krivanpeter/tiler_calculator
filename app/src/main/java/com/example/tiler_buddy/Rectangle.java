@@ -70,12 +70,12 @@ public class Rectangle implements Serializable {
         this.y2 = y2;
     }
 
-    public void setRectXY1(int x1, int y1){
+    public void setRectXY1(int x1, int y1) {
         this.x1 = x1;
         this.y1 = y1;
     }
 
-    public void setRectXY2(int x2, int y2){
+    public void setRectXY2(int x2, int y2) {
         this.x2 = x2;
         this.y2 = y2;
     }
@@ -92,7 +92,8 @@ public class Rectangle implements Serializable {
     }
 
     public boolean isFullyOverlapping(Rectangle other) {
-        if (this.x1 <= other.getX1() && this.x2 >= other.getX2() &&
+        if (this.isOverlapping(other) &&
+                this.x1 <= other.getX1() && this.x2 >= other.getX2() &&
                 this.y1 <= other.getY1() && this.y2 >= other.getY2()) {
             return true;
         }
@@ -100,28 +101,28 @@ public class Rectangle implements Serializable {
     }
 
     public boolean isLeftOverlapping(Rectangle other) {
-        if (this.x1 > other.getX1() && this.x2 > other.getX2()) {
+        if (this.isOverlapping(other) && this.x1 > other.getX1() && this.x2 > other.getX2()) {
             return true;
         }
         return false;
     }
 
     public boolean isRightOverlapping(Rectangle other) {
-        if (this.x1 < other.getX1() && this.x2 < other.getX2()) {
+        if (this.isOverlapping(other) && this.x1 < other.getX1() && this.x2 < other.getX2()) {
             return true;
         }
         return false;
     }
 
     public boolean isBottomOverlapping(Rectangle other) {
-        if (this.y1 > other.getY1() && this.y2 > other.getY2()) {
+        if (this.isOverlapping(other) && this.y1 > other.getY1() && this.y2 > other.getY2()) {
             return true;
         }
         return false;
     }
 
     public boolean isTopOverlapping(Rectangle other) {
-        if (this.y1 < other.getY1() && this.y2 < other.getY2()) {
+        if (this.isOverlapping(other) && this.y1 < other.getY1() && this.y2 < other.getY2()) {
             return true;
         }
         return false;
