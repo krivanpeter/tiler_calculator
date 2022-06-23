@@ -43,17 +43,7 @@ public class MainActivity extends AppCompatActivity {
         buttonObs.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View obstacle = inflater.inflate(R.layout.obstacle_layout, container, false);
-                inflater.inflate(R.layout.obstacle_layout, container, false);
-                container.addView(obstacle);
-
-                ImageButton deleteObs = obstacle.findViewById(R.id.delete_obs);
-                deleteObs.setOnClickListener(new Button.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ((ViewManager) obstacle.getParent()).removeView(obstacle);
-                    }
-                });
+                createObstacleInput(inflater, container);
             }
         });
 
@@ -99,6 +89,20 @@ public class MainActivity extends AppCompatActivity {
                 } catch (ObstacleInputException e) {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+    }
+
+    public void createObstacleInput(LayoutInflater inflater, LinearLayout container){
+        View obstacle = inflater.inflate(R.layout.obstacle_layout, container, false);
+        inflater.inflate(R.layout.obstacle_layout, container, false);
+        container.addView(obstacle);
+
+        ImageButton deleteObs = obstacle.findViewById(R.id.delete_obs);
+        deleteObs.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ViewManager) obstacle.getParent()).removeView(obstacle);
             }
         });
     }

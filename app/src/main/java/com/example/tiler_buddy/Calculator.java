@@ -67,11 +67,11 @@ public class Calculator {
         return tile.getHeight() - (obstacle.getY2() - tile.getY1());
     }
 
-    public static int calculateNewPosX1(Tile tile, Obstacle obstacle){
+    public static int calculateNewPosX1(Tile tile, Obstacle obstacle) {
         return tile.getX1() + (obstacle.getX2() - tile.getX1());
     }
 
-    public static int calculateNewPosY1(Tile tile, Obstacle obstacle){
+    public static int calculateNewPosY1(Tile tile, Obstacle obstacle) {
         return tile.getY1() + (obstacle.getY2() - tile.getY1());
     }
 
@@ -85,13 +85,5 @@ public class Calculator {
 
     private static int calculateTileArea(TileDimensions tileDimensions) {
         return tileDimensions.getLength() * tileDimensions.getHeight();
-    }
-
-    private static double calculateRowArea(WallDimensions wallDimensions, TileDimensions tileDimensions) {
-        return wallDimensions.getLength() * tileDimensions.getHeight();
-    }
-
-    private static double calculateColumnArea(WallDimensions wallDimensions, TileDimensions tileDimensions) {
-        return wallDimensions.getHeight() * tileDimensions.getLength();
     }
 }

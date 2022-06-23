@@ -73,7 +73,7 @@ public class CalculatedActivity extends AppCompatActivity {
                             String a2 = String.valueOf(tile.getSides().get(x).getY1());
                             String a3 = String.valueOf(tile.getSides().get(x).getX2());
                             String a4 = String.valueOf(tile.getSides().get(x).getY2());
-                            canvas.drawLine(tile.getSides().get(x).getX1(),tile.getSides().get(x).getY1(), tile.getSides().get(x).getX2(), tile.getSides().get(x).getY2(), paint);
+                            canvas.drawLine(tile.getSides().get(x).getX1(), tile.getSides().get(x).getY1(), tile.getSides().get(x).getX2(), tile.getSides().get(x).getY2(), paint);
                         }
                     }
                 }
