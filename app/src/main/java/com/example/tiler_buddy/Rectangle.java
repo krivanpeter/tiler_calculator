@@ -127,4 +127,31 @@ public class Rectangle implements Serializable {
         }
         return false;
     }
+
+    public boolean isBottomLeftCornerOverlapping(Rectangle other) {
+        if (this.isBottomOverlapping(other) && this.isLeftOverlapping(other)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isBottomRightCornerOverlapping(Rectangle other) {
+        if (this.isBottomOverlapping(other) && this.isRightOverlapping(other)) {
+            return true;
+        }
+        return false;
+    }
+    public boolean isTopLeftCornerOverlapping(Rectangle other) {
+        if (this.isTopOverlapping(other) && this.isLeftOverlapping(other)) {
+            return true;
+        }
+        return false;
+    }
+    public boolean isTopRightCornerOverlapping(Rectangle other) {
+        if (this.isTopOverlapping(other) && this.isRightOverlapping(other)) {
+            return true;
+        }
+        return false;
+    }
+
 }
