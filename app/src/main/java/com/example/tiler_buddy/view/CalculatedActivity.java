@@ -81,6 +81,10 @@ public class CalculatedActivity extends AppCompatActivity {
                         canvas.drawRect(posx1, posy1, posx2, posy2, paint);
                     } else {
                         for (int x = 0; x < tile.getSides().size(); x++) {
+                            String a1 = String.valueOf(tile.getSides().get(x).getX1());
+                            String a2 = String.valueOf(tile.getSides().get(x).getY1());
+                            String a3 = String.valueOf(tile.getSides().get(x).getX2());
+                            String a4 = String.valueOf(tile.getSides().get(x).getY2());
                             canvas.drawLine(tile.getSides().get(x).getX1(),tile.getSides().get(x).getY1(), tile.getSides().get(x).getX2(), tile.getSides().get(x).getY2(), paint);
                         }
                     }
