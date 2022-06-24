@@ -223,9 +223,9 @@ public class MainActivity extends AppCompatActivity {
                     tile.setY3(tile.getY2() - Calculator.cutTileHeightBottom(tile, obstacle));
                     Side leftSide = new Side(tile.getX1(), tile.getY3(), tile.getX1(), tile.getY2());
                     Side topSide = new Side(tile.getX1(), tile.getY2(), tile.getX2(), tile.getY2());
-                    Side middleYSide = new Side(tile.getX2(), tile.getY2(), tile.getX2(), tile.getY1());
                     Side middleXSide = new Side(tile.getX2(), tile.getY1(), tile.getX3(), tile.getY1());
-                    Side rightSide = new Side(tile.getX3(), tile.getY1(), tile.getX3(), tile.getY3());
+                    Side middleYSide = new Side(tile.getX3(), tile.getY1(), tile.getX3(), tile.getY3());
+                    Side rightSide = new Side(tile.getX2(), tile.getY2(), tile.getX2(), tile.getY1());
                     Side bottomSide = new Side(tile.getX3(), tile.getY3(), tile.getX1(), tile.getY3());
 
                     if (obstacle.isBottomOverlapping(tile)) {
@@ -234,7 +234,6 @@ public class MainActivity extends AppCompatActivity {
                         topSide = new Side(tile.getX1(), tile.getY3(), tile.getX3(), tile.getY3());
                         middleYSide = new Side(tile.getX3(), tile.getY3(), tile.getX3(), tile.getY2());
                         middleXSide = new Side(tile.getX3(), tile.getY2(), tile.getX2(), tile.getY2());
-                        rightSide = new Side(tile.getX2(), tile.getY2(), tile.getX2(), tile.getY1());
                         bottomSide = new Side(tile.getX2(), tile.getY1(), tile.getX1(), tile.getY1());
                     }
                     setTileSides(tile, leftSide, topSide, middleYSide, middleXSide, rightSide, bottomSide);
