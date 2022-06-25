@@ -15,15 +15,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.pk.tiler_buddy.R;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.pk.tiler_buddy.CalculatedValuesWrapper;
 import com.pk.tiler_buddy.Calculator;
 import com.pk.tiler_buddy.Obstacle;
 import com.pk.tiler_buddy.ObstacleInputException;
+import com.pk.tiler_buddy.R;
 import com.pk.tiler_buddy.Side;
 import com.pk.tiler_buddy.Tile;
 import com.pk.tiler_buddy.TileRow;
-import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -243,7 +243,6 @@ public class MainActivity extends AppCompatActivity {
             tile.setRectXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
         }
     }
-
 
     private void setTileSides(Tile tile, Side leftSide, Side topSide, Side middleYSide, Side middleXSide, Side rightSide, Side bottomSide) {
         tile.addSide(leftSide);
