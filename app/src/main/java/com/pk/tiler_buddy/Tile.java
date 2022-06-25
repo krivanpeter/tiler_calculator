@@ -23,6 +23,15 @@ public class Tile extends Rectangle {
         this.y3 = y3;
     }
 
+    public Tile(Tile tile){
+        this.x1 = tile.getX1();
+        this.y1 = tile.getY1();
+        this.x2 = tile.getX2();
+        this.y2 = tile.getY2();
+        this.x3 = tile.getX3();
+        this.y3 = tile.getY3();
+    }
+
     public Tile(List<Side> sides) {
         this.sides = sides;
     }
