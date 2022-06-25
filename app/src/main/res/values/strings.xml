@@ -3,7 +3,7 @@
     <string name="length_mm">Length (mm)</string>
     <string name="height_mm">Height (mm)</string>
     <!-- Wall dimensions -->
-    <string name="app_name">Tiler</string>
+    <string name="app_name">Tiler Buddy</string>
     <string name="wall_hint">5000</string>
     <string name="wall_dimensions">Wall Dimensions</string>
     <!-- Tile dimensions -->
