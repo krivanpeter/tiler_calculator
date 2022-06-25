@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Display;
 import android.widget.ImageView;
@@ -38,13 +37,18 @@ public class CalculatedActivity extends AppCompatActivity {
         List<TileRow> tiles = calculatedValuesWrapper.getAllRows();
         WallDimensions wallDimensions = calculatedValuesWrapper.getWallDimensions();
 
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
         ImageView imgview = findViewById(R.id.imageView1);
+
+
         if (imgview != null) {
             Bitmap bg = Bitmap.createBitmap(wallDimensions.getLength() + 10, wallDimensions.getHeight() + 10, Bitmap.Config.ARGB_8888);
-            Canvas canvas = createCanvas(bg);
+            Canvas canvas = new Canvas(bg);
             Paint paint = setUpPaint();
             drawTiles(canvas, paint, tiles);
-            imgview.setBackground(new BitmapDrawable(bg));
+            imgview.setImageBitmap(bg);
         }
     }
 
@@ -72,20 +76,8 @@ public class CalculatedActivity extends AppCompatActivity {
         Paint paint = new Paint();
         paint.setColor(Color.parseColor("#000000"));
         paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(5);
         return paint;
-    }
-
-    private Canvas createCanvas(Bitmap bg) {
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        /*
-        int displayWidth = size.x;
-        int displayHeight = size.y;
-         */
-
-        Canvas canvas = new Canvas(bg);
-        return canvas;
     }
 }
 /*
