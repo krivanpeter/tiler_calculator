@@ -1,4 +1,4 @@
-package com.example.tiler_buddy.view;
+package com.pk.tiler_buddy.view;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -12,11 +12,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.tiler.R;
-import com.example.tiler_buddy.CalculatedValuesWrapper;
-import com.example.tiler_buddy.Obstacle;
-import com.example.tiler_buddy.Tile;
-import com.example.tiler_buddy.TileRow;
+import com.pk.tiler_buddy.R;
+import com.pk.tiler_buddy.CalculatedValuesWrapper;
+import com.pk.tiler_buddy.Obstacle;
+import com.pk.tiler_buddy.Tile;
+import com.pk.tiler_buddy.TileRow;
 
 import java.util.List;
 

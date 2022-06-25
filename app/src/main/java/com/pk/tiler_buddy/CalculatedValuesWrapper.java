@@ -1,8 +1,6 @@
 package com.pk.tiler_buddy;
 
-import com.example.tiler_buddy.Obstacle;
-import com.example.tiler_buddy.TileRow;
-import com.example.tiler_buddy.view.WallDimensions;
+import com.pk.tiler_buddy.view.WallDimensions;
 
 import java.io.Serializable;
 import java.util.List;

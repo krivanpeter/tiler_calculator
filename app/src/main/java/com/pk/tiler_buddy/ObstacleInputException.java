@@ -1,4 +1,4 @@
-package com.example.tiler_buddy;
+package com.pk.tiler_buddy;
 
 public class ObstacleInputException extends Exception {
 

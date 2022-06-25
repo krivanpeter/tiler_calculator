@@ -1,4 +1,4 @@
-package com.example.tiler_buddy.view;
+package com.pk.tiler_buddy.view;
 
 import java.io.Serializable;
 

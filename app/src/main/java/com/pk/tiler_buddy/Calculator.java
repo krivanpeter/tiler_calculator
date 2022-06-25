@@ -1,7 +1,7 @@
-package com.example.tiler_buddy;
+package com.pk.tiler_buddy;
 
-import com.example.tiler_buddy.view.TileDimensions;
-import com.example.tiler_buddy.view.WallDimensions;
+import com.pk.tiler_buddy.view.TileDimensions;
+import com.pk.tiler_buddy.view.WallDimensions;
 
 import java.util.List;
 

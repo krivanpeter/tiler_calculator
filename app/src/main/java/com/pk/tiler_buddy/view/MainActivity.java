@@ -1,4 +1,4 @@
-package com.example.tiler_buddy.view;
+package com.pk.tiler_buddy.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,14 +15,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.tiler.R;
-import com.example.tiler_buddy.CalculatedValuesWrapper;
-import com.example.tiler_buddy.Calculator;
-import com.example.tiler_buddy.Obstacle;
-import com.example.tiler_buddy.ObstacleInputException;
-import com.example.tiler_buddy.Side;
-import com.example.tiler_buddy.Tile;
-import com.example.tiler_buddy.TileRow;
+import com.pk.tiler_buddy.R;
+import com.pk.tiler_buddy.CalculatedValuesWrapper;
+import com.pk.tiler_buddy.Calculator;
+import com.pk.tiler_buddy.Obstacle;
+import com.pk.tiler_buddy.ObstacleInputException;
+import com.pk.tiler_buddy.Side;
+import com.pk.tiler_buddy.Tile;
+import com.pk.tiler_buddy.TileRow;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.ArrayList;
