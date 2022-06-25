@@ -1,5 +1,8 @@
 package com.pk.tiler_buddy;
 
+import android.graphics.Canvas;
+import android.graphics.Paint;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +51,13 @@ public class Tile extends Rectangle {
         this.sides.add(side);
     }
 
-    private void defaultSides() {
-
+    public void draw(Canvas canvas, Paint paint){
+        if (this.sides.isEmpty()) {
+            canvas.drawRect(x1, y1, x2, y2, paint);
+        } else {
+            for (int i = 0; i < sides.size(); i++) {
+                canvas.drawLine(sides.get(i).getX1(), sides.get(i).getY1(), sides.get(i).getX2(), sides.get(i).getY2(), paint);
+            }
+        }
     }
 }
