@@ -159,26 +159,26 @@ public class MainActivity extends AppCompatActivity {
         double numberOfRows = Calculator.calculateNumberOfRows(wallDimensions, tileDimensions);
         double numberOfColumns = Calculator.calculateNumberOfColumns(wallDimensions, tileDimensions);
         for (int i = 0; i < numberOfRows; i++) {
-            TileRow row = new TileRow();
+            TileRow tileRow = new TileRow();
             for (int j = 0; j < numberOfColumns; j++) {
                 Tile tile = new Tile();
                 tile.setRectXY1(j * tileDimensions.getLength(), i * tileDimensions.getHeight());
                 tile.setHeight(Math.min(wallDimensions.getHeight() - i * tileDimensions.getHeight(), tileDimensions.getHeight()));
                 tile.setLength(Math.min(wallDimensions.getLength() - j * tileDimensions.getLength(), tileDimensions.getLength()));
                 tile.setRectXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
-                row.addTile(tile);
-                cutTiles(obstacles, row, tile);
+                tileRow.addTile(tile);
+                cutTiles(obstacles, tileRow, tile);
             }
-            allRows.add(row);
+            allRows.add(tileRow);
         }
         return allRows;
     }
 
-    private void cutTiles(List<Obstacle> obstacles, TileRow row, Tile tile) {
+    private void cutTiles(List<Obstacle> obstacles, TileRow tileRow, Tile tile) {
         for (Obstacle obstacle : obstacles) {
             // Removing Tiles that are fully overlap obstacle(s)
             if (obstacle.isFullyOverlapping(tile)) {
-                row.removeTile(tile);
+                tileRow.removeTile(tile);
             }
             // Checks if only the top of Obstacle is overlapped by tile
             if (obstacle.isTopOverlapping(tile) && !obstacle.isLeftOverlapping(tile) && !obstacle.isRightOverlapping(tile)) {
@@ -238,7 +238,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                     setTileSides(tile, leftSide, topSide, middleYSide, middleXSide, rightSide, bottomSide);
                 }
-
             }
             tile.setRectXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
         }
