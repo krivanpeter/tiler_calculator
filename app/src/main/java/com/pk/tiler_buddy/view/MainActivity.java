@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                         //Creating Tile Objects in a List
                         List<TileRow> allRows = setTiles(wallDimensions, tileDimensions, obstacles);
                         // Start New Activity
-                        Intent intent = new Intent(MainActivity.this, CalculatedActivity.class);
+                        Intent intent = new Intent(MainActivity.this, DrawingActivity.class);
                         intent.putExtra("data", new CalculatedValuesWrapper(wallAreaMeter, numTiles, obstacles, allRows, wallDimensions));
                         startActivity(intent);
                     }

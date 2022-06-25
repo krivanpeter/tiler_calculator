@@ -120,7 +120,6 @@
             app:layout_constraintTop_toBottomOf="@+id/tile"
             tools:ignore="DuplicateSpeakableTextCheck" />
 
-
         <TextView
             android:id="@+id/tile_height_txt"
             android:layout_width="127dp"
