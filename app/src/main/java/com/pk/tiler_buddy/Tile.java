@@ -68,6 +68,23 @@ public class Tile extends Obstacle {
                 canvas.drawLine(sides.get(i).getX1(), sides.get(i).getY1(), sides.get(i).getX2(), sides.get(i).getY2(), paint);
             }
         }
+        canvas.save();
+        canvas.scale(1, -1);
+        canvas.drawText(String.valueOf(this.x1), this.x1 + 10, -this.y2 + 10, paint);
+        canvas.drawText(String.valueOf(this.y1), this.x1 + 10, -this.y2 + 20, paint);
+        canvas.drawText(String.valueOf(this.x2), this.x1 + 10, -this.y2 + 30, paint);
+        canvas.drawText(String.valueOf(this.y2), this.x1 + 10, -this.y2 + 40, paint);
+        canvas.drawText(String.valueOf(this.x3), this.x1 + 10, -this.y2 + 50, paint);
+        canvas.drawText(String.valueOf(this.y3), this.x1 + 10, -this.y2 + 60, paint);
+        canvas.restore();
+    }
+
+    public void shift(int extent){
+        int newX1 = x1 - extent;
+        if (newX1 >= 0) {
+            this.x1 = this.x1 - extent;
+        }
+        this.x2 = this.x2 - extent;
     }
 
     public void cut(Obstacle obstacle) {
