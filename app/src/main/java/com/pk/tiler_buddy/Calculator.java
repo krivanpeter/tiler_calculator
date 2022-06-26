@@ -51,12 +51,12 @@ public class Calculator {
         return rectangle.getY1() + rectangle.getHeight();
     }
 
-    public static int cutTileLengthRight(Tile tile, Obstacle obstacle) {
-        return tile.getLength() - (tile.getX2() - obstacle.getX1());
+    public static int cutTileLengthLeft(Tile tile, Obstacle obstacle) {
+        return tile.getLength() - (tile.getX2() - obstacle.getX2());
     }
 
-    public static int cutTileLengthLeft(Tile tile, Obstacle obstacle) {
-        return tile.getLength() - (obstacle.getX2() - tile.getX1());
+    public static int cutTileLengthRight(Tile tile, Obstacle obstacle) {
+        return tile.getLength() - (tile.getX2() - obstacle.getX1());
     }
 
     public static int cutTileHeightTop(Tile tile, Obstacle obstacle) {
@@ -65,6 +65,22 @@ public class Calculator {
 
     public static int cutTileHeightBottom(Tile tile, Obstacle obstacle) {
         return tile.getHeight() - (obstacle.getY2() - tile.getY1());
+    }
+
+    public static int calculateX3RightCorner(Tile tile, Obstacle obstacle){
+        return tile.getX1() + Calculator.cutTileLengthRight(tile, obstacle);
+    }
+
+    public static int calculateX3LeftCorner(Tile tile, Obstacle obstacle){
+        return tile.getX1() + Calculator.cutTileLengthLeft(tile, obstacle);
+    }
+
+    public static int calculateY3TopCorner(Tile tile, Obstacle obstacle){
+        return tile.getY1() + Calculator.cutTileHeightTop(tile, obstacle);
+    }
+
+    public static int calculateY3BottomCorner(Tile tile, Obstacle obstacle){
+        return tile.getY2() - Calculator.cutTileHeightBottom(tile, obstacle);
     }
 
     public static int calculateNewPosX1(Tile tile, Obstacle obstacle) {
