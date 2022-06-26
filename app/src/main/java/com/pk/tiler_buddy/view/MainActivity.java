@@ -21,7 +21,6 @@ import com.pk.tiler_buddy.Calculator;
 import com.pk.tiler_buddy.Obstacle;
 import com.pk.tiler_buddy.ObstacleInputException;
 import com.pk.tiler_buddy.R;
-import com.pk.tiler_buddy.Tile;
 import com.pk.tiler_buddy.TileRow;
 
 import java.util.ArrayList;
@@ -72,7 +71,16 @@ public class MainActivity extends AppCompatActivity {
                         double numTiles = Calculator.calculateTiles(toBeTiledArea, tileDimensions, tenPercent);
                         double wallAreaMeter = Calculator.convertToMeter(toBeTiledArea);
                         //Creating Tile Objects in a List
-                        List<TileRow> allRows = setTiles(wallDimensions, tileDimensions, obstacles);
+                        int numberOfRows = (int) Calculator.calculateNumberOfRows(wallDimensions, tileDimensions);
+                        int numberOfColumns = (int) Calculator.calculateNumberOfColumns(wallDimensions, tileDimensions);
+                        List<TileRow> allRows = new ArrayList<>();
+                        for (int i = 0; i < numberOfRows; i++) {
+                            TileRow tileRow = new TileRow();
+                            for (int j = 0; j < numberOfColumns; j++) {
+                                tileRow.setTiles(wallDimensions, tileDimensions, obstacles, i, j);
+                            }
+                            allRows.add(tileRow);
+                        }
                         // Start New Activity
                         Intent intent = new Intent(MainActivity.this, DrawingActivity.class);
                         intent.putExtra("data", new CalculatedValuesWrapper(wallAreaMeter, numTiles, obstacles, allRows, wallDimensions));
@@ -151,26 +159,6 @@ public class MainActivity extends AppCompatActivity {
         String obsDisFromBottomTxt = obsDisFromBottom.getText().toString();
 
         return !obsLengthInTxt.isEmpty() && !obsHeightInTxt.isEmpty() && !obsDisFromLeftTxt.isEmpty() && !obsDisFromBottomTxt.isEmpty();
-    }
-
-    private List<TileRow> setTiles(WallDimensions wallDimensions, TileDimensions tileDimensions, List<Obstacle> obstacles) {
-        List<TileRow> allRows = new ArrayList<>();
-        double numberOfRows = Calculator.calculateNumberOfRows(wallDimensions, tileDimensions);
-        double numberOfColumns = Calculator.calculateNumberOfColumns(wallDimensions, tileDimensions);
-        for (int i = 0; i < numberOfRows; i++) {
-            TileRow tileRow = new TileRow();
-            for (int j = 0; j < numberOfColumns; j++) {
-                Tile tile = new Tile();
-                tile.setRectXY1(j * tileDimensions.getLength(), i * tileDimensions.getHeight());
-                tile.setHeight(Math.min(wallDimensions.getHeight() - i * tileDimensions.getHeight(), tileDimensions.getHeight()));
-                tile.setLength(Math.min(wallDimensions.getLength() - j * tileDimensions.getLength(), tileDimensions.getLength()));
-                tile.setRectXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
-                tileRow.addTile(tile);
-                tileRow.cutTiles(obstacles);
-            }
-            allRows.add(tileRow);
-        }
-        return allRows;
     }
 }
 
