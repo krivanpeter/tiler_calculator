@@ -3,6 +3,9 @@ package com.pk.tiler_buddy;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import com.pk.tiler_buddy.view.TileDimensions;
+import com.pk.tiler_buddy.view.WallDimensions;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +36,16 @@ public class TileRow implements Serializable {
         this.row.remove(tile);
     }
 
+    public void setTiles(WallDimensions wallDimensions, TileDimensions tileDimensions, List<Obstacle> obstacles, int i, int j) {
+        Tile tile = new Tile();
+        tile.setRectXY1(j * tileDimensions.getLength(), i * tileDimensions.getHeight());
+        tile.setHeight(Math.min(wallDimensions.getHeight() - i * tileDimensions.getHeight(), tileDimensions.getHeight()));
+        tile.setLength(Math.min(wallDimensions.getLength() - j * tileDimensions.getLength(), tileDimensions.getLength()));
+        tile.setRectXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
+        addTile(tile);
+        cutTiles(obstacles);
+    }
+
     public void draw(Canvas canvas, Paint paint) {
         for (int i = 0; i < this.row.size(); i++) {
             Tile tile = this.row.get(i);
@@ -53,17 +66,18 @@ public class TileRow implements Serializable {
         }
     }
 
-    public void shift(int extent) {
+    public void shiftOnX(int extent, List<Obstacle> obstacles) {
         for (Tile tile : row) {
-            int newX1 = tile.x1 - extent;
-            if (newX1 >= 0) {
-                tile.setX1(tile.x1 - extent);
+            for (Obstacle obstacle : obstacles) {
+                tile.shift(extent);
             }
-            tile.setX2(tile.x2 - extent);
         }
+        cutTiles(obstacles);
+        /*
         Tile newTile = new Tile(row.get(row.size() - 1));
         newTile.setX1(newTile.getX1() + newTile.length);
         newTile.setX2(newTile.getX2() + extent);
         addTile(newTile);
+         */
     }
 }
