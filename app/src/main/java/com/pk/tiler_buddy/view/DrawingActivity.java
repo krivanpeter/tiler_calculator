@@ -53,8 +53,9 @@ public class DrawingActivity extends AppCompatActivity {
     private Paint setUpPaint() {
         Paint paint = new Paint();
         paint.setColor(Color.parseColor("#000000"));
+        paint.setTextSize(10);
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(5);
+        paint.setStrokeWidth(1);
         return paint;
     }
 }
