@@ -32,10 +32,6 @@ public class Tile extends Rectangle {
         this.y3 = tile.getY3();
     }
 
-    public Tile(List<Side> sides) {
-        this.sides = sides;
-    }
-
     public int getX3() {
         return x3;
     }
@@ -67,12 +63,23 @@ public class Tile extends Rectangle {
         canvas.restore();
     }
 
-    public void shift(int extent){
+    public void shift(int extent, List<Obstacle> obstacles) {
         int newX1 = x1 - extent;
         if (newX1 >= 0) {
             this.x1 = this.x1 - extent;
         }
-        this.x2 = this.x2 - extent;
+        if (newX1 <= 0) {
+            this.length = this.length - extent;
+        }
+        this.x2 = Calculator.calculatePosX2(this);
+        upgradeSides(extent);
+    }
+
+    private void upgradeSides(int extent) {
+        for (Side side : sides) {
+            side.setX1(this.x1 - extent);
+            side.setX2(this.x2 - extent);
+        }
     }
 
     public void cut(Obstacle obstacle) {
