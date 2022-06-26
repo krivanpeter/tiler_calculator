@@ -16,18 +16,6 @@ public class TileRow implements Serializable {
     public TileRow() {
     }
 
-    public TileRow(List<Tile> tileRow) {
-        this.row = tileRow;
-    }
-
-    public List<Tile> getRow() {
-        return row;
-    }
-
-    public void setRow(List<Tile> row) {
-        this.row = row;
-    }
-
     public void addTile(Tile tile) {
         this.row.add(tile);
     }
