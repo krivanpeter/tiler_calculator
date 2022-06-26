@@ -40,6 +40,19 @@ public class TileRow implements Serializable {
         }
     }
 
+    public void cutTiles(List<Obstacle> obstacles) {
+        for (Tile tile : row) {
+            for (Obstacle obstacle : obstacles) {
+                if (Overlap.isFullyOverlapping(tile, obstacle)) {
+                    removeTile(tile);
+                }
+                if (Overlap.isOverlapping(tile, obstacle)) {
+                    tile.cut(obstacle);
+                }
+            }
+        }
+    }
+
     public void shift(int extent) {
         for (Tile tile : row) {
             int newX1 = tile.x1 - extent;
@@ -48,7 +61,7 @@ public class TileRow implements Serializable {
             }
             tile.setX2(tile.x2 - extent);
         }
-        Tile newTile = new Tile(row.get(row.size()-1));
+        Tile newTile = new Tile(row.get(row.size() - 1));
         newTile.setX1(newTile.getX1() + newTile.length);
         newTile.setX2(newTile.getX2() + extent);
         addTile(newTile);

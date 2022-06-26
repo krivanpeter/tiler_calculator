@@ -21,7 +21,6 @@ import com.pk.tiler_buddy.Calculator;
 import com.pk.tiler_buddy.Obstacle;
 import com.pk.tiler_buddy.ObstacleInputException;
 import com.pk.tiler_buddy.R;
-import com.pk.tiler_buddy.Side;
 import com.pk.tiler_buddy.Tile;
 import com.pk.tiler_buddy.TileRow;
 
@@ -167,89 +166,11 @@ public class MainActivity extends AppCompatActivity {
                 tile.setLength(Math.min(wallDimensions.getLength() - j * tileDimensions.getLength(), tileDimensions.getLength()));
                 tile.setRectXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
                 tileRow.addTile(tile);
-                cutTiles(obstacles, tileRow, tile);
+                tileRow.cutTiles(obstacles);
             }
             allRows.add(tileRow);
         }
         return allRows;
-    }
-
-    private void cutTiles(List<Obstacle> obstacles, TileRow tileRow, Tile tile) {
-        for (Obstacle obstacle : obstacles) {
-            // Removing Tiles that are fully overlap obstacle(s)
-            if (obstacle.isFullyOverlapping(tile)) {
-                tileRow.removeTile(tile);
-            }
-            // Checks if only the top of Obstacle is overlapped by tile
-            if (obstacle.isTopOverlapping(tile) && !obstacle.isLeftOverlapping(tile) && !obstacle.isRightOverlapping(tile)) {
-                tile.setHeight(Calculator.cutTileHeightBottom(tile, obstacle));
-                tile.setRectXY1(tile.getX1(), Calculator.calculateNewPosY1(tile, obstacle));
-            }
-            // Checks if only the bottom of Obstacle is overlapped by tile
-            if (obstacle.isBottomOverlapping(tile) && !obstacle.isLeftOverlapping(tile) && !obstacle.isRightOverlapping(tile)) {
-                tile.setHeight(Calculator.cutTileHeightTop(tile, obstacle));
-            }
-            // Checks if Obstacle's Left side is overlapped by tile and set Sides
-            if (obstacle.isLeftOverlapping(tile)) {
-                if (!obstacle.isBottomOverlapping(tile) && !obstacle.isTopOverlapping(tile)) {
-                    tile.setLength(Calculator.cutTileLengthRight(tile, obstacle));
-                } else {
-                    tile.setX3(tile.getX1() + Calculator.cutTileLengthRight(tile, obstacle));
-                    tile.setY3(tile.getY1() + Calculator.cutTileHeightTop(tile, obstacle));
-                    Side leftSide = new Side(tile.getX1(), tile.getY1(), tile.getX1(), tile.getY2());
-                    Side topSide = new Side(tile.getX1(), tile.getY2(), tile.getX3(), tile.getY2());
-                    Side middleYSide = new Side(tile.getX3(), tile.getY2(), tile.getX3(), tile.getY3());
-                    Side middleXSide = new Side(tile.getX3(), tile.getY3(), tile.getX2(), tile.getY3());
-                    Side rightSide = new Side(tile.getX2(), tile.getY3(), tile.getX2(), tile.getY1());
-                    Side bottomSide = new Side(tile.getX2(), tile.getY1(), tile.getX1(), tile.getY1());
-                    if (obstacle.isTopOverlapping(tile)) {
-                        tile.setY3(tile.getY2() - Calculator.cutTileHeightBottom(tile, obstacle));
-                        topSide = new Side(tile.getX1(), tile.getY2(), tile.getX2(), tile.getY2());
-                        middleYSide = new Side(tile.getX2(), tile.getY2(), tile.getX2(), tile.getY3());
-                        middleXSide = new Side(tile.getX2(), tile.getY3(), tile.getX3(), tile.getY3());
-                        rightSide = new Side(tile.getX3(), tile.getY3(), tile.getX3(), tile.getY1());
-                        bottomSide = new Side(tile.getX3(), tile.getY1(), tile.getX1(), tile.getY1());
-                    }
-                    setTileSides(tile, leftSide, topSide, middleYSide, middleXSide, rightSide, bottomSide);
-                }
-            }
-            // Checks if Obstacle's right is overlapped by tile and set Sides
-            if (obstacle.isRightOverlapping(tile)) {
-                if (!obstacle.isBottomOverlapping(tile) && !obstacle.isTopOverlapping(tile)) {
-                    tile.setLength(Calculator.cutTileLengthLeft(tile, obstacle));
-                    tile.setRectXY1(Calculator.calculateNewPosX1(tile, obstacle), tile.getY1());
-                } else {
-                    tile.setX3(tile.getX2() - Calculator.cutTileLengthLeft(tile, obstacle));
-                    tile.setY3(tile.getY2() - Calculator.cutTileHeightBottom(tile, obstacle));
-                    Side leftSide = new Side(tile.getX1(), tile.getY3(), tile.getX1(), tile.getY2());
-                    Side topSide = new Side(tile.getX1(), tile.getY2(), tile.getX2(), tile.getY2());
-                    Side middleXSide = new Side(tile.getX2(), tile.getY1(), tile.getX3(), tile.getY1());
-                    Side middleYSide = new Side(tile.getX3(), tile.getY1(), tile.getX3(), tile.getY3());
-                    Side rightSide = new Side(tile.getX2(), tile.getY2(), tile.getX2(), tile.getY1());
-                    Side bottomSide = new Side(tile.getX3(), tile.getY3(), tile.getX1(), tile.getY3());
-
-                    if (obstacle.isBottomOverlapping(tile)) {
-                        tile.setY3(tile.getY1() + Calculator.cutTileHeightTop(tile, obstacle));
-                        leftSide = new Side(tile.getX1(), tile.getY1(), tile.getX1(), tile.getY3());
-                        topSide = new Side(tile.getX1(), tile.getY3(), tile.getX3(), tile.getY3());
-                        middleYSide = new Side(tile.getX3(), tile.getY3(), tile.getX3(), tile.getY2());
-                        middleXSide = new Side(tile.getX3(), tile.getY2(), tile.getX2(), tile.getY2());
-                        bottomSide = new Side(tile.getX2(), tile.getY1(), tile.getX1(), tile.getY1());
-                    }
-                    setTileSides(tile, leftSide, topSide, middleYSide, middleXSide, rightSide, bottomSide);
-                }
-            }
-            tile.setRectXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
-        }
-    }
-
-    private void setTileSides(Tile tile, Side leftSide, Side topSide, Side middleYSide, Side middleXSide, Side rightSide, Side bottomSide) {
-        tile.addSide(leftSide);
-        tile.addSide(topSide);
-        tile.addSide(middleYSide);
-        tile.addSide(middleXSide);
-        tile.addSide(rightSide);
-        tile.addSide(bottomSide);
     }
 }
 
