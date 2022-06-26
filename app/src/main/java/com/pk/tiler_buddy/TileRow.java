@@ -20,7 +20,7 @@ public class TileRow implements Serializable {
     public void removeTile(Tile tile) {
         this.row.remove(tile);
     }
-
+    
     public void setTiles(WallDimensions wallDimensions, TileDimensions tileDimensions, List<Obstacle> obstacles, int i, int j) {
         Tile tile = new Tile();
         tile.setRectXY1(j * tileDimensions.getLength(), i * tileDimensions.getHeight());
@@ -53,16 +53,7 @@ public class TileRow implements Serializable {
 
     public void shiftOnX(int extent, List<Obstacle> obstacles) {
         for (Tile tile : row) {
-            for (Obstacle obstacle : obstacles) {
-                tile.shift(extent);
-            }
+            tile.shift(extent, obstacles);
         }
-        cutTiles(obstacles);
-        /*
-        Tile newTile = new Tile(row.get(row.size() - 1));
-        newTile.setX1(newTile.getX1() + newTile.length);
-        newTile.setX2(newTile.getX2() + extent);
-        addTile(newTile);
-         */
     }
 }
