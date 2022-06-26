@@ -13,9 +13,6 @@ import java.util.List;
 public class TileRow implements Serializable {
     List<Tile> row = new ArrayList<>();
 
-    public TileRow() {
-    }
-
     public void addTile(Tile tile) {
         this.row.add(tile);
     }

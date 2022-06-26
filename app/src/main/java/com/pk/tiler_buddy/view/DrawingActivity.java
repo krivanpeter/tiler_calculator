@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.pk.tiler_buddy.CalculatedValuesWrapper;
 import com.pk.tiler_buddy.Obstacle;
 import com.pk.tiler_buddy.R;
-import com.pk.tiler_buddy.TileRow;
+import com.pk.tiler_buddy.Wall;
 
 import java.util.List;
 
@@ -33,20 +33,20 @@ public class DrawingActivity extends AppCompatActivity {
         //Grabbing values from main Activity
         CalculatedValuesWrapper calculatedValuesWrapper = (CalculatedValuesWrapper) getIntent().getSerializableExtra("data");
         List<Obstacle> obstacles = calculatedValuesWrapper.getObstacles();
-        List<TileRow> tileRows = calculatedValuesWrapper.getAllRows();
+        Wall wall = calculatedValuesWrapper.getWall();
         WallDimensions wallDimensions = calculatedValuesWrapper.getWallDimensions();
         ImageView imgview = findViewById(R.id.imageView1);
 
         Bitmap bg = Bitmap.createBitmap(wallDimensions.getLength() + 10, wallDimensions.getHeight() + 10, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bg);
         Paint paint = setUpPaint();
-        drawTiles(canvas, paint, tileRows);
+        drawTiles(canvas, paint, wall);
         imgview.setImageBitmap(bg);
     }
 
-    public void drawTiles(Canvas canvas, Paint paint, List<TileRow> tileRows) {
-        for (int i = 0; i < tileRows.size(); i++) {
-            tileRows.get(i).draw(canvas, paint);
+    public void drawTiles(Canvas canvas, Paint paint, Wall wall) {
+        for (int i = 0; i < wall.size(); i++) {
+            wall.get(i).draw(canvas, paint);
         }
     }
 

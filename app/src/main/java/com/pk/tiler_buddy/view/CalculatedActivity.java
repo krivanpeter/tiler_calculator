@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.pk.tiler_buddy.CalculatedValuesWrapper;
 import com.pk.tiler_buddy.Obstacle;
 import com.pk.tiler_buddy.R;
-import com.pk.tiler_buddy.TileRow;
+import com.pk.tiler_buddy.Wall;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class CalculatedActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.to_be_tiled_are_value)).setText(String.valueOf(calculatedValuesWrapper.getToBeTiledArea()));
         ((TextView) findViewById(R.id.tiles_num_val)).setText(String.valueOf(calculatedValuesWrapper.getNumOfTiles()));
         List<Obstacle> obstacles = calculatedValuesWrapper.getObstacles();
-        List<TileRow> tiles = calculatedValuesWrapper.getAllRows();
+        Wall wall = calculatedValuesWrapper.getWall();
         WallDimensions wallDimensions = calculatedValuesWrapper.getWallDimensions();
     }
 }

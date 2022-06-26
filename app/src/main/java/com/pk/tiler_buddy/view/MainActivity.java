@@ -21,7 +21,7 @@ import com.pk.tiler_buddy.Calculator;
 import com.pk.tiler_buddy.Obstacle;
 import com.pk.tiler_buddy.ObstacleInputException;
 import com.pk.tiler_buddy.R;
-import com.pk.tiler_buddy.TileRow;
+import com.pk.tiler_buddy.Wall;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,20 +70,12 @@ public class MainActivity extends AppCompatActivity {
                         double toBeTiledArea = Calculator.calculateToBeTiledArea(wallDimensions, Calculator.calculateObstaclesArea(obstacles));
                         double numTiles = Calculator.calculateTiles(toBeTiledArea, tileDimensions, tenPercent);
                         double wallAreaMeter = Calculator.convertToMeter(toBeTiledArea);
-                        //Creating Tile Objects in a List
-                        int numberOfRows = (int) Calculator.calculateNumberOfRows(wallDimensions, tileDimensions);
-                        int numberOfColumns = (int) Calculator.calculateNumberOfColumns(wallDimensions, tileDimensions);
-                        List<TileRow> allRows = new ArrayList<>();
-                        for (int i = 0; i < numberOfRows; i++) {
-                            TileRow tileRow = new TileRow();
-                            for (int j = 0; j < numberOfColumns; j++) {
-                                tileRow.setTiles(wallDimensions, tileDimensions, obstacles, i, j);
-                            }
-                            allRows.add(tileRow);
-                        }
+                        //Creating Wall/TileRows/Tiles
+                        Wall wall = new Wall();
+                        wall.setWall(wallDimensions, tileDimensions, obstacles);
                         // Start New Activity
                         Intent intent = new Intent(MainActivity.this, DrawingActivity.class);
-                        intent.putExtra("data", new CalculatedValuesWrapper(wallAreaMeter, numTiles, obstacles, allRows, wallDimensions));
+                        intent.putExtra("data", new CalculatedValuesWrapper(wallAreaMeter, numTiles, obstacles, wall, wallDimensions));
                         startActivity(intent);
                     }
                 } catch (ObstacleInputException e) {
