@@ -1,8 +1,6 @@
 package com.pk.tiler_buddy;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Side implements Serializable {
     int firstPointX1;
@@ -47,14 +45,5 @@ public class Side implements Serializable {
 
     public void setSecondPointY2(int secondPointY2) {
         this.secondPointY2 = secondPointY2;
-    }
-
-    public List<String> getCoords(){
-        List<String> coords = new ArrayList<>();
-        coords.add(String.valueOf(firstPointX1));
-        coords.add(String.valueOf(firstPointY1));
-        coords.add(String.valueOf(secondPointX2));
-        coords.add(String.valueOf(secondPointY2));
-        return coords;
     }
 }

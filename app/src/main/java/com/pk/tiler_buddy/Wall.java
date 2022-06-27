@@ -30,9 +30,9 @@ public class Wall extends Rectangle implements Serializable {
         }
     }
 
-    public void shiftOnX(int extent, List<Obstacle> obstacles){
+    public void shiftOnX(int extent, List<Obstacle> obstacles, TileDimensions tileDimensions){
         for (TileRow tileRow : wall){
-            tileRow.shiftOnX(extent, obstacles);
+            tileRow.shiftOnX(extent, obstacles, tileDimensions);
         }
     }
 }

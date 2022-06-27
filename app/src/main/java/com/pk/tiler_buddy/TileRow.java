@@ -47,9 +47,9 @@ public class TileRow implements Serializable {
         }
     }
 
-    public void shiftOnX(int extent, List<Obstacle> obstacles) {
+    public void shiftOnX(int extent, List<Obstacle> obstacles, TileDimensions tileDimensions) {
         for (Tile tile : row) {
-            tile.shift(extent, obstacles);
+            tile.shiftOnX(extent, obstacles, tileDimensions);
         }
     }
 }
