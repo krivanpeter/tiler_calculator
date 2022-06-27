@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                         wall.setWall(wallDimensions, tileDimensions, obstacles);
                         // Start New Activity
                         Intent intent = new Intent(MainActivity.this, DrawingActivity.class);
-                        intent.putExtra("data", new CalculatedValuesWrapper(wallAreaMeter, numTiles, obstacles, wall, wallDimensions));
+                        intent.putExtra("data", new CalculatedValuesWrapper(wallAreaMeter, numTiles, obstacles, wall, wallDimensions, tileDimensions));
                         startActivity(intent);
                     }
                 } catch (ObstacleInputException e) {
