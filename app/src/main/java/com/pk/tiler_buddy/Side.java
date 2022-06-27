@@ -1,49 +1,60 @@
 package com.pk.tiler_buddy;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Side implements Serializable {
-    int x1;
-    int y1;
-    int x2;
-    int y2;
+    int firstPointX1;
+    int firstPointY1;
+    int secondPointX2;
+    int secondPointY2;
 
-    public Side(int x1, int y1, int x2, int y2) {
-        this.x1 = x1;
-        this.y1 = y1;
-        this.x2 = x2;
-        this.y2 = y2;
+    public Side(int firstPointX1, int firstPointY1, int secondPointX2, int secondPointY2) {
+        this.firstPointX1 = firstPointX1;
+        this.firstPointY1 = firstPointY1;
+        this.secondPointX2 = secondPointX2;
+        this.secondPointY2 = secondPointY2;
     }
 
-    public int getX1() {
-        return x1;
+    public int getFirstPointX1() {
+        return firstPointX1;
     }
 
-    public void setX1(int x1) {
-        this.x1 = x1;
+    public void setFirstPointX1(int firstPointX1) {
+        this.firstPointX1 = firstPointX1;
     }
 
-    public int getY1() {
-        return y1;
+    public int getFirstPointY1() {
+        return firstPointY1;
     }
 
-    public void setY1(int y1) {
-        this.y1 = y1;
+    public void setFirstPointY1(int firstPointY1) {
+        this.firstPointY1 = firstPointY1;
     }
 
-    public int getX2() {
-        return x2;
+    public int getSecondPointX2() {
+        return secondPointX2;
     }
 
-    public void setX2(int x2) {
-        this.x2 = x2;
+    public void setSecondPointX2(int secondPointX2) {
+        this.secondPointX2 = secondPointX2;
     }
 
-    public int getY2() {
-        return y2;
+    public int getSecondPointY2() {
+        return secondPointY2;
     }
 
-    public void setY2(int y2) {
-        this.y2 = y2;
+    public void setSecondPointY2(int secondPointY2) {
+        this.secondPointY2 = secondPointY2;
+    }
+
+    public List<String> getCoords(){
+        List<String> coords = new ArrayList<>();
+        coords.add(String.valueOf(firstPointX1));
+        coords.add(String.valueOf(firstPointY1));
+        coords.add(String.valueOf(secondPointX2));
+        coords.add(String.valueOf(secondPointY2));
+        return coords;
     }
 }
