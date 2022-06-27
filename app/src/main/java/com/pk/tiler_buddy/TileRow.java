@@ -20,7 +20,7 @@ public class TileRow implements Serializable {
     public void removeTile(Tile tile) {
         this.row.remove(tile);
     }
-    
+
     public void setTiles(WallDimensions wallDimensions, TileDimensions tileDimensions, List<Obstacle> obstacles, int i, int j) {
         Tile tile = new Tile();
         tile.setRectXY1(j * tileDimensions.getLength(), i * tileDimensions.getHeight());
@@ -28,7 +28,7 @@ public class TileRow implements Serializable {
         tile.setLength(Math.min(wallDimensions.getLength() - j * tileDimensions.getLength(), tileDimensions.getLength()));
         tile.setRectXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
         addTile(tile);
-        cutTiles(obstacles);
+        cutTiles(tile, obstacles);
     }
 
     public void draw(Canvas canvas, Paint paint) {
@@ -38,16 +38,12 @@ public class TileRow implements Serializable {
         }
     }
 
-    public void cutTiles(List<Obstacle> obstacles) {
-        for (Tile tile : row) {
-            for (Obstacle obstacle : obstacles) {
-                if (Overlap.isFullyOverlapping(tile, obstacle)) {
-                    removeTile(tile);
-                }
-                if (Overlap.isOverlapping(tile, obstacle)) {
-                    tile.cut(obstacle);
-                }
+    public void cutTiles(Tile tile, List<Obstacle> obstacles) {
+        for (Obstacle obstacle : obstacles) {
+            if (Overlap.isFullyOverlapping(tile, obstacle)) {
+                removeTile(tile);
             }
+            tile.cut(obstacle);
         }
     }
 
