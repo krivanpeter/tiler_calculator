@@ -3,8 +3,6 @@ package com.pk.tiler_buddy;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-import com.pk.tiler_buddy.view.TileDimensions;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +32,10 @@ public class Tile extends Rectangle {
         this.y3 = tile.getY3();
     }
 
+    public List<Side> getSides() {
+        return sides;
+    }
+
     public int getX3() {
         return x3;
     }
@@ -44,6 +46,10 @@ public class Tile extends Rectangle {
 
     public void addSide(Side side) {
         this.sides.add(side);
+    }
+
+    public void adjustLength(int extent) {
+        this.length = this.length + extent;
     }
 
     public void draw(Canvas canvas, Paint paint) {
@@ -60,34 +66,8 @@ public class Tile extends Rectangle {
         canvas.drawText(String.valueOf(this.y1), this.x1 + 10, -this.y2 + 20, paint);
         canvas.drawText(String.valueOf(this.x2), this.x1 + 10, -this.y2 + 30, paint);
         canvas.drawText(String.valueOf(this.y2), this.x1 + 10, -this.y2 + 40, paint);
-        canvas.drawText(String.valueOf(this.x3), this.x1 + 10, -this.y2 + 50, paint);
-        canvas.drawText(String.valueOf(this.y3), this.x1 + 10, -this.y2 + 60, paint);
         canvas.restore();
     }
-
-    public void shiftOnX(int extent, List<Obstacle> obstacles, Wall wall, TileDimensions tileDimensions) {
-        for (Obstacle obstacle : obstacles) {
-            if (x1 - extent < 0) {
-                length = length - extent;
-            } else {
-                if (!Overlap.isXOverlapping(this, obstacle, x1 - extent)) {
-                    if (length >= tileDimensions.getLength() - extent) {
-                        x1 = x1 - extent;
-                        length = tileDimensions.getLength();
-                    }
-                    else{
-                        x1 = x1 - extent;
-                    }
-                } else {
-                    length = length - extent;
-                }
-            }
-            x2 = Calculator.calculatePosX2(this);
-            sides.clear();
-            cut(obstacle);
-        }
-    }
-
 
     public void cut(Obstacle obstacle) {
         String overlapAt = Overlap.whereOverlap(this, obstacle);
