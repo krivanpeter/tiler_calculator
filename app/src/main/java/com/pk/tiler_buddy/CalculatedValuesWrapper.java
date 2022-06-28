@@ -1,7 +1,6 @@
 package com.pk.tiler_buddy;
 
 import com.pk.tiler_buddy.view.TileDimensions;
-import com.pk.tiler_buddy.view.WallDimensions;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,14 +13,12 @@ public class CalculatedValuesWrapper implements Serializable {
     private final List<Obstacle> obstacle;
     private final Wall wall;
     private final TileDimensions tileDimensions;
-    private final WallDimensions wallDimensions;
 
-    public CalculatedValuesWrapper(double toBeTiledArea, double numOfTiles, List<Obstacle> obstacle, Wall wall, WallDimensions wallDimensions, TileDimensions tileDimensions) {
+    public CalculatedValuesWrapper(double toBeTiledArea, double numOfTiles, List<Obstacle> obstacle, Wall wall, TileDimensions tileDimensions) {
         this.toBeTiledArea = toBeTiledArea;
         this.numOfTiles = numOfTiles;
         this.obstacle = obstacle;
         this.wall = wall;
-        this.wallDimensions = wallDimensions;
         this.tileDimensions = tileDimensions;
     }
 
@@ -40,8 +37,6 @@ public class CalculatedValuesWrapper implements Serializable {
     public Wall getWall() {
         return this.wall;
     }
-
-    public WallDimensions getWallDimensions() {return this.wallDimensions;}
 
     public TileDimensions getTileDimensions() {
         return tileDimensions;
