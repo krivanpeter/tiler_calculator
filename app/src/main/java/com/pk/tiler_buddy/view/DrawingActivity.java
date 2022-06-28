@@ -34,12 +34,11 @@ public class DrawingActivity extends AppCompatActivity {
         CalculatedValuesWrapper calculatedValuesWrapper = (CalculatedValuesWrapper) getIntent().getSerializableExtra("data");
         List<Obstacle> obstacles = calculatedValuesWrapper.getObstacles();
         Wall wall = calculatedValuesWrapper.getWall();
-        WallDimensions wallDimensions = calculatedValuesWrapper.getWallDimensions();
         TileDimensions tileDimensions = calculatedValuesWrapper.getTileDimensions();
 
         ImageView imgview = findViewById(R.id.imageView1);
-        wall.shiftOnX(20, obstacles, tileDimensions);
-        Bitmap bg = Bitmap.createBitmap(wallDimensions.getLength() + 10, wallDimensions.getHeight() + 10, Bitmap.Config.ARGB_8888);
+        wall.shiftOnX(20, tileDimensions);
+        Bitmap bg = Bitmap.createBitmap(wall.getLength() + 10, wall.getHeight() + 10, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bg);
         Paint paint = setUpPaint();
         drawTiles(canvas, paint, wall);
@@ -48,7 +47,7 @@ public class DrawingActivity extends AppCompatActivity {
 
     public void drawTiles(Canvas canvas, Paint paint, Wall wall) {
         for (int i = 0; i < wall.size(); i++) {
-            wall.get(i).draw(canvas, paint);
+            wall.getRow(i).draw(canvas, paint);
         }
     }
 
