@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                         double wallAreaMeter = Calculator.convertToMeter(toBeTiledArea);
                         //Creating Wall/TileRows/Tiles
                         Wall wall = new Wall();
-                        wall.setWall(wallDimensions, tileDimensions, obstacles);
+                        wall.set(wallDimensions, tileDimensions, obstacles);
                         // Start New Activity
                         Intent intent = new Intent(MainActivity.this, DrawingActivity.class);
                         intent.putExtra("data", new CalculatedValuesWrapper(wallAreaMeter, numTiles, obstacles, wall, wallDimensions, tileDimensions));

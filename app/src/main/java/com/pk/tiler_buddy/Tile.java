@@ -65,14 +65,19 @@ public class Tile extends Rectangle {
         canvas.restore();
     }
 
-    public void shiftOnX(int extent, List<Obstacle> obstacles, TileDimensions tileDimensions) {
+    public void shiftOnX(int extent, List<Obstacle> obstacles, Wall wall, TileDimensions tileDimensions) {
         for (Obstacle obstacle : obstacles) {
             if (x1 - extent < 0) {
                 length = length - extent;
             } else {
                 if (!Overlap.isXOverlapping(this, obstacle, x1 - extent)) {
-                    x1 = x1 - extent;
-                    length = tileDimensions.getLength();
+                    if (length >= tileDimensions.getLength() - extent) {
+                        x1 = x1 - extent;
+                        length = tileDimensions.getLength();
+                    }
+                    else{
+                        x1 = x1 - extent;
+                    }
                 } else {
                     length = length - extent;
                 }

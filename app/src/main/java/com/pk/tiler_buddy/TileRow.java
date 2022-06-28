@@ -4,13 +4,13 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import com.pk.tiler_buddy.view.TileDimensions;
-import com.pk.tiler_buddy.view.WallDimensions;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileRow implements Serializable {
+public class TileRow extends Rectangle implements Serializable {
+    int numberOfColumns;
     List<Tile> row = new ArrayList<>();
 
     public void addTile(Tile tile) {
@@ -21,14 +21,20 @@ public class TileRow implements Serializable {
         this.row.remove(tile);
     }
 
-    public void setTiles(WallDimensions wallDimensions, TileDimensions tileDimensions, List<Obstacle> obstacles, int i, int j) {
-        Tile tile = new Tile();
-        tile.setRectXY1(j * tileDimensions.getLength(), i * tileDimensions.getHeight());
-        tile.setHeight(Math.min(wallDimensions.getHeight() - i * tileDimensions.getHeight(), tileDimensions.getHeight()));
-        tile.setLength(Math.min(wallDimensions.getLength() - j * tileDimensions.getLength(), tileDimensions.getLength()));
-        tile.setRectXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
-        addTile(tile);
-        cutTiles(tile, obstacles);
+    public void setNumberOfColumns(int numberOfColumns) {
+        this.numberOfColumns = numberOfColumns;
+    }
+
+    public void setTiles(TileDimensions tileDimensions, List<Obstacle> obstacles) {
+        for (int i = 0; i < numberOfColumns; i++) {
+            Tile tile = new Tile();
+            tile.setRectXY1(i * tileDimensions.getLength(), y1);
+            tile.setHeight(height);
+            tile.setLength(Math.min(length - i * tileDimensions.getLength(), tileDimensions.getLength()));
+            tile.setRectXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
+            addTile(tile);
+            cutTiles(tile, obstacles);
+        }
     }
 
     public void draw(Canvas canvas, Paint paint) {
@@ -47,9 +53,9 @@ public class TileRow implements Serializable {
         }
     }
 
-    public void shiftOnX(int extent, List<Obstacle> obstacles, TileDimensions tileDimensions) {
+    public void shiftOnX(int extent, List<Obstacle> obstacles, Wall wall, TileDimensions tileDimensions) {
         for (Tile tile : row) {
-            tile.shiftOnX(extent, obstacles, tileDimensions);
+            tile.shiftOnX(extent, obstacles, wall, tileDimensions);
         }
     }
 }
