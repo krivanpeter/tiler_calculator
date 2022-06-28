@@ -44,16 +44,6 @@ public class Overlap {
                 tile.getY1() >= obstacle.getY1() && tile.getY2() <= obstacle.getY2();
     }
 
-    static boolean isXOverlapping(Tile tile, Obstacle obstacle, int point) {
-        if (tile.getY1() >= obstacle.getY2() || tile.getY2() <= obstacle.getY1()) {
-            return false;
-        }
-        if (point >= obstacle.getX2() || point <= obstacle.getX1()) {
-            return false;
-        }
-        return !isBottomLeftCornerOverlapping(tile, obstacle) && !isTopLeftCornerOverlapping(tile, obstacle);
-    }
-
     private static boolean isLeftOverlapping(Tile tile, Obstacle obstacle) {
         return isOverlapping(tile, obstacle) && tile.getX1() < obstacle.getX2() && tile.getX2() > obstacle.getX2();
     }
