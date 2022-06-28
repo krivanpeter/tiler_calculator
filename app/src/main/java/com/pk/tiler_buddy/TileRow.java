@@ -50,6 +50,9 @@ public class TileRow extends Rectangle implements Serializable {
     }
 
     public void shiftOnX(int extent, TileDimensions tileDimensions) {
+        if (extent > tileDimensions.getLength()) {
+            extent = extent - (extent / tileDimensions.getLength()) * tileDimensions.getLength();
+        }
         int allLength = 0;
         for (Tile tile : row) {
             // 4 sided(rectangle) tiles
