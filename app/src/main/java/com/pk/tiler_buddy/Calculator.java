@@ -35,8 +35,8 @@ public class Calculator {
         return allArea;
     }
 
-    public static double calculateNumberOfColumns(WallDimensions wallDimensions, TileDimensions tileDimensions) {
-        return Math.ceil(wallDimensions.getLength() / (double) tileDimensions.getLength());
+    public static double calculateNumberOfColumns(int rowLength, TileDimensions tileDimensions) {
+        return Math.ceil(rowLength / (double) tileDimensions.getLength());
     }
 
     public static double calculateNumberOfRows(WallDimensions wallDimensions, TileDimensions tileDimensions) {
