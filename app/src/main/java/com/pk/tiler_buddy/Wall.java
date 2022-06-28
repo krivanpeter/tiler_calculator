@@ -45,12 +45,12 @@ public class Wall extends Rectangle implements Serializable {
         }
     }
 
-    public void shiftOnX(int extent, TileDimensions tileDimensions) {
+    public void shiftOnX(int extent, TileDimensions tileDimensions, List<Obstacle> obstacles) {
         if (extent > tileDimensions.getLength()) {
             extent = extent - tileDimensions.getLength();
         }
         for (TileRow tileRow : wall) {
-            tileRow.shiftOnX(extent, tileDimensions);
+            tileRow.shiftOnX(tileDimensions, obstacles, extent);
         }
     }
 }

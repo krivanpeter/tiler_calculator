@@ -33,6 +33,23 @@ public class TileRow extends Rectangle implements Serializable {
         }
     }
 
+    public void shiftOnX(TileDimensions tileDimensions, List<Obstacle> obstacles, int extent) {
+        row.clear();
+        int allLength = 0;
+        for (int i = 0; i < numberOfColumns; i++) {
+            Tile tile = new Tile();
+            tile.setRectXY1(i * tileDimensions.getLength(), y1);
+            tile.setHeight(height);
+            tile.setLength(Math.min(length - i * tileDimensions.getLength(), tileDimensions.getLength()));
+            tile.setRectXY2(Calculator.calculatePosX2(tile), Calculator.calculatePosY2(tile));
+            shiftTileOnX(extent, tile, tileDimensions);
+            allLength = allLength + tile.getLength();
+            row.add(tile);
+            cutTiles(tile, obstacles);
+        }
+        fillUp(allLength, extent);
+    }
+
     public void draw(Canvas canvas, Paint paint) {
         for (int i = 0; i < this.row.size(); i++) {
             Tile tile = this.row.get(i);
@@ -49,51 +66,49 @@ public class TileRow extends Rectangle implements Serializable {
         }
     }
 
-    public void shiftOnX(int extent, TileDimensions tileDimensions) {
+    private void shiftToRight(int extent, Tile tile) {
+        tile.setX1(tile.getX1() + extent);
+        if (tile.getX2() + extent >= length) {
+            tile.setX2(length);
+        } else {
+            tile.setX2(Calculator.calculatePosX2(tile));
+        }
+        tile.setLength(Calculator.calculateLength(tile));
+    }
+
+    private void shiftToLeft(int extent, Tile tile, TileDimensions tileDimensions) {
+        if (tile.getX1() + extent < x1) {
+            tile.adjustLength(extent);
+            tile.setX2(Calculator.calculatePosX2(tile));
+            tile.setX1(Calculator.calculatePosX1(tile));
+        } else if (tile.getX2() - extent >= length) {
+            if (tile.getLength() - extent > tileDimensions.getLength()) {
+                tile.setX1(tile.getX1() + extent);
+                tile.setLength(tileDimensions.getLength());
+                tile.setX2(Calculator.calculatePosX2(tile));
+            } else {
+                tile.setX1(tile.getX1() + extent);
+                tile.setX2(length);
+                tile.setLength(Calculator.calculateLength(tile));
+            }
+        } else {
+            tile.setX1(tile.getX1() + extent);
+            tile.setX2(Calculator.calculatePosX2(tile));
+            tile.setLength(Calculator.calculateLength(tile));
+        }
+    }
+
+    private void shiftTileOnX(int extent, Tile tile, TileDimensions tileDimensions) {
         if (extent > tileDimensions.getLength()) {
             extent = extent - (extent / tileDimensions.getLength()) * tileDimensions.getLength();
         }
-        int allLength = 0;
-        for (Tile tile : row) {
-            // 4 sided(rectangle) tiles
-            if (tile.getSides().isEmpty()) {
-                //If pushing to the right
-                if (Calculator.isPositive(extent)) {
-                    if (tile.getX2() + extent >= length) {
-                        tile.setX1(tile.getX1() + extent);
-                        tile.setX2(length);
-                        tile.setLength(Calculator.calculateLength(tile));
-                    } else {
-                        tile.setX1(tile.getX1() + extent);
-                        tile.setX2(Calculator.calculatePosX2(tile));
-                        tile.setLength(Calculator.calculateLength(tile));
-                    }
-                    //If pushing to the left
-                } else {
-                    if (tile.getX1() + extent < x1) {
-                        tile.adjustLength(extent);
-                        tile.setX2(Calculator.calculatePosX2(tile));
-                        tile.setX1(Calculator.calculatePosX1(tile));
-                    } else if (tile.getX2() - extent >= length) {
-                        if (tile.getLength() - extent > tileDimensions.getLength()) {
-                            tile.setX1(tile.getX1() + extent);
-                            tile.setLength(tileDimensions.getLength());
-                            tile.setX2(Calculator.calculatePosX2(tile));
-                        } else {
-                            tile.setX1(tile.getX1() + extent);
-                            tile.setX2(length);
-                            tile.setLength(Calculator.calculateLength(tile));
-                        }
-                    } else {
-                        tile.setX1(tile.getX1() + extent);
-                        tile.setX2(Calculator.calculatePosX2(tile));
-                        tile.setLength(Calculator.calculateLength(tile));
-                    }
-                }
-            }
-            allLength = allLength + tile.getLength();
+        //If pushing to the right
+        if (Calculator.isPositive(extent)) {
+            shiftToRight(extent, tile);
+            //If pushing to the left
+        } else {
+            shiftToLeft(extent, tile, tileDimensions);
         }
-        fillUp(allLength, extent);
     }
 
     private void fillUp(int allLength, int extent) {
