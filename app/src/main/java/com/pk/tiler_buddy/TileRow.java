@@ -33,8 +33,11 @@ public class TileRow extends Rectangle implements Serializable {
         }
     }
 
-    public void shiftOnX(TileDimensions tileDimensions, List<Obstacle> obstacles, int extent) {
+    public void shiftOnX(int extent, TileDimensions tileDimensions, List<Obstacle> obstacles) {
         row.clear();
+        if (extent > tileDimensions.getLength()) {
+            extent = extent - tileDimensions.getLength();
+        }
         int allLength = 0;
         for (int i = 0; i < numberOfColumns; i++) {
             Tile tile = new Tile();

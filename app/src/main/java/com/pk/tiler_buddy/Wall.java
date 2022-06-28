@@ -15,6 +15,10 @@ public class Wall extends Rectangle implements Serializable {
         return numberOfRows;
     }
 
+    public List<TileRow> getWall() {
+        return wall;
+    }
+
     public int size() {
         return wall.size();
     }
@@ -50,7 +54,7 @@ public class Wall extends Rectangle implements Serializable {
             extent = extent - tileDimensions.getLength();
         }
         for (TileRow tileRow : wall) {
-            tileRow.shiftOnX(tileDimensions, obstacles, extent);
+            tileRow.shiftOnX(extent, tileDimensions, obstacles);
         }
     }
 }
