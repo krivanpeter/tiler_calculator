@@ -37,7 +37,7 @@ public class DrawingActivity extends AppCompatActivity {
         TileDimensions tileDimensions = calculatedValuesWrapper.getTileDimensions();
 
         ImageView imgview = findViewById(R.id.imageView1);
-        wall.shiftOnX(20, tileDimensions);
+        wall.shiftOnX(20, tileDimensions, obstacles);
         Bitmap bg = Bitmap.createBitmap(wall.getLength() + 10, wall.getHeight() + 10, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bg);
         Paint paint = setUpPaint();
