@@ -29,7 +29,6 @@ public class Wall extends Rectangle implements Serializable {
     }
 
     public void setRows(TileDimensions tileDimensions, List<Obstacle> obstacles) {
-        int num = 0;
         for (int i = 0; i < numberOfRows; i++) {
             TileRow tileRow = new TileRow();
             tileRow.setLength(this.length);
@@ -39,13 +38,12 @@ public class Wall extends Rectangle implements Serializable {
             tileRow.setNumberOfColumns((int) Calculator.calculateNumberOfColumns(tileRow.getLength(), tileDimensions));
             tileRow.setTiles(tileDimensions, obstacles);
             wall.add(tileRow);
-            num++;
         }
     }
 
-    public void shiftOnX(int extent, List<Obstacle> obstacles, TileDimensions tileDimensions) {
+    public void shiftOnX(int extent, TileDimensions tileDimensions) {
         for (TileRow tileRow : wall) {
-            tileRow.shiftOnX(extent, obstacles, this, tileDimensions);
+            tileRow.shiftOnX(extent, tileDimensions);
         }
     }
 }
