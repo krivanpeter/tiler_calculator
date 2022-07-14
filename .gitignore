@@ -12,12 +12,9 @@ local.properties
 /build
 /libs
 /gradle
-/app/src/main/AndroidManifest.xml
 /app/src/main/res/drawable*
 /app/src/main/res/mipmap*
 /app/src/main/res/values-night
-/app/src/main/res/values/colors.xml
-/app/src/main/res/values/themes.xml
 /app/src/main/res/xml/
 /app/src/test/
 /app/src/androidTest/
