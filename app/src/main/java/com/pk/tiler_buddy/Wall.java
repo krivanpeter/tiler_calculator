@@ -1,8 +1,5 @@
 package com.pk.tiler_buddy;
 
-import com.pk.tiler_buddy.view.TileDimensions;
-import com.pk.tiler_buddy.view.WallDimensions;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +8,23 @@ public class Wall extends Rectangle implements Serializable {
     int numberOfRows;
     List<TileRow> wall = new ArrayList<>();
 
+    public Wall(WallDimensions wallDimensions, TileDimensions tileDimensions, List<Obstacle> obstacles) {
+        length = wallDimensions.getLength();
+        height = wallDimensions.getHeight();
+        x2 = Calculator.calculatePosX2(this);
+        y2 = Calculator.calculatePosY2(this);
+        numberOfRows = (int) Calculator.calculateNumberOfRows(wallDimensions, tileDimensions);
+        setRows(tileDimensions, obstacles);
+    }
+
+    public Wall() {
+    }
+
     public int getNumberOfRows() {
         return numberOfRows;
     }
 
-    public List<TileRow> getWall() {
+    public List<TileRow> getRows() {
         return wall;
     }
 
@@ -25,15 +34,6 @@ public class Wall extends Rectangle implements Serializable {
 
     public TileRow getRow(int i) {
         return wall.get(i);
-    }
-
-    public void set(WallDimensions wallDimensions, TileDimensions tileDimensions, List<Obstacle> obstacles) {
-        length = wallDimensions.getLength();
-        height = wallDimensions.getHeight();
-        x2 = Calculator.calculatePosX2(this);
-        y2 = Calculator.calculatePosY2(this);
-        numberOfRows = (int) Calculator.calculateNumberOfRows(wallDimensions, tileDimensions);
-        setRows(tileDimensions, obstacles);
     }
 
     public void setRows(TileDimensions tileDimensions, List<Obstacle> obstacles) {

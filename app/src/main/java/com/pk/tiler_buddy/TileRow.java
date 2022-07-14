@@ -3,8 +3,6 @@ package com.pk.tiler_buddy;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-import com.pk.tiler_buddy.view.TileDimensions;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +29,14 @@ public class TileRow extends Rectangle implements Serializable {
             row.add(tile);
             cutTiles(tile, obstacles);
         }
+    }
+
+    public List<Tile> getTiles(){
+        return row;
+    }
+
+    public Tile getTile(int i){
+        return row.get(i);
     }
 
     public void shiftOnX(int extent, TileDimensions tileDimensions, List<Obstacle> obstacles) {

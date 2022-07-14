@@ -9,6 +9,15 @@ public class Rectangle implements Serializable {
     int y2;
     int length;
     int height;
+    String photoUriString;
+
+    public String getPhotoUriString() {
+        return photoUriString;
+    }
+
+    public void setPhotoUriString(String photoUriString) {
+        this.photoUriString = photoUriString;
+    }
 
     public int getLength() {
         return length;
@@ -16,6 +25,7 @@ public class Rectangle implements Serializable {
 
     public void setLength(int length) {
         this.length = length;
+        // this.x2 = Calculator.calculatePosX2(this);
     }
 
     public int getHeight() {
@@ -24,6 +34,7 @@ public class Rectangle implements Serializable {
 
     public void setHeight(int height) {
         this.height = height;
+        // this.y2 = Calculator.calculatePosY2(this);
     }
 
     public int getX1() {

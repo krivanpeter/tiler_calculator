@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.CalculatedActivity">
+    tools:context=".activity.CalculatedActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -80,7 +80,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/fullscreen_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:rotation="0"
