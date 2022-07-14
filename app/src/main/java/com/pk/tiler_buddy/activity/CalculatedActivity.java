@@ -1,4 +1,4 @@
-package com.pk.tiler_buddy.view;
+package com.pk.tiler_buddy.activity;
 
 import android.os.Bundle;
 import android.widget.TextView;
@@ -14,8 +14,6 @@ import java.util.List;
 
 public class CalculatedActivity extends AppCompatActivity {
 
-    // Button button;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,15 +27,5 @@ public class CalculatedActivity extends AppCompatActivity {
         Wall wall = calculatedValuesWrapper.getWall();
     }
 }
-/*
-    button = findViewById(R.id.button1);
-    //Request for camera runtime permission
-    if (ContextCompat.checkSelfPermission(CalculatedActivity.this, Manifest.permission.CAMERA)
-    != PackageManager.PERMISSION_GRANTED) {
-        ActivityCompat.requestPermissions(CalculatedActivity.this, new String[]{
-                Manifest.permission.CAMERA
-        }, 100);
-    }
-*/
 
 
