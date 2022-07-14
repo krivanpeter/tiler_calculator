@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.CalculatedActivity"
-    android:orientation="horizontal">
+    android:screenOrientation="landscape">
+
+    <ImageButton
+        android:id="@+id/take_photo_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:contentDescription="@string/take_photo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_camera"
+        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/fullscreen_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:contentDescription="@string/imageDescription"
         android:rotation="0"
         android:rotationX="180" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
