@@ -1,8 +1,5 @@
 package com.pk.tiler_buddy;
 
-import com.pk.tiler_buddy.view.TileDimensions;
-import com.pk.tiler_buddy.view.WallDimensions;
-
 import java.util.List;
 
 public class Calculator {
