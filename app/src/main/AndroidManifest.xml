@@ -33,7 +33,7 @@
             android:screenOrientation="landscape"
             android:exported="false" />
         <activity
-            android:name="com.pk.tiler_buddy.activity.MainActivity"
+            android:name="com.pk.tiler_buddy.activity.InputActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

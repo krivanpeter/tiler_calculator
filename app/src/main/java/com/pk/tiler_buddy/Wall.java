@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Wall extends Rectangle implements Serializable {
-    int numberOfRows;
-    List<TileRow> wall = new ArrayList<>();
+    private final List<TileRow> tileRows = new ArrayList<>();
+    private int numberOfRows;
 
     public Wall(WallDimensions wallDimensions, TileDimensions tileDimensions, List<Obstacle> obstacles) {
         length = wallDimensions.getLength();
@@ -20,41 +20,32 @@ public class Wall extends Rectangle implements Serializable {
     public Wall() {
     }
 
-    public int getNumberOfRows() {
-        return numberOfRows;
-    }
-
-    public List<TileRow> getRows() {
-        return wall;
-    }
-
     public int size() {
-        return wall.size();
+        return tileRows.size();
     }
 
     public TileRow getRow(int i) {
-        return wall.get(i);
+        return tileRows.get(i);
     }
 
     public void setRows(TileDimensions tileDimensions, List<Obstacle> obstacles) {
         for (int i = 0; i < numberOfRows; i++) {
-            TileRow tileRow = new TileRow();
+            TileRow tileRow = new TileRow((int) Calculator.calculateNumberOfColumns(length, tileDimensions), tileDimensions);
             tileRow.setLength(this.length);
             tileRow.setHeight(Math.min(this.height - i * tileDimensions.getHeight(), tileDimensions.getHeight()));
             tileRow.setY1(i * tileDimensions.getHeight());
             tileRow.setRectXY2(Calculator.calculatePosX2(tileRow), Calculator.calculatePosY2(tileRow));
-            tileRow.setNumberOfColumns((int) Calculator.calculateNumberOfColumns(tileRow.getLength(), tileDimensions));
-            tileRow.setTiles(tileDimensions, obstacles);
-            wall.add(tileRow);
+            tileRow.addTiles(obstacles);
+            tileRows.add(tileRow);
         }
     }
 
-    public void shiftOnX(int extent, TileDimensions tileDimensions, List<Obstacle> obstacles) {
+    public void shiftHorizontally(int extent, TileDimensions tileDimensions, List<Obstacle> obstacles) {
         if (extent > tileDimensions.getLength()) {
             extent = extent - tileDimensions.getLength();
         }
-        for (TileRow tileRow : wall) {
-            tileRow.shiftOnX(extent, tileDimensions, obstacles);
+        for (TileRow tileRow : tileRows) {
+            tileRow.shiftHorizontally(extent, obstacles);
         }
     }
 }

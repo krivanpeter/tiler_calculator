@@ -3,13 +3,13 @@ package com.pk.tiler_buddy;
 import java.io.Serializable;
 
 public class Rectangle implements Serializable {
-    int x1;
-    int y1;
-    int x2;
-    int y2;
-    int length;
-    int height;
-    String photoUriString;
+    protected int x1;
+    protected int y1;
+    protected int x2;
+    protected int y2;
+    protected int length;
+    protected int height;
+    protected String photoUriString;
 
     public String getPhotoUriString() {
         return photoUriString;
@@ -25,7 +25,6 @@ public class Rectangle implements Serializable {
 
     public void setLength(int length) {
         this.length = length;
-        // this.x2 = Calculator.calculatePosX2(this);
     }
 
     public int getHeight() {
@@ -34,7 +33,6 @@ public class Rectangle implements Serializable {
 
     public void setHeight(int height) {
         this.height = height;
-        // this.y2 = Calculator.calculatePosY2(this);
     }
 
     public int getX1() {

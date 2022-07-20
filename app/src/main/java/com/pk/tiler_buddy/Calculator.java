@@ -53,10 +53,7 @@ public class Calculator {
     }
 
     public static boolean isPositive(int number) {
-        if (number < 0) {
-            return false;
-        }
-        return true;
+        return number >= 0;
     }
 
     public static int calculatePosY2(Rectangle rectangle) {

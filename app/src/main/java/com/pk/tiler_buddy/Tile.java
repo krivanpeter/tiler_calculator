@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tile extends Rectangle {
-    int x3;
-    int y3;
-    List<Side> sides = new ArrayList<>();
+    private final List<Side> sides = new ArrayList<>();
+    private int x3;
+    private int y3;
 
     public Tile() {
     }
@@ -57,7 +57,11 @@ public class Tile extends Rectangle {
             canvas.drawRect(x1, y1, x2, y2, paint);
         } else {
             for (int i = 0; i < sides.size(); i++) {
-                canvas.drawLine(sides.get(i).getFirstPointX1(), sides.get(i).getFirstPointY1(), sides.get(i).getSecondPointX2(), sides.get(i).getSecondPointY2(), paint);
+                canvas.drawLine(
+                        sides.get(i).getFirstPointX1(),
+                        sides.get(i).getFirstPointY1(),
+                        sides.get(i).getSecondPointX2(),
+                        sides.get(i).getSecondPointY2(), paint);
             }
         }
         canvas.save();
@@ -70,41 +74,41 @@ public class Tile extends Rectangle {
     }
 
     public void cut(Obstacle obstacle) {
-        String overlapAt = Overlap.whereOverlap(this, obstacle);
-        if (overlapAt != "") {
+        OverlapPosition overlapAt = Overlap.whereOverlap(this, obstacle);
+        if (overlapAt != null) {
             switch (overlapAt) {
-                case "onlyLeft":
+                case ONLY_LEFT:
                     this.length = Calculator.cutTileLengthLeft(this, obstacle);
                     this.x1 = Calculator.calculateNewPosX1(this, obstacle);
                     break;
-                case "onlyTop":
+                case ONLY_TOP:
                     this.height = Calculator.cutTileHeightTop(this, obstacle);
                     this.y2 = Calculator.calculatePosY2(this);
                     break;
-                case "onlyRight":
+                case ONLY_RIGHT:
                     this.length = Calculator.cutTileLengthRight(this, obstacle);
                     this.x2 = Calculator.calculatePosX2(this);
                     break;
-                case "onlyBottom":
+                case ONLY_BOTTOM:
                     this.height = Calculator.cutTileHeightBottom(this, obstacle);
                     this.y1 = Calculator.calculateNewPosY1(this, obstacle);
                     break;
-                case "topRightCorner":
+                case TOP_RIGHT_CORNER:
                     this.x3 = Calculator.calculateX3RightCorner(this, obstacle);
                     this.y3 = Calculator.calculateY3TopCorner(this, obstacle);
                     cutTopRightCorner();
                     break;
-                case "bottomRightCorner":
+                case BOTTOM_RIGHT_CORNER:
                     this.x3 = Calculator.calculateX3RightCorner(this, obstacle);
                     this.y3 = Calculator.calculateY3BottomCorner(this, obstacle);
                     cutBottomRightCorner();
                     break;
-                case "bottomLeftCorner":
+                case BOTTOM_LEFT_CORNER:
                     this.x3 = Calculator.calculateX3LeftCorner(this, obstacle);
                     this.y3 = Calculator.calculateY3BottomCorner(this, obstacle);
                     cutBottomLeftCorner();
                     break;
-                case "topLeftCorner":
+                case TOP_LEFT_CORNER:
                     this.x3 = this.x1 + Calculator.cutTileLengthLeft(this, obstacle);
                     this.y3 = Calculator.calculateY3TopCorner(this, obstacle);
                     cutTopLeftCorner();

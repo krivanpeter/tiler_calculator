@@ -1,7 +1,9 @@
 package com.pk.tiler_buddy.activity;
 
+import android.Manifest;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -16,36 +18,47 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
-import com.pk.tiler_buddy.CalculatedValuesWrapper;
+import com.pk.tiler_buddy.InputValuesWrapper;
 import com.pk.tiler_buddy.R;
 import com.pk.tiler_buddy.Wall;
 
 public class DrawingActivity extends AppCompatActivity {
     public static final int IMAGE_CAPTURE_CODE = 123;
 
-    Uri image_uri;
-    String backgroundImageUrl;
-    Canvas canvas;
-    Wall wall;
+    private Uri image_uri;
+    private Canvas canvas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawing);
-        ImageView toBeCanvasView = findViewById(R.id.fullscreen_view);
+        ImageView canvasBackground = findViewById(R.id.fullscreen_view);
         //Grabbing values from main Activity
-        CalculatedValuesWrapper calculatedValuesWrapper = (CalculatedValuesWrapper) getIntent().getSerializableExtra("data");
-        wall = calculatedValuesWrapper.getWall();
+        InputValuesWrapper calculatedValuesWrapper = (InputValuesWrapper) getIntent().getSerializableExtra("data");
+        Wall wall = new Wall(calculatedValuesWrapper.getWallDimensions(), calculatedValuesWrapper.getTileDimensions(), calculatedValuesWrapper.getObstacles());
         Bitmap bg = Bitmap.createBitmap(wall.getLength() + 10, wall.getHeight() + 10, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(bg);
-        toBeCanvasView.setImageBitmap(bg);
+        canvasBackground.setImageBitmap(bg);
         // wall.shiftOnX(20, tileDimensions, obstacles);
         Paint paint = setUpPaint();
         drawTiles(canvas, paint, wall);
+        /*
+        wall.setOnTouchListener(new OnSwipeTouchListener(context){
+           @Override
+           public void onSwipeLeft(){
 
+           }
+        });
+
+         */
         ImageButton takePhotoButton = findViewById(R.id.take_photo_button);
-        takePhotoButton.setOnClickListener(v -> openCamera());
+        takePhotoButton.setOnClickListener(v -> {
+            checkCameraPermission();
+            openCamera();
+        });
     }
 
     private Paint setUpPaint() {
@@ -93,12 +106,20 @@ public class DrawingActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        backgroundImageUrl = String.valueOf(image_uri);
+        String backgroundImageUrl = String.valueOf(image_uri);
         Intent intent = new Intent(DrawingActivity.this, ToBeTiledActivity.class);
         intent.putExtra("data", backgroundImageUrl);
         startActivity(intent);
     }
 
+    private void checkCameraPermission() {
+        if (ContextCompat.checkSelfPermission(DrawingActivity.this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(DrawingActivity.this, new String[]{
+                    Manifest.permission.CAMERA
+            }, 100);
+        }
+    }
     /*
     @Override
     protected void onStop() {

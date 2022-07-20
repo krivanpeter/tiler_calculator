@@ -1,33 +1,44 @@
 package com.pk.tiler_buddy;
 
+import static com.pk.tiler_buddy.OverlapPosition.BOTTOM_LEFT_CORNER;
+import static com.pk.tiler_buddy.OverlapPosition.BOTTOM_RIGHT_CORNER;
+import static com.pk.tiler_buddy.OverlapPosition.ONLY_BOTTOM;
+import static com.pk.tiler_buddy.OverlapPosition.ONLY_LEFT;
+import static com.pk.tiler_buddy.OverlapPosition.ONLY_RIGHT;
+import static com.pk.tiler_buddy.OverlapPosition.ONLY_TOP;
+import static com.pk.tiler_buddy.OverlapPosition.TOP_LEFT_CORNER;
+import static com.pk.tiler_buddy.OverlapPosition.TOP_RIGHT_CORNER;
+
+import java.util.List;
+
 public class Overlap {
 
-    public static String whereOverlap(Tile tile, Obstacle obstacle) {
+    public static OverlapPosition whereOverlap(Tile tile, Obstacle obstacle) {
         if (isOnlyLeftOverlapping(tile, obstacle)) {
-            return "onlyLeft";
+            return ONLY_LEFT;
         }
         if (isOnlyTopOverlapping(tile, obstacle)) {
-            return "onlyTop";
+            return ONLY_TOP;
         }
         if (isOnlyRightOverlapping(tile, obstacle)) {
-            return "onlyRight";
+            return ONLY_RIGHT;
         }
         if (isOnlyBottomOverlapping(tile, obstacle)) {
-            return "onlyBottom";
+            return ONLY_BOTTOM;
         }
         if (isBottomLeftCornerOverlapping(tile, obstacle)) {
-            return "bottomLeftCorner";
+            return BOTTOM_LEFT_CORNER;
         }
         if (isTopLeftCornerOverlapping(tile, obstacle)) {
-            return "topLeftCorner";
+            return TOP_LEFT_CORNER;
         }
         if (isTopRightCornerOverlapping(tile, obstacle)) {
-            return "topRightCorner";
+            return TOP_RIGHT_CORNER;
         }
         if (isBottomRightCornerOverlapping(tile, obstacle)) {
-            return "bottomRightCorner";
+            return BOTTOM_RIGHT_CORNER;
         }
-        return "";
+        return null;
     }
 
     // Thank you Shubhra Srivastava for the following method
@@ -43,6 +54,16 @@ public class Overlap {
                 tile.getX1() >= obstacle.getX1() && tile.getX2() <= obstacle.getX2() &&
                 tile.getY1() >= obstacle.getY1() && tile.getY2() <= obstacle.getY2();
     }
+
+    public static boolean isFullyOverlapping(Tile tile, List<Obstacle> obstacles) {
+        for (Obstacle obstacle : obstacles) {
+            if (isFullyOverlapping(tile, obstacle)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     private static boolean isLeftOverlapping(Tile tile, Obstacle obstacle) {
         return isOverlapping(tile, obstacle) && tile.getX1() < obstacle.getX2() && tile.getX2() > obstacle.getX2();
