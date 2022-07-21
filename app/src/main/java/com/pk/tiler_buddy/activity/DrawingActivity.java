@@ -5,19 +5,14 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Display;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -34,7 +29,6 @@ public class DrawingActivity extends AppCompatActivity {
     public static final int IMAGE_CAPTURE_CODE = 123;
 
     private Uri image_uri;
-    private Canvas canvas;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -46,16 +40,17 @@ public class DrawingActivity extends AppCompatActivity {
         //Grabbing values from main Activity
         InputValuesWrapper calculatedValuesWrapper = (InputValuesWrapper) getIntent().getSerializableExtra("data");
         Wall wall = new Wall(calculatedValuesWrapper.getWallDimensions(), calculatedValuesWrapper.getTileDimensions(), calculatedValuesWrapper.getObstacles());
-        Log.d("runs", "how many times?");
         // canvasBackground.setImageBitmap(bg);
-        // wall.shiftOnX(20, tileDimensions, obstacles);
-        Paint paint = setUpPaint();
-
         WallView wallView = new WallView(this);
         wallView.setWall(wall);
-        wallView.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT,
-                ConstraintLayout.LayoutParams.MATCH_PARENT));
+        wallView.setDisplaySize(getDisplaySize());
+
+        wallView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
         drawingLayout.addView(wallView);
+
+        Log.d("layoutParams", String.valueOf(wallView.getLayoutParams().width));
+        Log.d("layoutParams", String.valueOf(wallView.getLayoutParams().height));
         wallView.setOnTouchListener(new OnSwipeTouchListener(DrawingActivity.this) {
             public void onSwipeRight() {
                 wall.shiftHorizontally(30);
@@ -66,47 +61,11 @@ public class DrawingActivity extends AppCompatActivity {
             }
         });
 
-        // drawTiles(canvas, paint, wall);
-        /*
-        wall.setOnTouchListener(new OnSwipeTouchListener(context){
-           @Override
-           public void onSwipeLeft(){
-
-           }
-        });
-
-         */
         ImageButton takePhotoButton = findViewById(R.id.take_photo_button);
         takePhotoButton.setOnClickListener(v -> {
             checkCameraPermission();
             openCamera();
         });
-    }
-
-    private Paint setUpPaint() {
-        Paint paint = new Paint();
-        paint.setColor(Color.parseColor("#000000"));
-        paint.setTextSize(10);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(1);
-        return paint;
-    }
-
-    public void drawTiles(Canvas canvas, Paint paint, Wall wall) {
-        for (int i = 0; i < wall.size(); i++) {
-            wall.getRow(i).draw(canvas, paint);
-        }
-    }
-
-    private void setUpCanvas(Bitmap backgroundBitmap, ImageView toBeCanvasView) {
-        Matrix matrix = new Matrix();
-        matrix.postRotate(180);
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(backgroundBitmap, getDisplaySize().x, getDisplaySize().y, true);
-
-        Bitmap rotatedBackground = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
-        canvas = new Canvas(rotatedBackground);
-        toBeCanvasView.setImageBitmap(rotatedBackground);
-        // Bitmap bg = Bitmap.createBitmap(wall.getLength() + 10, wall.getHeight() + 10, Bitmap.Config.ARGB_8888);
     }
 
     private Point getDisplaySize() {
