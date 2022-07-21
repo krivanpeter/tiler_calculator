@@ -13,6 +13,7 @@ public class TileRow extends Rectangle implements Serializable {
     private final int numberOfColumns;
     private final TileDimensions tileDimensions;
     private final List<Tile> tiles = new ArrayList<>();
+    private int allShiftExtent;
 
     public TileRow(int numberOfColumns, TileDimensions tileDimensions) {
         this.numberOfColumns = numberOfColumns;
@@ -40,21 +41,26 @@ public class TileRow extends Rectangle implements Serializable {
     }
 
     public void shiftHorizontally(int extent, List<Obstacle> obstacles) {
+        if (Math.abs(allShiftExtent + extent) >= tileDimensions.getLength()) {
+            allShiftExtent = 0;
+        } else {
+            allShiftExtent = allShiftExtent + extent;
+        }
         tiles.clear();
-        if (extent > tileDimensions.getLength()) {
-            extent = extent - tileDimensions.getLength();
+        if (allShiftExtent > tileDimensions.getLength()) {
+            allShiftExtent = allShiftExtent - tileDimensions.getLength();
         }
         int allLength = 0;
         for (int i = 0; i < numberOfColumns; i++) {
             Tile tile = createTile(i);
-            shiftTileHorizontally(extent, tile);
+            shiftTileHorizontally(allShiftExtent, tile);
             allLength = allLength + tile.getLength();
             if (!Overlap.isFullyOverlapping(tile, obstacles)) {
                 tiles.add(tile);
             }
             cutTiles(tile, obstacles);
         }
-        fillUp(allLength, extent);
+        fillUp(allLength, allShiftExtent);
     }
 
     public void draw(Canvas canvas, Paint paint) {
@@ -72,7 +78,7 @@ public class TileRow extends Rectangle implements Serializable {
 
     private void shiftTileHorizontally(int extent, Tile tile) {
         if (extent > tileDimensions.getLength()) {
-            extent = extent - (extent / tileDimensions.getLength()) * tileDimensions.getLength();
+            extent = tileDimensions.getLength() - extent;
         }
         //If pushing to the right
         if (Calculator.isPositive(extent)) {
@@ -85,7 +91,7 @@ public class TileRow extends Rectangle implements Serializable {
 
     private void shiftToRight(int extent, Tile tile) {
         tile.setX1(tile.getX1() + extent);
-        if (tile.getX2() + extent >= length) {
+        if (tile.getX2() >= length) {
             tile.setX2(length);
         } else {
             tile.setX2(Calculator.calculatePosX2(tile));
@@ -127,7 +133,7 @@ public class TileRow extends Rectangle implements Serializable {
             }
             tile.setY1(y1);
             tile.setHeight(height);
-            tile.setLength(Math.abs(extent));
+            tile.setLength(Math.abs(allShiftExtent));
             tile.setX2(Calculator.calculatePosX2(tile));
             tile.setY2(Calculator.calculatePosY2(tile));
         }
