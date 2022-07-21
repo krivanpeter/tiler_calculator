@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.view.View;
 
 import com.pk.tiler_buddy.Wall;
@@ -12,7 +11,7 @@ import com.pk.tiler_buddy.Wall;
 public class WallView extends View {
     private Paint drawPaint;
     private Wall wall;
-    private Point displaySize;
+    private float scaleValue;
 
     public WallView(Context context) {
         super(context);
@@ -33,29 +32,18 @@ public class WallView extends View {
         this.wall = wall;
     }
 
-    public void setDisplaySize(Point displaySize) {
-        this.displaySize = displaySize;
+    public void setScaleValue(float scaleValue) {
+        this.scaleValue = scaleValue;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.save();
-        scaleCanvas(canvas);
+        canvas.scale(scaleValue, scaleValue);
         drawTiles(canvas);
         invalidate();
         canvas.restore();
     }
-
-    private void scaleCanvas(Canvas canvas) {
-        float scaleValueX = (float) displaySize.x / wall.getLength();
-        float scaleValueY = (float) displaySize.y / wall.getHeight();
-        if (scaleValueX > scaleValueY) {
-            canvas.scale(scaleValueY, scaleValueY);
-        } else {
-            canvas.scale(scaleValueX, scaleValueX);
-        }
-    }
-
 
     public void drawTiles(Canvas canvas) {
         for (int i = 0; i < wall.size(); i++) {

@@ -9,7 +9,6 @@ import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Display;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -39,18 +38,20 @@ public class DrawingActivity extends AppCompatActivity {
         ConstraintLayout drawingLayout = findViewById(R.id.drawing_layout);
         //Grabbing values from main Activity
         InputValuesWrapper calculatedValuesWrapper = (InputValuesWrapper) getIntent().getSerializableExtra("data");
-        Wall wall = new Wall(calculatedValuesWrapper.getWallDimensions(), calculatedValuesWrapper.getTileDimensions(), calculatedValuesWrapper.getObstacles());
-        // canvasBackground.setImageBitmap(bg);
+        Wall wall = new Wall(
+                calculatedValuesWrapper.getWallDimensions(),
+                calculatedValuesWrapper.getTileDimensions(),
+                calculatedValuesWrapper.getObstacles());
+
         WallView wallView = new WallView(this);
         wallView.setWall(wall);
-        wallView.setDisplaySize(getDisplaySize());
+        wallView.setScaleValue(getCanvasScaleValue(wall));
 
-        wallView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
+        wallView.setLayoutParams(new ViewGroup.LayoutParams(
+                (int) Math.round(getCanvasScaleValue(wall) * wall.getLength()),
+                (int) Math.round(getCanvasScaleValue(wall) * wall.getHeight())));
         drawingLayout.addView(wallView);
 
-        Log.d("layoutParams", String.valueOf(wallView.getLayoutParams().width));
-        Log.d("layoutParams", String.valueOf(wallView.getLayoutParams().height));
         wallView.setOnTouchListener(new OnSwipeTouchListener(DrawingActivity.this) {
             public void onSwipeRight() {
                 wall.shiftHorizontally(30);
@@ -66,6 +67,12 @@ public class DrawingActivity extends AppCompatActivity {
             checkCameraPermission();
             openCamera();
         });
+    }
+
+    private float getCanvasScaleValue(Wall wall) {
+        float scaleValueX = (float) getDisplaySize().x / wall.getLength();
+        float scaleValueY = (float) getDisplaySize().y / wall.getHeight();
+        return Math.min(scaleValueX, scaleValueY);
     }
 
     private Point getDisplaySize() {
