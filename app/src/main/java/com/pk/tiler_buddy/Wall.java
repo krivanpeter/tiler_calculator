@@ -5,19 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Wall extends Rectangle implements Serializable {
+    private final TileDimensions tileDimensions;
+    private final List<Obstacle> obstacles;
     private final List<TileRow> tileRows = new ArrayList<>();
-    private int numberOfRows;
+    private final int numberOfRows;
+
 
     public Wall(WallDimensions wallDimensions, TileDimensions tileDimensions, List<Obstacle> obstacles) {
+        this.tileDimensions = tileDimensions;
+        this.obstacles = obstacles;
         length = wallDimensions.getLength();
         height = wallDimensions.getHeight();
         x2 = Calculator.calculatePosX2(this);
         y2 = Calculator.calculatePosY2(this);
         numberOfRows = (int) Calculator.calculateNumberOfRows(wallDimensions, tileDimensions);
         setRows(tileDimensions, obstacles);
-    }
-
-    public Wall() {
     }
 
     public int size() {
@@ -40,7 +42,7 @@ public class Wall extends Rectangle implements Serializable {
         }
     }
 
-    public void shiftHorizontally(int extent, TileDimensions tileDimensions, List<Obstacle> obstacles) {
+    public void shiftHorizontally(int extent) {
         if (extent > tileDimensions.getLength()) {
             extent = extent - tileDimensions.getLength();
         }

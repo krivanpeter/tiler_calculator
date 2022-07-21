@@ -49,7 +49,9 @@ public class TileRow extends Rectangle implements Serializable {
             Tile tile = createTile(i);
             shiftTileHorizontally(extent, tile);
             allLength = allLength + tile.getLength();
-            tiles.add(tile);
+            if (!Overlap.isFullyOverlapping(tile, obstacles)) {
+                tiles.add(tile);
+            }
             cutTiles(tile, obstacles);
         }
         fillUp(allLength, extent);

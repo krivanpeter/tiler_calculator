@@ -2,8 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawing_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:rotationX="180"
     android:screenOrientation="landscape">
 
     <ImageButton
@@ -12,17 +14,10 @@
         android:layout_height="50dp"
         android:layout_weight="1"
         android:contentDescription="@string/take_photo"
+        android:rotationX="180"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_menu_camera"
         tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
-
-    <ImageView
-        android:id="@+id/fullscreen_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="@string/imageDescription"
-        android:rotation="0"
-        android:rotationX="180" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

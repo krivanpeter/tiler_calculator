@@ -32,10 +32,6 @@ public class Tile extends Rectangle {
         this.y3 = tile.getY3();
     }
 
-    public List<Side> getSides() {
-        return sides;
-    }
-
     public int getX3() {
         return x3;
     }
