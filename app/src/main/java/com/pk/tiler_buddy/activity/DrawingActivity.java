@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
@@ -19,15 +20,21 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.pk.tiler_buddy.InputValuesWrapper;
-import com.pk.tiler_buddy.OnSwipeTouchListener;
 import com.pk.tiler_buddy.R;
+import com.pk.tiler_buddy.TileDimensions;
 import com.pk.tiler_buddy.Wall;
 import com.pk.tiler_buddy.view.WallView;
 
 public class DrawingActivity extends AppCompatActivity {
     public static final int IMAGE_CAPTURE_CODE = 123;
-
+    TileDimensions tileDimensions;
+    private ConstraintLayout drawingLayout;
+    private Wall wall;
+    private WallView wallView;
+    private float canvasScaleValue;
     private Uri image_uri;
+    int dragFirstPointX;
+
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -35,38 +42,56 @@ public class DrawingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawing);
         // ImageView canvasBackground = findViewById(R.id.fullscreen_view);
-        ConstraintLayout drawingLayout = findViewById(R.id.drawing_layout);
+        drawingLayout = findViewById(R.id.drawing_layout);
         //Grabbing values from main Activity
         InputValuesWrapper calculatedValuesWrapper = (InputValuesWrapper) getIntent().getSerializableExtra("data");
-        Wall wall = new Wall(
+        tileDimensions = calculatedValuesWrapper.getTileDimensions();
+        wall = new Wall(
                 calculatedValuesWrapper.getWallDimensions(),
                 calculatedValuesWrapper.getTileDimensions(),
                 calculatedValuesWrapper.getObstacles());
 
-        WallView wallView = new WallView(this);
-        wallView.setWall(wall);
-        wallView.setScaleValue(getCanvasScaleValue(wall));
+        canvasScaleValue = getCanvasScaleValue(wall);
+        setWallView();
 
-        wallView.setLayoutParams(new ViewGroup.LayoutParams(
-                (int) Math.round(getCanvasScaleValue(wall) * wall.getLength()),
-                (int) Math.round(getCanvasScaleValue(wall) * wall.getHeight())));
-        drawingLayout.addView(wallView);
-
-        wallView.setOnTouchListener(new OnSwipeTouchListener(DrawingActivity.this) {
-            public void onSwipeRight() {
-                wall.shiftHorizontally(30);
-            }
-
-            public void onSwipeLeft() {
-                wall.shiftHorizontally(-30);
-            }
-        });
+        wallView.setOnTouchListener((v, event) -> draggingWall(event));
 
         ImageButton takePhotoButton = findViewById(R.id.take_photo_button);
         takePhotoButton.setOnClickListener(v -> {
             checkCameraPermission();
             openCamera();
         });
+    }
+
+    private boolean draggingWall(MotionEvent event) {
+        int dragX2;
+        int dragValue;
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                dragFirstPointX = (int) event.getX();
+                return true;
+            case MotionEvent.ACTION_MOVE:
+                dragX2 = (int) event.getX();
+                dragValue = (int) (Math.abs(dragX2 - dragFirstPointX) / canvasScaleValue / tileDimensions.getLength());
+                if (dragX2 > dragFirstPointX) {
+                    wall.shiftHorizontally((int) dragValue);
+                } else {
+                    wall.shiftHorizontally((int) dragValue * -1);
+                }
+                break;
+        }
+        return true;
+    }
+
+    private void setWallView() {
+        wallView = new WallView(this);
+        wallView.setWall(wall);
+        wallView.setScaleValue(canvasScaleValue);
+
+        wallView.setLayoutParams(new ViewGroup.LayoutParams(
+                (int) Math.round(canvasScaleValue * wall.getLength()),
+                (int) Math.round(canvasScaleValue * wall.getHeight())));
+        drawingLayout.addView(wallView);
     }
 
     private float getCanvasScaleValue(Wall wall) {
