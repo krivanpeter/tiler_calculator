@@ -53,11 +53,8 @@ public class DrawingActivity extends AppCompatActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
         setContentView(R.layout.activity_drawing);
-
-        // ImageView canvasBackground = findViewById(R.id.fullscreen_view);
         drawingLayout = findViewById(R.id.drawing_layout);
         canvasScaleValue = getCanvasScaleValue(wall);
-
         setWallView();
         wallView.setOnTouchListener((v, event) -> dragging(event));
 

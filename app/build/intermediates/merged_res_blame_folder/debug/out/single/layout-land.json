@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-mergeDebugResources-25:\\layout-land\\activity_calculated.xml",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\layout-land\\activity_calculated.xml"
+    },
+    {
+        "merged": "com.pk.tiler_buddy.app-mergeDebugResources-25:/layout-land/activity_calculated.xml",
+        "source": "com.pk.tiler_buddy.app-main-28:/layout-land/activity_calculated.xml"
+    }
+]
