@@ -12,12 +12,14 @@ import java.util.List;
 public class TileRow extends Rectangle implements Serializable {
     private final int numberOfColumns;
     private final TileDimensions tileDimensions;
+    private final List<Obstacle> obstacles;
     private final List<Tile> tiles = new ArrayList<>();
     private int allShiftExtent;
 
-    public TileRow(int numberOfColumns, TileDimensions tileDimensions) {
+    public TileRow(int numberOfColumns, TileDimensions tileDimensions, List<Obstacle> obstacles) {
         this.numberOfColumns = numberOfColumns;
         this.tileDimensions = tileDimensions;
+        this.obstacles = obstacles;
     }
 
     public void addTiles(List<Obstacle> obstacles) {
@@ -40,7 +42,11 @@ public class TileRow extends Rectangle implements Serializable {
         return tile;
     }
 
-    public void shiftHorizontally(int extent, List<Obstacle> obstacles) {
+    public List<Tile> getTiles() {
+        return tiles;
+    }
+
+    public void shiftHorizontally(int extent) {
         if (Math.abs(allShiftExtent + extent) >= tileDimensions.getLength()) {
             allShiftExtent = 0;
         } else {
@@ -63,16 +69,15 @@ public class TileRow extends Rectangle implements Serializable {
         fillUp(allLength, allShiftExtent);
     }
 
-    public void draw(Canvas canvas, Paint paint) {
-        for (int i = 0; i < this.tiles.size(); i++) {
-            Tile tile = this.tiles.get(i);
-            tile.draw(canvas, paint);
-        }
-    }
-
     private void cutTiles(Tile tile, List<Obstacle> obstacles) {
         for (Obstacle obstacle : obstacles) {
             tile.cut(obstacle);
+        }
+    }
+
+    public void drawTiles(Canvas canvas, Paint paint) {
+        for (Tile tile: tiles) {
+            tile.draw(canvas, paint);
         }
     }
 

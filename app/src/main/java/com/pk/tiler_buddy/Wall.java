@@ -22,17 +22,25 @@ public class Wall extends Rectangle implements Serializable {
         setRows(tileDimensions, obstacles);
     }
 
-    public int size() {
+    public TileDimensions getTileDimensions() {
+        return tileDimensions;
+    }
+
+    public int getNumberOfTileRows() {
         return tileRows.size();
     }
 
-    public TileRow getRow(int i) {
+    public List<TileRow> getTileRows() {
+        return tileRows;
+    }
+
+    public TileRow getTileRow(int i) {
         return tileRows.get(i);
     }
 
     public void setRows(TileDimensions tileDimensions, List<Obstacle> obstacles) {
         for (int i = 0; i < numberOfRows; i++) {
-            TileRow tileRow = new TileRow((int) Calculator.calculateNumberOfColumns(length, tileDimensions), tileDimensions);
+            TileRow tileRow = new TileRow((int) Calculator.calculateNumberOfColumns(length, tileDimensions), tileDimensions, obstacles);
             tileRow.setLength(this.length);
             tileRow.setHeight(Math.min(this.height - i * tileDimensions.getHeight(), tileDimensions.getHeight()));
             tileRow.setY1(i * tileDimensions.getHeight());
@@ -47,7 +55,7 @@ public class Wall extends Rectangle implements Serializable {
             extent = extent - tileDimensions.getLength();
         }
         for (TileRow tileRow : tileRows) {
-            tileRow.shiftHorizontally(extent, obstacles);
+            tileRow.shiftHorizontally(extent);
         }
     }
 }

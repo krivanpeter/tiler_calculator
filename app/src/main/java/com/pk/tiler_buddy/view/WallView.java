@@ -6,12 +6,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
 
+import com.pk.tiler_buddy.TileRow;
 import com.pk.tiler_buddy.Wall;
 
 public class WallView extends View {
     private Paint drawPaint;
     private Wall wall;
-    private float scaleValue;
+    private float canvasScaleValue;
 
     public WallView(Context context) {
         super(context);
@@ -32,22 +33,22 @@ public class WallView extends View {
         this.wall = wall;
     }
 
-    public void setScaleValue(float scaleValue) {
-        this.scaleValue = scaleValue;
+    public void setCanvasScaleValue(float canvasScaleValue) {
+        this.canvasScaleValue = canvasScaleValue;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.save();
-        canvas.scale(scaleValue, scaleValue);
-        drawTiles(canvas);
+        canvas.scale(canvasScaleValue, canvasScaleValue);
+        drawTileRows(canvas);
         invalidate();
         canvas.restore();
     }
 
-    public void drawTiles(Canvas canvas) {
-        for (int i = 0; i < wall.size(); i++) {
-            wall.getRow(i).draw(canvas, drawPaint);
+    public void drawTileRows(Canvas canvas) {
+        for (TileRow tileRow : wall.getTileRows()) {
+            tileRow.drawTiles(canvas, drawPaint);
         }
     }
 }

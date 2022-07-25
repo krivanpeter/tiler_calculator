@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.net.Uri;
@@ -28,33 +29,37 @@ import com.pk.tiler_buddy.view.WallView;
 public class DrawingActivity extends AppCompatActivity {
     public static final int IMAGE_CAPTURE_CODE = 123;
     TileDimensions tileDimensions;
+    int dragFirstPointX;
     private ConstraintLayout drawingLayout;
     private Wall wall;
     private WallView wallView;
     private float canvasScaleValue;
     private Uri image_uri;
-    int dragFirstPointX;
+    private int whichRow;
 
-
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "SourceLockedOrientationActivity"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_drawing);
-        // ImageView canvasBackground = findViewById(R.id.fullscreen_view);
-        drawingLayout = findViewById(R.id.drawing_layout);
-        //Grabbing values from main Activity
         InputValuesWrapper calculatedValuesWrapper = (InputValuesWrapper) getIntent().getSerializableExtra("data");
         tileDimensions = calculatedValuesWrapper.getTileDimensions();
         wall = new Wall(
                 calculatedValuesWrapper.getWallDimensions(),
                 calculatedValuesWrapper.getTileDimensions(),
                 calculatedValuesWrapper.getObstacles());
+        if (wall.getHeight() > wall.getLength()) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        } else {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
+        setContentView(R.layout.activity_drawing);
 
+        // ImageView canvasBackground = findViewById(R.id.fullscreen_view);
+        drawingLayout = findViewById(R.id.drawing_layout);
         canvasScaleValue = getCanvasScaleValue(wall);
-        setWallView();
 
-        wallView.setOnTouchListener((v, event) -> draggingWall(event));
+        setWallView();
+        wallView.setOnTouchListener((v, event) -> dragging(event));
 
         ImageButton takePhotoButton = findViewById(R.id.take_photo_button);
         takePhotoButton.setOnClickListener(v -> {
@@ -63,7 +68,7 @@ public class DrawingActivity extends AppCompatActivity {
         });
     }
 
-    private boolean draggingWall(MotionEvent event) {
+    private boolean dragging(MotionEvent event) {
         int dragX2;
         int dragValue;
         switch (event.getAction()) {
@@ -73,24 +78,49 @@ public class DrawingActivity extends AppCompatActivity {
             case MotionEvent.ACTION_MOVE:
                 dragX2 = (int) event.getX();
                 dragValue = (int) (Math.abs(dragX2 - dragFirstPointX) / canvasScaleValue / tileDimensions.getLength());
-                if (dragX2 > dragFirstPointX) {
-                    wall.shiftHorizontally((int) dragValue);
+                if (event.getPointerCount() > 1) {
+                    dragWall(dragX2, dragValue);
                 } else {
-                    wall.shiftHorizontally((int) dragValue * -1);
+                    dragRow(event, dragX2, dragValue);
                 }
                 break;
         }
         return true;
     }
 
+    private void dragWall(int dragX2, int dragValue) {
+        if (dragX2 > dragFirstPointX) {
+            wall.shiftHorizontally(dragValue);
+        } else {
+            wall.shiftHorizontally(dragValue * -1);
+        }
+    }
+
+    private void dragRow(MotionEvent event, int dragX2, int dragValue) {
+        if (dragX2 > dragFirstPointX) {
+            wall.getTileRow(getWhichRowTouched(event)).shiftHorizontally(dragValue);
+        } else {
+            wall.getTileRow(getWhichRowTouched(event)).shiftHorizontally(dragValue * -1);
+        }
+    }
+
+    private int getWhichRowTouched(MotionEvent event) {
+        for (int i = 0; i < wall.getTileRows().size(); i++) {
+            if (wall.getTileRow(i).getY2() * canvasScaleValue >= event.getY()
+                    && wall.getTileRow(i).getY1() * canvasScaleValue <= event.getY()) {
+                whichRow = i;
+            }
+        }
+        return whichRow;
+    }
+
     private void setWallView() {
         wallView = new WallView(this);
         wallView.setWall(wall);
-        wallView.setScaleValue(canvasScaleValue);
-
+        wallView.setCanvasScaleValue(canvasScaleValue);
         wallView.setLayoutParams(new ViewGroup.LayoutParams(
-                (int) Math.round(canvasScaleValue * wall.getLength()),
-                (int) Math.round(canvasScaleValue * wall.getHeight())));
+                Math.round(canvasScaleValue * wall.getLength()),
+                Math.round(canvasScaleValue * wall.getHeight())));
         drawingLayout.addView(wallView);
     }
 
