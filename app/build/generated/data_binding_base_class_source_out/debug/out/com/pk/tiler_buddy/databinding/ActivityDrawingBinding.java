@@ -5,11 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pk.tiler_buddy.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -25,11 +27,20 @@ public final class ActivityDrawingBinding implements ViewBinding {
   @NonNull
   public final ImageButton takePhotoButton;
 
+  @NonNull
+  public final FloatingActionButton tileMenuButton;
+
+  @NonNull
+  public final LinearLayout tileMenuLayout;
+
   private ActivityDrawingBinding(@NonNull ConstraintLayout rootView,
-      @NonNull ConstraintLayout drawingLayout, @NonNull ImageButton takePhotoButton) {
+      @NonNull ConstraintLayout drawingLayout, @NonNull ImageButton takePhotoButton,
+      @NonNull FloatingActionButton tileMenuButton, @NonNull LinearLayout tileMenuLayout) {
     this.rootView = rootView;
     this.drawingLayout = drawingLayout;
     this.takePhotoButton = takePhotoButton;
+    this.tileMenuButton = tileMenuButton;
+    this.tileMenuLayout = tileMenuLayout;
   }
 
   @Override
@@ -67,8 +78,20 @@ public final class ActivityDrawingBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityDrawingBinding((ConstraintLayout) rootView, drawingLayout,
-          takePhotoButton);
+      id = R.id.tile_menu_button;
+      FloatingActionButton tileMenuButton = ViewBindings.findChildViewById(rootView, id);
+      if (tileMenuButton == null) {
+        break missingId;
+      }
+
+      id = R.id.tile_menu_layout;
+      LinearLayout tileMenuLayout = ViewBindings.findChildViewById(rootView, id);
+      if (tileMenuLayout == null) {
+        break missingId;
+      }
+
+      return new ActivityDrawingBinding((ConstraintLayout) rootView, drawingLayout, takePhotoButton,
+          tileMenuButton, tileMenuLayout);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

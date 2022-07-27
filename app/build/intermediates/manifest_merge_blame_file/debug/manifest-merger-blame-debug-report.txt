@@ -28,12 +28,12 @@
 17-->C:\Users\kriva\AndroidStudioProjects\Tiler\app\src\main\AndroidManifest.xml:11:22-78
 18
 19    <queries>
-19-->[androidx.camera:camera-extensions:1.1.0-beta01] C:\Users\kriva\.gradle\caches\transforms-3\e257ae656a28ee2ed82cd62f95443177\transformed\camera-extensions-1.1.0-beta01\AndroidManifest.xml:24:5-28:15
+19-->[androidx.camera:camera-extensions:1.2.0-alpha03] C:\Users\kriva\.gradle\caches\transforms-3\28e4f503f6a2623ca192a39ffb66120d\transformed\camera-extensions-1.2.0-alpha03\AndroidManifest.xml:23:5-27:15
 20        <intent>
-20-->[androidx.camera:camera-extensions:1.1.0-beta01] C:\Users\kriva\.gradle\caches\transforms-3\e257ae656a28ee2ed82cd62f95443177\transformed\camera-extensions-1.1.0-beta01\AndroidManifest.xml:25:9-27:18
+20-->[androidx.camera:camera-extensions:1.2.0-alpha03] C:\Users\kriva\.gradle\caches\transforms-3\28e4f503f6a2623ca192a39ffb66120d\transformed\camera-extensions-1.2.0-alpha03\AndroidManifest.xml:24:9-26:18
 21            <action android:name="androidx.camera.extensions.action.VENDOR_ACTION" />
-21-->[androidx.camera:camera-extensions:1.1.0-beta01] C:\Users\kriva\.gradle\caches\transforms-3\e257ae656a28ee2ed82cd62f95443177\transformed\camera-extensions-1.1.0-beta01\AndroidManifest.xml:26:13-86
-21-->[androidx.camera:camera-extensions:1.1.0-beta01] C:\Users\kriva\.gradle\caches\transforms-3\e257ae656a28ee2ed82cd62f95443177\transformed\camera-extensions-1.1.0-beta01\AndroidManifest.xml:26:21-83
+21-->[androidx.camera:camera-extensions:1.2.0-alpha03] C:\Users\kriva\.gradle\caches\transforms-3\28e4f503f6a2623ca192a39ffb66120d\transformed\camera-extensions-1.2.0-alpha03\AndroidManifest.xml:25:13-86
+21-->[androidx.camera:camera-extensions:1.2.0-alpha03] C:\Users\kriva\.gradle\caches\transforms-3\28e4f503f6a2623ca192a39ffb66120d\transformed\camera-extensions-1.2.0-alpha03\AndroidManifest.xml:25:21-83
 22        </intent>
 23    </queries>
 24
@@ -42,7 +42,7 @@
 26        android:allowBackup="true"
 26-->C:\Users\kriva\AndroidStudioProjects\Tiler\app\src\main\AndroidManifest.xml:14:9-35
 27        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-27-->[androidx.core:core:1.5.0] C:\Users\kriva\.gradle\caches\transforms-3\4cb2d3ae910a25e4d3b75b6b0d8d1b11\transformed\core-1.5.0\AndroidManifest.xml:24:18-86
+27-->[androidx.core:core:1.7.0] C:\Users\kriva\.gradle\caches\transforms-3\0c734a8f9451ded3159b05d46fc9a23a\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
 28        android:dataExtractionRules="@xml/data_extraction_rules"
 28-->C:\Users\kriva\AndroidStudioProjects\Tiler\app\src\main\AndroidManifest.xml:15:9-65
 29        android:debuggable="true"
@@ -100,27 +100,49 @@
 56        </activity>
 57
 58        <uses-library
-58-->[androidx.camera:camera-extensions:1.1.0-beta01] C:\Users\kriva\.gradle\caches\transforms-3\e257ae656a28ee2ed82cd62f95443177\transformed\camera-extensions-1.1.0-beta01\AndroidManifest.xml:31:9-33:40
+58-->[androidx.camera:camera-extensions:1.2.0-alpha03] C:\Users\kriva\.gradle\caches\transforms-3\28e4f503f6a2623ca192a39ffb66120d\transformed\camera-extensions-1.2.0-alpha03\AndroidManifest.xml:30:9-32:40
 59            android:name="androidx.camera.extensions.impl"
-59-->[androidx.camera:camera-extensions:1.1.0-beta01] C:\Users\kriva\.gradle\caches\transforms-3\e257ae656a28ee2ed82cd62f95443177\transformed\camera-extensions-1.1.0-beta01\AndroidManifest.xml:32:13-59
+59-->[androidx.camera:camera-extensions:1.2.0-alpha03] C:\Users\kriva\.gradle\caches\transforms-3\28e4f503f6a2623ca192a39ffb66120d\transformed\camera-extensions-1.2.0-alpha03\AndroidManifest.xml:31:13-59
 60            android:required="false" />
-60-->[androidx.camera:camera-extensions:1.1.0-beta01] C:\Users\kriva\.gradle\caches\transforms-3\e257ae656a28ee2ed82cd62f95443177\transformed\camera-extensions-1.1.0-beta01\AndroidManifest.xml:33:13-37
+60-->[androidx.camera:camera-extensions:1.2.0-alpha03] C:\Users\kriva\.gradle\caches\transforms-3\28e4f503f6a2623ca192a39ffb66120d\transformed\camera-extensions-1.2.0-alpha03\AndroidManifest.xml:32:13-37
 61
 62        <service
-62-->[androidx.camera:camera-camera2:1.1.0-beta01] C:\Users\kriva\.gradle\caches\transforms-3\58a1f43949f2bb7c691ee6a4938be267\transformed\camera-camera2-1.1.0-beta01\AndroidManifest.xml:26:9-35:19
+62-->[androidx.camera:camera-camera2:1.2.0-alpha03] C:\Users\kriva\.gradle\caches\transforms-3\179eedb745c09f5f8455e318f8304465\transformed\camera-camera2-1.2.0-alpha03\AndroidManifest.xml:25:9-34:19
 63            android:name="androidx.camera.core.impl.MetadataHolderService"
-63-->[androidx.camera:camera-camera2:1.1.0-beta01] C:\Users\kriva\.gradle\caches\transforms-3\58a1f43949f2bb7c691ee6a4938be267\transformed\camera-camera2-1.1.0-beta01\AndroidManifest.xml:27:13-75
+63-->[androidx.camera:camera-camera2:1.2.0-alpha03] C:\Users\kriva\.gradle\caches\transforms-3\179eedb745c09f5f8455e318f8304465\transformed\camera-camera2-1.2.0-alpha03\AndroidManifest.xml:26:13-75
 64            android:enabled="false"
-64-->[androidx.camera:camera-camera2:1.1.0-beta01] C:\Users\kriva\.gradle\caches\transforms-3\58a1f43949f2bb7c691ee6a4938be267\transformed\camera-camera2-1.1.0-beta01\AndroidManifest.xml:28:13-36
+64-->[androidx.camera:camera-camera2:1.2.0-alpha03] C:\Users\kriva\.gradle\caches\transforms-3\179eedb745c09f5f8455e318f8304465\transformed\camera-camera2-1.2.0-alpha03\AndroidManifest.xml:27:13-36
 65            android:exported="false" >
-65-->[androidx.camera:camera-camera2:1.1.0-beta01] C:\Users\kriva\.gradle\caches\transforms-3\58a1f43949f2bb7c691ee6a4938be267\transformed\camera-camera2-1.1.0-beta01\AndroidManifest.xml:29:13-37
+65-->[androidx.camera:camera-camera2:1.2.0-alpha03] C:\Users\kriva\.gradle\caches\transforms-3\179eedb745c09f5f8455e318f8304465\transformed\camera-camera2-1.2.0-alpha03\AndroidManifest.xml:28:13-37
 66            <meta-data
-66-->[androidx.camera:camera-camera2:1.1.0-beta01] C:\Users\kriva\.gradle\caches\transforms-3\58a1f43949f2bb7c691ee6a4938be267\transformed\camera-camera2-1.1.0-beta01\AndroidManifest.xml:32:13-34:89
+66-->[androidx.camera:camera-camera2:1.2.0-alpha03] C:\Users\kriva\.gradle\caches\transforms-3\179eedb745c09f5f8455e318f8304465\transformed\camera-camera2-1.2.0-alpha03\AndroidManifest.xml:31:13-33:89
 67                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
-67-->[androidx.camera:camera-camera2:1.1.0-beta01] C:\Users\kriva\.gradle\caches\transforms-3\58a1f43949f2bb7c691ee6a4938be267\transformed\camera-camera2-1.1.0-beta01\AndroidManifest.xml:33:17-103
+67-->[androidx.camera:camera-camera2:1.2.0-alpha03] C:\Users\kriva\.gradle\caches\transforms-3\179eedb745c09f5f8455e318f8304465\transformed\camera-camera2-1.2.0-alpha03\AndroidManifest.xml:32:17-103
 68                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
-68-->[androidx.camera:camera-camera2:1.1.0-beta01] C:\Users\kriva\.gradle\caches\transforms-3\58a1f43949f2bb7c691ee6a4938be267\transformed\camera-camera2-1.1.0-beta01\AndroidManifest.xml:34:17-86
+68-->[androidx.camera:camera-camera2:1.2.0-alpha03] C:\Users\kriva\.gradle\caches\transforms-3\179eedb745c09f5f8455e318f8304465\transformed\camera-camera2-1.2.0-alpha03\AndroidManifest.xml:33:17-86
 69        </service>
-70    </application>
-71
-72</manifest>
+70
+71        <provider
+71-->[androidx.emoji2:emoji2:1.0.0] C:\Users\kriva\.gradle\caches\transforms-3\9cb5d0b2fd275b8005e0d8fda37c4df6\transformed\emoji2-1.0.0\AndroidManifest.xml:26:9-34:20
+72            android:name="androidx.startup.InitializationProvider"
+72-->[androidx.emoji2:emoji2:1.0.0] C:\Users\kriva\.gradle\caches\transforms-3\9cb5d0b2fd275b8005e0d8fda37c4df6\transformed\emoji2-1.0.0\AndroidManifest.xml:27:13-67
+73            android:authorities="com.pk.tiler_buddy.androidx-startup"
+73-->[androidx.emoji2:emoji2:1.0.0] C:\Users\kriva\.gradle\caches\transforms-3\9cb5d0b2fd275b8005e0d8fda37c4df6\transformed\emoji2-1.0.0\AndroidManifest.xml:28:13-68
+74            android:exported="false" >
+74-->[androidx.emoji2:emoji2:1.0.0] C:\Users\kriva\.gradle\caches\transforms-3\9cb5d0b2fd275b8005e0d8fda37c4df6\transformed\emoji2-1.0.0\AndroidManifest.xml:29:13-37
+75            <meta-data
+75-->[androidx.emoji2:emoji2:1.0.0] C:\Users\kriva\.gradle\caches\transforms-3\9cb5d0b2fd275b8005e0d8fda37c4df6\transformed\emoji2-1.0.0\AndroidManifest.xml:31:13-33:52
+76                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+76-->[androidx.emoji2:emoji2:1.0.0] C:\Users\kriva\.gradle\caches\transforms-3\9cb5d0b2fd275b8005e0d8fda37c4df6\transformed\emoji2-1.0.0\AndroidManifest.xml:32:17-75
+77                android:value="androidx.startup" />
+77-->[androidx.emoji2:emoji2:1.0.0] C:\Users\kriva\.gradle\caches\transforms-3\9cb5d0b2fd275b8005e0d8fda37c4df6\transformed\emoji2-1.0.0\AndroidManifest.xml:33:17-49
+78            <meta-data
+78-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\kriva\.gradle\caches\transforms-3\8eef53d9995d138e5396bc0361630197\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:31:13-33:52
+79                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+79-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\kriva\.gradle\caches\transforms-3\8eef53d9995d138e5396bc0361630197\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:32:17-78
+80                android:value="androidx.startup" />
+80-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\kriva\.gradle\caches\transforms-3\8eef53d9995d138e5396bc0361630197\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:33:17-49
+81        </provider>
+82    </application>
+83
+84</manifest>

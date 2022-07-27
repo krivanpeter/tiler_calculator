@@ -34,7 +34,7 @@
     <!-- Camera usage -->
     <string name="cam_land">Please take a picture of the wall in landscape mode.</string>
     <string name="take_photo">Take Photo</string>
-    <string name="empty"></string>
     <string name="imageDescription">Canvas</string>
     <string name="selectionOk">Save selection</string>
+    <string name="tile_menu_button">Tile Menu</string>
 </resources>

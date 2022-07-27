@@ -67,6 +67,18 @@
                 android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
                 android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
         </service>
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="com.pk.tiler_buddy.androidx-startup"
+            android:exported="false" >
+            <meta-data
+                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+                android:value="androidx.startup" />
+        </provider>
     </application>
 
 </manifest>

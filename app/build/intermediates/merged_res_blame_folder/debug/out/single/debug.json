@@ -1,102 +1,102 @@
 [
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\mipmap-xxhdpi\\ic_launcher.webp"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-33:\\mipmap-xxhdpi\\ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\xml_data_extraction_rules.xml.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\xml\\data_extraction_rules.xml"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-33:\\mipmap-anydpi-v26\\ic_launcher.xml"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\mipmap-mdpi\\ic_launcher.webp"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-33:\\mipmap-xxhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-33:\\mipmap-xxxhdpi\\ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\layout_obstacle_layout.xml.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\layout\\obstacle_layout.xml"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-pngs-26:\\drawable-anydpi-v24\\ic_launcher_foreground.xml"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\layout_activity_tobe_tiled_area.xml.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\layout\\activity_tobe_tiled_area.xml"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-33:\\mipmap-xhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\layout_activity_main.xml.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\layout\\activity_main.xml"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\layout_activity_drawing.xml.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-33:\\layout\\activity_drawing.xml"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\layout-land_activity_calculated.xml.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\layout-land\\activity_calculated.xml"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-33:\\drawable\\ic_launcher_background.xml"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-pngs-21:\\drawable-anydpi-v24\\ic_launcher_foreground.xml"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\layout_activity_input.xml.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-33:\\layout\\activity_input.xml"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\mipmap-hdpi\\ic_launcher.webp"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-33:\\mipmap-mdpi\\ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\mipmap-xhdpi\\ic_launcher.webp"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\drawable_circle.xml.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-33:\\drawable\\circle.xml"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\mipmap-anydpi-v26\\ic_launcher.xml"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-33:\\mipmap-xhdpi\\ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\mipmap-xxxhdpi\\ic_launcher.webp"
+        "merged": "com.pk.tiler_buddy.app-merged_res-31:/drawable_arrow_down_float.png.flat",
+        "source": "com.pk.tiler_buddy.app-main-33:/drawable/arrow_down_float.png"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\layout_activity_drawing.xml.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\layout\\activity_drawing.xml"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\layout_activity_calculated.xml.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-33:\\layout\\activity_calculated.xml"
     },
     {
-        "merged": "com.pk.tiler_buddy.app-merged_res-26:/layout_activity_drawing.xml.flat",
-        "source": "com.pk.tiler_buddy.app-main-28:/layout/activity_drawing.xml"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-33:\\mipmap-hdpi\\ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\mipmap-mdpi\\ic_launcher_round.webp"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-33:\\mipmap-mdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\layout-land_activity_calculated.xml.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-33:\\layout-land\\activity_calculated.xml"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\layout_obstacle_layout.xml.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-33:\\layout\\obstacle_layout.xml"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\mipmap-xhdpi\\ic_launcher_round.webp"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-33:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\drawable_ic_launcher_background.xml.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\drawable\\ic_launcher_background.xml"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-33:\\mipmap-hdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\xml_backup_rules.xml.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\xml\\backup_rules.xml"
+        "merged": "com.pk.tiler_buddy.app-merged_res-31:/drawable_arrow_up_float.png.flat",
+        "source": "com.pk.tiler_buddy.app-main-33:/drawable/arrow_up_float.png"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\mipmap-hdpi\\ic_launcher_round.webp"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-33:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\layout_activity_input.xml.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\layout\\activity_input.xml"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\layout_activity_tobe_tiled_area.xml.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-33:\\layout\\activity_tobe_tiled_area.xml"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\layout_activity_calculated.xml.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\layout\\activity_calculated.xml"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-33:\\xml\\backup_rules.xml"
     },
     {
-        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-26:\\drawable_circle.xml.flat",
-        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-28:\\drawable\\circle.xml"
+        "merged": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-merged_res-31:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\kriva\\.gradle\\daemon\\7.3.3\\com.pk.tiler_buddy.app-main-33:\\xml\\data_extraction_rules.xml"
     }
 ]

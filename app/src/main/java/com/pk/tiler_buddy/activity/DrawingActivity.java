@@ -12,14 +12,18 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Display;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pk.tiler_buddy.InputValuesWrapper;
 import com.pk.tiler_buddy.R;
 import com.pk.tiler_buddy.TileDimensions;
@@ -31,6 +35,8 @@ public class DrawingActivity extends AppCompatActivity {
     TileDimensions tileDimensions;
     int dragFirstPointX;
     private ConstraintLayout drawingLayout;
+    private LinearLayout tileMenuLayout;
+    private boolean tileLayoutMenuButtonClicked = false;
     private Wall wall;
     private WallView wallView;
     private float canvasScaleValue;
@@ -41,28 +47,64 @@ public class DrawingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_drawing);
+        drawingLayout = findViewById(R.id.drawing_layout);
+        tileMenuLayout = findViewById(R.id.tile_menu_layout);
+        FloatingActionButton tileMenuLayoutButton = findViewById(R.id.tile_menu_button);
+        ImageButton takePhotoButton = findViewById(R.id.take_photo_button);
+
         InputValuesWrapper calculatedValuesWrapper = (InputValuesWrapper) getIntent().getSerializableExtra("data");
         tileDimensions = calculatedValuesWrapper.getTileDimensions();
+
+        setWall(calculatedValuesWrapper);
+        canvasScaleValue = getCanvasScaleValue(wall);
+        setScreenOrientation();
+        setWallView();
+        setAllTouchListener(tileMenuLayoutButton, takePhotoButton);
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void setAllTouchListener(FloatingActionButton tileMenuLayoutButton, ImageButton takePhotoButton) {
+        wallView.setOnTouchListener((v, event) -> dragging(event));
+
+        tileMenuLayoutButton.setOnClickListener(v -> {
+            ConstraintSet constraintSet = new ConstraintSet();
+            constraintSet.clone(drawingLayout);
+            if (tileLayoutMenuButtonClicked) {
+                constraintSet.clear(R.id.tile_menu_layout, ConstraintSet.BOTTOM);
+                constraintSet.connect(R.id.tile_menu_layout, ConstraintSet.TOP, R.id.drawing_layout, ConstraintSet.BOTTOM, 0);
+                tileMenuLayoutButton.setImageResource(R.drawable.arrow_up_float);
+                tileLayoutMenuButtonClicked = false;
+            } else {
+                constraintSet.clear(R.id.tile_menu_layout, ConstraintSet.TOP);
+                constraintSet.connect(R.id.tile_menu_layout, ConstraintSet.BOTTOM, R.id.drawing_layout, ConstraintSet.BOTTOM, 0);
+
+                tileMenuLayoutButton.setImageResource(R.drawable.arrow_down_float);
+                tileLayoutMenuButtonClicked = true;
+            }
+            constraintSet.applyTo(drawingLayout);
+        });
+
+        takePhotoButton.setOnClickListener(v -> {
+            checkCameraPermission();
+            openCamera();
+        });
+    }
+
+    private void setWall(InputValuesWrapper calculatedValuesWrapper) {
         wall = new Wall(
                 calculatedValuesWrapper.getWallDimensions(),
                 calculatedValuesWrapper.getTileDimensions(),
                 calculatedValuesWrapper.getObstacles());
+    }
+
+    @SuppressLint("SourceLockedOrientationActivity")
+    private void setScreenOrientation() {
         if (wall.getHeight() > wall.getLength()) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
-        setContentView(R.layout.activity_drawing);
-        drawingLayout = findViewById(R.id.drawing_layout);
-        canvasScaleValue = getCanvasScaleValue(wall);
-        setWallView();
-        wallView.setOnTouchListener((v, event) -> dragging(event));
-
-        ImageButton takePhotoButton = findViewById(R.id.take_photo_button);
-        takePhotoButton.setOnClickListener(v -> {
-            checkCameraPermission();
-            openCamera();
-        });
     }
 
     private boolean dragging(MotionEvent event) {
@@ -74,7 +116,7 @@ public class DrawingActivity extends AppCompatActivity {
                 return true;
             case MotionEvent.ACTION_MOVE:
                 dragX2 = (int) event.getX();
-                dragValue = (int) (Math.abs(dragX2 - dragFirstPointX) / canvasScaleValue / tileDimensions.getLength());
+                dragValue = (int) (Math.abs(dragX2 - dragFirstPointX) / canvasScaleValue) / tileDimensions.getLength();
                 if (event.getPointerCount() > 1) {
                     dragWall(dragX2, dragValue);
                 } else {
@@ -118,7 +160,9 @@ public class DrawingActivity extends AppCompatActivity {
         wallView.setLayoutParams(new ViewGroup.LayoutParams(
                 Math.round(canvasScaleValue * wall.getLength()),
                 Math.round(canvasScaleValue * wall.getHeight())));
+        wallView.setRotationX(180);
         drawingLayout.addView(wallView);
+        wallView.setId(View.generateViewId());
     }
 
     private float getCanvasScaleValue(Wall wall) {

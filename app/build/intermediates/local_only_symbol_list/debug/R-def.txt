@@ -7,6 +7,8 @@ color purple_700
 color teal_200
 color teal_700
 color white
+drawable arrow_down_float
+drawable arrow_up_float
 drawable circle
 drawable ic_launcher_background
 drawable ic_launcher_foreground
@@ -37,6 +39,8 @@ id tile_height_in
 id tile_height_txt
 id tile_length_in
 id tile_length_txt
+id tile_menu_button
+id tile_menu_layout
 id tiles_num
 id tiles_num_val
 id to_be_tiled_are_value
@@ -58,7 +62,6 @@ string button_dims
 string button_obs
 string cam_land
 string cancel_btn
-string empty
 string height_mm
 string imageDescription
 string length_mm
@@ -79,6 +82,7 @@ string switch_10
 string take_photo
 string tile_dimensions
 string tile_hint
+string tile_menu_button
 string wall_area
 string wall_dimensions
 string wall_hint

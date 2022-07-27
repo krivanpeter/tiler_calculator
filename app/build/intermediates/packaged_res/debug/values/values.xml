@@ -12,7 +12,6 @@
     <string name="button_obs">+ Add obstacle</string>
     <string name="cam_land">Please take a picture of the wall in landscape mode.</string>
     <string name="cancel_btn">Cancel Obstacle</string>
-    <string name="empty"/>
     <string name="height_mm">Height (mm)</string>
     <string name="imageDescription">Canvas</string>
     <string name="length_mm">Length (mm)</string>
@@ -33,6 +32,7 @@
     <string name="take_photo">Take Photo</string>
     <string name="tile_dimensions">Tile Dimensions</string>
     <string name="tile_hint">500</string>
+    <string name="tile_menu_button">Tile Menu</string>
     <string name="wall_area">To be tiled:</string>
     <string name="wall_dimensions">Wall Dimensions</string>
     <string name="wall_hint">5000</string>
