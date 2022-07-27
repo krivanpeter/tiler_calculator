@@ -37,4 +37,5 @@
     <string name="imageDescription">Canvas</string>
     <string name="selectionOk">Save selection</string>
     <string name="tile_menu_button">Tile Menu</string>
+    <string name="rearrange_symmetric_middle">Rearrange Tiles in symmetry</string>
 </resources>

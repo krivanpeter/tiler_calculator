@@ -15,7 +15,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -35,7 +34,6 @@ public class DrawingActivity extends AppCompatActivity {
     TileDimensions tileDimensions;
     int dragFirstPointX;
     private ConstraintLayout drawingLayout;
-    private LinearLayout tileMenuLayout;
     private boolean tileLayoutMenuButtonClicked = false;
     private Wall wall;
     private WallView wallView;
@@ -49,7 +47,6 @@ public class DrawingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawing);
         drawingLayout = findViewById(R.id.drawing_layout);
-        tileMenuLayout = findViewById(R.id.tile_menu_layout);
         FloatingActionButton tileMenuLayoutButton = findViewById(R.id.tile_menu_button);
         ImageButton takePhotoButton = findViewById(R.id.take_photo_button);
 
@@ -68,27 +65,30 @@ public class DrawingActivity extends AppCompatActivity {
         wallView.setOnTouchListener((v, event) -> dragging(event));
 
         tileMenuLayoutButton.setOnClickListener(v -> {
-            ConstraintSet constraintSet = new ConstraintSet();
-            constraintSet.clone(drawingLayout);
-            if (tileLayoutMenuButtonClicked) {
-                constraintSet.clear(R.id.tile_menu_layout, ConstraintSet.BOTTOM);
-                constraintSet.connect(R.id.tile_menu_layout, ConstraintSet.TOP, R.id.drawing_layout, ConstraintSet.BOTTOM, 0);
-                tileMenuLayoutButton.setImageResource(R.drawable.arrow_up_float);
-                tileLayoutMenuButtonClicked = false;
-            } else {
-                constraintSet.clear(R.id.tile_menu_layout, ConstraintSet.TOP);
-                constraintSet.connect(R.id.tile_menu_layout, ConstraintSet.BOTTOM, R.id.drawing_layout, ConstraintSet.BOTTOM, 0);
-
-                tileMenuLayoutButton.setImageResource(R.drawable.arrow_down_float);
-                tileLayoutMenuButtonClicked = true;
-            }
-            constraintSet.applyTo(drawingLayout);
+            toggleTileMenuButton(tileMenuLayoutButton);
         });
 
         takePhotoButton.setOnClickListener(v -> {
             checkCameraPermission();
             openCamera();
         });
+    }
+
+    private void toggleTileMenuButton(FloatingActionButton tileMenuLayoutButton) {
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.clone(drawingLayout);
+        if (tileLayoutMenuButtonClicked) {
+            constraintSet.clear(R.id.tile_menu_layout, ConstraintSet.BOTTOM);
+            constraintSet.connect(R.id.tile_menu_layout, ConstraintSet.TOP, R.id.drawing_layout, ConstraintSet.BOTTOM, 0);
+            tileMenuLayoutButton.setImageResource(R.drawable.arrow_up_float);
+            tileLayoutMenuButtonClicked = false;
+        } else {
+            constraintSet.clear(R.id.tile_menu_layout, ConstraintSet.TOP);
+            constraintSet.connect(R.id.tile_menu_layout, ConstraintSet.BOTTOM, R.id.drawing_layout, ConstraintSet.BOTTOM, 0);
+            tileMenuLayoutButton.setImageResource(R.drawable.arrow_down_float);
+            tileLayoutMenuButtonClicked = true;
+        }
+        constraintSet.applyTo(drawingLayout);
     }
 
     private void setWall(InputValuesWrapper calculatedValuesWrapper) {
