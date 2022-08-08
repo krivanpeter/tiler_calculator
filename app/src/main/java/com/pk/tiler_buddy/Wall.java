@@ -51,13 +51,13 @@ public class Wall extends Rectangle implements Serializable {
         }
     }
 
-    public void shiftQuarterHorizontally(Boolean quarterShiftButtonClicked) {
-        if (!quarterShiftButtonClicked) {
+    public void shiftQuarterHorizontally(Boolean clicked) {
+        if (!clicked) {
             tileRows.clear();
             setRows();
             int quarterValue = tileDimensions.getLength() / 4;
             int shiftCounter = 0;
-            for (int i = 0; i < tileRows.size() - 1; i++) {
+            for (int i = 0; i < tileRows.size(); i++) {
                 if (i % 4 == 0) {
                     shiftCounter = 0;
                 }
@@ -70,12 +70,32 @@ public class Wall extends Rectangle implements Serializable {
         }
     }
 
-    public void shiftMiddleSymmetry(Boolean symmetryMiddleButtonClicked) {
-        if (!symmetryMiddleButtonClicked) {
+    public void shiftMiddleSymmetry(Boolean clicked) {
+        if (!clicked) {
             tileRows.clear();
             setRows();
             int extent = getTileRow(0).getLastTile().getLength() / 2;
             shiftHorizontally(extent);
+        } else {
+            tileRows.clear();
+            setRows();
+        }
+    }
+
+    public void shiftSideSymmetry(Boolean clicked) {
+        if (!clicked) {
+            tileRows.clear();
+            setRows();
+            int middle = length / 2;
+            TileRow firstTileRow = getTileRow(0);
+            for (int i = 0; i < firstTileRow.getTiles().size(); i ++) {
+                if (firstTileRow.getTile(i).getX2() == middle) {
+                    return;
+                }
+                if (firstTileRow.getTile(i).getX1() < middle && firstTileRow.getTile(i).getX2() > middle) {
+                    shiftHorizontally(middle - firstTileRow.getTile(i).getX1());
+                }
+            }
         } else {
             tileRows.clear();
             setRows();

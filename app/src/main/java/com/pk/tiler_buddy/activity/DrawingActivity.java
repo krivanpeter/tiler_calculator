@@ -37,6 +37,7 @@ public class DrawingActivity extends AppCompatActivity {
     private boolean tileLayoutMenuButtonClicked = false;
     private boolean symmetryMiddleButtonClicked = false;
     private boolean quarterShiftButtonClicked = false;
+    private boolean symmetrySideButtonClicked = false;
     private Wall wall;
     private WallView wallView;
     private float canvasScaleValue;
@@ -50,11 +51,6 @@ public class DrawingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_drawing);
 
         drawingLayout = findViewById(R.id.drawing_layout);
-        FloatingActionButton tileMenuLayoutButton = findViewById(R.id.tile_menu_button);
-        ImageButton takePhotoButton = findViewById(R.id.take_photo_button);
-        ImageButton quarterShiftButton = findViewById(R.id.quarter_shift_button);
-        ImageButton symmetryMiddleButton = findViewById(R.id.symmetry_middle_button);
-
         InputValuesWrapper calculatedValuesWrapper = (InputValuesWrapper) getIntent().getSerializableExtra("data");
         tileDimensions = calculatedValuesWrapper.getTileDimensions();
 
@@ -62,24 +58,31 @@ public class DrawingActivity extends AppCompatActivity {
         canvasScaleValue = getCanvasScaleValue(wall);
         setScreenOrientation();
         setWallView();
-        setAllTouchListener(tileMenuLayoutButton, takePhotoButton, symmetryMiddleButton, quarterShiftButton);
+        setupButtons();
     }
+
+    private void setupButtons() {
+        FloatingActionButton tileMenuLayoutButton = findViewById(R.id.tile_menu_button);
+        ImageButton symmetryMiddleButton = findViewById(R.id.symmetry_middle_button);
+        ImageButton symmetrySideButton = findViewById(R.id.symmetry_side_button);
+        ImageButton quarterShiftButton = findViewById(R.id.quarter_shift_button);
+        ImageButton takePhotoButton = findViewById(R.id.take_photo_button);
+
+        setAllTouchListener(tileMenuLayoutButton, symmetryMiddleButton, symmetrySideButton, quarterShiftButton, takePhotoButton);
+    }
+
 
     @SuppressLint("ClickableViewAccessibility")
     private void setAllTouchListener(
             FloatingActionButton tileMenuLayoutButton,
-            ImageButton takePhotoButton,
             ImageButton symmetryMiddleButton,
-            ImageButton quarterShiftButton) {
+            ImageButton symmetrySideButton,
+            ImageButton quarterShiftButton,
+            ImageButton takePhotoButton) {
         wallView.setOnTouchListener((v, event) -> dragging(event));
 
         tileMenuLayoutButton.setOnClickListener(v -> {
             toggleTileMenuButton(tileMenuLayoutButton);
-        });
-
-        takePhotoButton.setOnClickListener(v -> {
-            checkCameraPermission();
-            openCamera();
         });
 
         symmetryMiddleButton.setOnClickListener(v -> {
@@ -89,6 +92,20 @@ public class DrawingActivity extends AppCompatActivity {
             } else {
                 wall.shiftMiddleSymmetry(false);
                 symmetryMiddleButtonClicked = true;
+                symmetrySideButtonClicked = false;
+                quarterShiftButtonClicked = false;
+            }
+        });
+
+        symmetrySideButton.setOnClickListener(v -> {
+            if (symmetrySideButtonClicked) {
+                wall.shiftSideSymmetry(true);
+                symmetrySideButtonClicked = false;
+            } else {
+                wall.shiftSideSymmetry(false);
+                symmetrySideButtonClicked = true;
+                symmetryMiddleButtonClicked = false;
+                quarterShiftButtonClicked = false;
             }
         });
 
@@ -99,10 +116,15 @@ public class DrawingActivity extends AppCompatActivity {
             } else {
                 wall.shiftQuarterHorizontally(false);
                 quarterShiftButtonClicked = true;
+                symmetryMiddleButtonClicked = false;
+                symmetrySideButtonClicked = false;
             }
         });
 
-
+        takePhotoButton.setOnClickListener(v -> {
+            checkCameraPermission();
+            openCamera();
+        });
     }
 
     private void toggleTileMenuButton(FloatingActionButton tileMenuLayoutButton) {

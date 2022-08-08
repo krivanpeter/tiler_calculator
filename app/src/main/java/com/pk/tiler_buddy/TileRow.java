@@ -46,6 +46,10 @@ public class TileRow extends Rectangle implements Serializable {
         return tiles;
     }
 
+    public Tile getTile(int i){
+        return tiles.get(i);
+    }
+
     public Tile getLastTile() {
         return tiles.get(getTiles().size()-1);
     }
