@@ -46,9 +46,11 @@ public class DrawingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawing);
+
         drawingLayout = findViewById(R.id.drawing_layout);
         FloatingActionButton tileMenuLayoutButton = findViewById(R.id.tile_menu_button);
         ImageButton takePhotoButton = findViewById(R.id.take_photo_button);
+        ImageButton quarterShiftButton = findViewById(R.id.quarter_shift_button);
 
         InputValuesWrapper calculatedValuesWrapper = (InputValuesWrapper) getIntent().getSerializableExtra("data");
         tileDimensions = calculatedValuesWrapper.getTileDimensions();
@@ -57,11 +59,11 @@ public class DrawingActivity extends AppCompatActivity {
         canvasScaleValue = getCanvasScaleValue(wall);
         setScreenOrientation();
         setWallView();
-        setAllTouchListener(tileMenuLayoutButton, takePhotoButton);
+        setAllTouchListener(tileMenuLayoutButton, takePhotoButton, quarterShiftButton);
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private void setAllTouchListener(FloatingActionButton tileMenuLayoutButton, ImageButton takePhotoButton) {
+    private void setAllTouchListener(FloatingActionButton tileMenuLayoutButton, ImageButton takePhotoButton, ImageButton quarterShiftButton) {
         wallView.setOnTouchListener((v, event) -> dragging(event));
 
         tileMenuLayoutButton.setOnClickListener(v -> {
@@ -71,6 +73,10 @@ public class DrawingActivity extends AppCompatActivity {
         takePhotoButton.setOnClickListener(v -> {
             checkCameraPermission();
             openCamera();
+        });
+
+        quarterShiftButton.setOnClickListener(v -> {
+            wall.shiftQuarterHorizontally();
         });
     }
 
