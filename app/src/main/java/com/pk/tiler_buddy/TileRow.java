@@ -22,7 +22,7 @@ public class TileRow extends Rectangle implements Serializable {
         this.obstacles = obstacles;
     }
 
-    public void addTiles(List<Obstacle> obstacles) {
+    public void addTiles() {
         for (int i = 0; i < numberOfColumns; i++) {
             Tile tile = createTile(i);
             cutTiles(tile, obstacles);
@@ -34,7 +34,7 @@ public class TileRow extends Rectangle implements Serializable {
 
     @NonNull
     private Tile createTile(int placeInRow) {
-        Tile tile = new Tile();
+        Tile tile = new Tile(obstacles);
         tile.setRectXY1(placeInRow * tileDimensions.getLength(), y1);
         tile.setHeight(height);
         tile.setLength(Math.min(length - placeInRow * tileDimensions.getLength(), tileDimensions.getLength()));
@@ -76,7 +76,7 @@ public class TileRow extends Rectangle implements Serializable {
     }
 
     public void drawTiles(Canvas canvas, Paint paint) {
-        for (Tile tile: tiles) {
+        for (Tile tile : tiles) {
             tile.draw(canvas, paint);
         }
     }
@@ -128,7 +128,7 @@ public class TileRow extends Rectangle implements Serializable {
 
     private void fillUp(int allLength, int extent) {
         if (allLength < length) {
-            Tile tile = new Tile();
+            Tile tile = new Tile(obstacles);
             if (Calculator.isPositive(extent)) {
                 tile.setX1(x1);
                 tiles.add(0, tile);

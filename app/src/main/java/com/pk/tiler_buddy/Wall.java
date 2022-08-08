@@ -8,6 +8,7 @@ public class Wall extends Rectangle implements Serializable {
     private final TileDimensions tileDimensions;
     private final List<TileRow> tileRows = new ArrayList<>();
     private final int numberOfRows;
+    private final List<Obstacle> obstacles;
 
 
     public Wall(WallDimensions wallDimensions, TileDimensions tileDimensions, List<Obstacle> obstacles) {
@@ -17,7 +18,8 @@ public class Wall extends Rectangle implements Serializable {
         x2 = Calculator.calculatePosX2(this);
         y2 = Calculator.calculatePosY2(this);
         numberOfRows = (int) Calculator.calculateNumberOfRows(wallDimensions, tileDimensions);
-        setRows(tileDimensions, obstacles);
+        this.obstacles = obstacles;
+        setRows();
     }
 
     public List<TileRow> getTileRows() {
@@ -28,14 +30,14 @@ public class Wall extends Rectangle implements Serializable {
         return tileRows.get(i);
     }
 
-    public void setRows(TileDimensions tileDimensions, List<Obstacle> obstacles) {
+    public void setRows() {
         for (int i = 0; i < numberOfRows; i++) {
             TileRow tileRow = new TileRow((int) Calculator.calculateNumberOfColumns(length, tileDimensions), tileDimensions, obstacles);
             tileRow.setLength(this.length);
             tileRow.setHeight(Math.min(this.height - i * tileDimensions.getHeight(), tileDimensions.getHeight()));
             tileRow.setY1(i * tileDimensions.getHeight());
             tileRow.setRectXY2(Calculator.calculatePosX2(tileRow), Calculator.calculatePosY2(tileRow));
-            tileRow.addTiles(obstacles);
+            tileRow.addTiles();
             tileRows.add(tileRow);
         }
     }
@@ -50,6 +52,8 @@ public class Wall extends Rectangle implements Serializable {
     }
 
     public void shiftQuarterHorizontally() {
+        tileRows.clear();
+        setRows();
         int quarterValue = tileDimensions.getLength() / 4;
         int shiftCounter = 0;
         for (int i = 0; i < tileRows.size() - 1; i++) {
