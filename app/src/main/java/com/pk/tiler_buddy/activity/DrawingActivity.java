@@ -122,8 +122,7 @@ public class DrawingActivity extends AppCompatActivity {
         });
 
         takePhotoButton.setOnClickListener(v -> {
-            checkCameraPermission();
-            openCamera();
+            askCameraPermission();
         });
     }
 
@@ -249,12 +248,15 @@ public class DrawingActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void checkCameraPermission() {
+    private void askCameraPermission() {
         if (ContextCompat.checkSelfPermission(DrawingActivity.this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
+                == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(DrawingActivity.this, new String[]{
                     Manifest.permission.CAMERA
             }, 100);
+        } else if (ContextCompat.checkSelfPermission(DrawingActivity.this, Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED) {
+            openCamera();
         }
     }
     /*
