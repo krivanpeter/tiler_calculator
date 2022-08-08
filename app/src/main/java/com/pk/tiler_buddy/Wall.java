@@ -51,17 +51,34 @@ public class Wall extends Rectangle implements Serializable {
         }
     }
 
-    public void shiftQuarterHorizontally() {
-        tileRows.clear();
-        setRows();
-        int quarterValue = tileDimensions.getLength() / 4;
-        int shiftCounter = 0;
-        for (int i = 0; i < tileRows.size() - 1; i++) {
-            if (i % 4 == 0) {
-                shiftCounter = 0;
+    public void shiftQuarterHorizontally(Boolean quarterShiftButtonClicked) {
+        if (!quarterShiftButtonClicked) {
+            tileRows.clear();
+            setRows();
+            int quarterValue = tileDimensions.getLength() / 4;
+            int shiftCounter = 0;
+            for (int i = 0; i < tileRows.size() - 1; i++) {
+                if (i % 4 == 0) {
+                    shiftCounter = 0;
+                }
+                tileRows.get(i).shiftHorizontally(quarterValue * shiftCounter);
+                shiftCounter++;
             }
-            tileRows.get(i).shiftHorizontally(quarterValue * shiftCounter);
-            shiftCounter++;
+        } else {
+            tileRows.clear();
+            setRows();
+        }
+    }
+
+    public void shiftMiddleSymmetry(Boolean symmetryMiddleButtonClicked) {
+        if (!symmetryMiddleButtonClicked) {
+            tileRows.clear();
+            setRows();
+            int extent = getTileRow(0).getLastTile().getLength() / 2;
+            shiftHorizontally(extent);
+        } else {
+            tileRows.clear();
+            setRows();
         }
     }
 }

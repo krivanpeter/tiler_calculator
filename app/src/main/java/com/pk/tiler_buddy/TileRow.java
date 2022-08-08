@@ -46,6 +46,10 @@ public class TileRow extends Rectangle implements Serializable {
         return tiles;
     }
 
+    public Tile getLastTile() {
+        return tiles.get(getTiles().size()-1);
+    }
+
     public void shiftHorizontally(int extent) {
         if (Math.abs(allShiftExtent + extent) >= tileDimensions.getLength()) {
             allShiftExtent = 0;
